@@ -11,16 +11,16 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ceg {
+
+public class SparePartsEntity {
 
     @Id
     private long id;
-    private String company;
-    private int postalCode;
-    private String town;
-    private String street;
-    private String taxNumber;
-    private Boolean status;
-}
+    private String itemNumber;
+    private int nettoBuyingValue;
+    private int nettoSellingValue;
+    private int pieceOnStock;
 
+
+}
 
