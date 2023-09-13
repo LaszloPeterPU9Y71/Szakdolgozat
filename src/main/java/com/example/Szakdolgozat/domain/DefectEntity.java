@@ -1,9 +1,13 @@
 package com.example.Szakdolgozat.domain;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -12,16 +16,12 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyEntity {
+
+
+public class DefectEntity {
 
     @Id
     private long id;
     private String name;
-    private int postalCode;
-    private String town;
-    private String street;
-    private String taxNumber;
-    private Boolean status;
+
 }
-
-

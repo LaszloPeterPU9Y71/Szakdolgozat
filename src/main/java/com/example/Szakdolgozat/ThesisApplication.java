@@ -109,7 +109,7 @@ public class ThesisApplication {
 			log.info("");
 
 			// fetch customers by last name
-			log.info("Customer found with findByitemNumber('3'):");
+			log.info("Customer found with findByItemNumber('3'):");
 			log.info("--------------------------------------------");
 			repository.findByitemNumber("3").forEach(UserEntity -> log.info(UserEntity.toString()));
 			log.info("");
