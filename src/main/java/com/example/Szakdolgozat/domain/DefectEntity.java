@@ -1,7 +1,6 @@
 package com.example.Szakdolgozat.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,7 +20,12 @@ import java.util.Date;
 public class DefectEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "defectId", nullable = false)
+    @EqualsAndHashCode.Exclude
     private long id;
+
+    @Column(name = "defectName", nullable = false)
     private String name;
 
 }

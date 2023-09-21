@@ -9,6 +9,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
+        return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/**"));
     }
 }

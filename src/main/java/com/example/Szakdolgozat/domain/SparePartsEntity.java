@@ -1,7 +1,6 @@
 package com.example.Szakdolgozat.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -15,11 +14,22 @@ import lombok.*;
 public class SparePartsEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sparePartsId", nullable = false)
+    @EqualsAndHashCode.Exclude
     private long id;
+
+    @Column(name = "sparePartsItemNumber", nullable = false)
     private String itemNumber;
+
+    @Column(name = "sparePartsNettoBuyingValue", nullable = false)
     private int nettoBuyingValue;
+
+    @Column(name = "sparePartsNettoSellingValue", nullable = false)
     private int nettoSellingValue;
-    private int pieceOnStock;
+
+    //@Column(name = "sparePartsPiece", nullable = false)
+    //private int pieceBuiltIn;
 
 
 }

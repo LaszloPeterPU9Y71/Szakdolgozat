@@ -1,9 +1,10 @@
 package com.example.Szakdolgozat.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -18,11 +19,25 @@ import java.util.Date;
 public class ToolEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "toolId", nullable = false)
+    @EqualsAndHashCode.Exclude
     private long id;
+
+    @Column(name = "toolName", nullable = false)
     private String name;
+
+    @Column(name = "toolTypeNumber", nullable = false)
     private String typeNumber;
+
+    @Column(name = "toolItemNumber", nullable = false)
     private String itemNumber;
+
+    @Column(name = "toolSerialNumber", nullable = false)
     private String serialNumber;
+
+    @Column(name = "toolDateOfRecieving", nullable = true)
+  //  @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
     private Date dateOfReceiving;
 
 
