@@ -1,6 +1,6 @@
 package com.example.Szakdolgozat.service;
 
-import com.example.Szakdolgozat.domain.UserEntity;
+import com.example.Szakdolgozat.entities.UserEntity;
 import com.example.Szakdolgozat.repository.UserRepository;
 import com.example.Szakdolgozat.service.mapper.UserMapper;
 import com.example.Szakdolgozat.web.model.CreateUserRequest;
@@ -17,8 +17,10 @@ import java.util.Optional;
 
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private UserMapper userMapper;
+
+
 
     public UserEntity addUser(CreateUserRequest createUserRequest) throws Exception {
         String email = createUserRequest.getEmail();
@@ -42,7 +44,7 @@ public class UserService {
         }
     }
 
-   /* public Optional<UserEntity> updateUserPersonalData(long id, CreateUserRequest createUserRequest) {
+    public Optional<UserEntity> updateUserPersonalData(long id, CreateUserRequest createUserRequest) {
         Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
         Optional<UserEntity> existingEmail = userRepository.findByEmail(createUserRequest.getEmail());
 
@@ -52,7 +54,6 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User e-mail address already exists: %s", existingEmail.get().getEmail()));
         }
         return Optional.of(userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest)));
-        //Optional.of(userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest)));
     }
 
     public Optional<UserEntity> updateUserPassword(long id, CreateUserRequest createUserRequest) {
@@ -64,26 +65,20 @@ public class UserService {
         return Optional.of(userRepository.save(updateUserPassword(maybeUserEntity.get(), createUserRequest)));
     }
 
-    public List<UserEntity> findAllUser(PagingSortingFilteringRequest pagingSortingFilteringRequest) {
-        List<UserEntity> listedUsers = new ArrayList<>();
 
-        final Pageable pageable = PageRequest.of(pagingSortingFilteringRequest.getPage(),
-                pagingSortingFilteringRequest.getSize(),
-                Sort.by(Sort.Direction.valueOf(pagingSortingFilteringRequest.getSorting().toString()),
-                        pagingSortingFilteringRequest.getSort().toString()));
+    private UserEntity updateUserPersonalData(UserEntity current, CreateUserRequest createUserRequest) {
+        current.setName(createUserRequest.getName());
+        current.setEmail(createUserRequest.getEmail());
+        current.setTelNum(createUserRequest.getTelNum());
+        current.setTitle(createUserRequest.getTitle());
+        current.setStatus(createUserRequest.isStatus());
+        current.setPassword(new BCryptPasswordEncoder().encode(createUserRequest.getPassword()));
+        return current;
+    }
 
-        UserEntity entityAsProbe = UserEntity.builder().name(pagingSortingFilteringRequest.getSearch()).build();
-
-        ExampleMatcher customExampleMatcher = ExampleMatcher.matching()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example<UserEntity> example = Example.of(entityAsProbe, customExampleMatcher);
-
-        final Page<UserEntity> page = userRepository.findAll(example, pageable);
-        for (UserEntity userEntity : page) {
-            listedUsers.add(userEntity);
-        }
-        return listedUsers;
-    }*/
-
+    private UserEntity updateUserPassword(UserEntity current, CreateUserRequest createUserRequest) {
+        current.setPassword(new BCryptPasswordEncoder().encode(createUserRequest.getPassword()));
+        return current;
+    }
 
 }

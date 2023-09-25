@@ -13,11 +13,10 @@ public class PagingSortingFilteringRequest {
     private String search;
 
     public enum Sort {
-        DEFAULT("firstName"),
-        BY_LAST_NAME("lastName"),
+        DEFAULT("name"),
+        BY_LAST_NAME("title"),
         BY_EMAIL("email"),
-        BY_ID("id"),
-        BY_LOCATION("location");
+        BY_ID("id");
 
         private String value;
 

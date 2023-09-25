@@ -1,12 +1,10 @@
-package com.example.Szakdolgozat.domain;
+package com.example.Szakdolgozat.entities;
 
 import jakarta.persistence.*;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Getter

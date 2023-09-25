@@ -1,4 +1,4 @@
-package com.example.Szakdolgozat.domain;
+package com.example.Szakdolgozat.entities;
 
 
 import jakarta.persistence.*;
@@ -11,6 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name= "user_entity")
 
 public class UserEntity {
 

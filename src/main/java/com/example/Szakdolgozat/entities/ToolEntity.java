@@ -1,10 +1,8 @@
-package com.example.Szakdolgozat.domain;
+package com.example.Szakdolgozat.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity

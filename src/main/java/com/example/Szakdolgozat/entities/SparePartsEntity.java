@@ -1,4 +1,4 @@
-package com.example.Szakdolgozat.domain;
+package com.example.Szakdolgozat.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
