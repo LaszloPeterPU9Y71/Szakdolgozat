@@ -1,6 +1,6 @@
 package com.example.Szakdolgozat.repository;
 
-import com.example.Szakdolgozat.domain.CompanyEntity;
+import com.example.Szakdolgozat.entities.CompanyEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CompanyRepository extends CrudRepository<CompanyEntity, Long> {
