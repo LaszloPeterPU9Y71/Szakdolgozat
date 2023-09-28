@@ -3,7 +3,11 @@ package com.example.Szakdolgozat.repository;
 import com.example.Szakdolgozat.entities.ToolEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
+import java.util.List;
 
-    Iterable<ToolEntity> findByName(String name);
+public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
+       List<ToolEntity> findByStatus(String status);
+       List<ToolEntity> findByName(String name);
+       List<ToolEntity> findByTypeNumber(String typeNumber);
+       List<ToolEntity> findBySerialNumber(String serialNumber);
 }

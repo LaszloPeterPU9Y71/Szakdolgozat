@@ -2,8 +2,9 @@ package com.example.Szakdolgozat.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -35,8 +36,12 @@ public class ToolEntity {
     private String serialNumber;
 
     @Column(name = "toolDateOfRecieving", nullable = true)
-  //  @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
-    private Date dateOfReceiving;
+    @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
+    private LocalDateTime dateOfReceiving;
+
+    @Column(name = "status", nullable = false)
+    private String status;
+
 
 
 }
