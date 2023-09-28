@@ -39,5 +39,6 @@ public class UserEntity {
     @Column(name = "UserStatus", nullable = false)
     private boolean status;
 
+
     // If state is true, the user is available, if false, user is soft deleted.
 }

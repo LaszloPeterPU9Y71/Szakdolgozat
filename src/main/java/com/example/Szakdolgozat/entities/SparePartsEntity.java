@@ -19,17 +19,19 @@ public class SparePartsEntity {
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "sparePartsItemNumber", nullable = false)
-    private String itemNumber;
+    @Column(name = "sparePartsItemName", nullable = false)
+    private String partName;
 
-    @Column(name = "sparePartsNettoBuyingValue", nullable = false)
-    private int nettoBuyingValue;
+    @Column(name = "sparePartsItemNumber", nullable = false, unique = true)
+    private String partNumber;
 
-    @Column(name = "sparePartsNettoSellingValue", nullable = false)
-    private int nettoSellingValue;
+    @Column(name = "sparePartsNettoBuyingPrice", nullable = false)
+    private int nettoBuyingPrice;
 
-    //@Column(name = "sparePartsPiece", nullable = false)
-    //private int pieceBuiltIn;
+    @Column(name = "sparePartsNettoSellingPrice", nullable = false)
+    private int nettoSellingPrice;
+
+
 
 
 }

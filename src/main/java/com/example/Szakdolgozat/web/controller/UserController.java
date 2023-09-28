@@ -5,8 +5,6 @@ import com.example.Szakdolgozat.repository.UserRepository;
 import com.example.Szakdolgozat.service.UserService;
 import com.example.Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +19,7 @@ public class UserController {
 
     @PostMapping("/create")
     public UserEntity createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
+
         return userService.addUser(createUserRequest);
     }
 
@@ -46,7 +45,7 @@ public class UserController {
     public String updateUserPassword(@PathVariable("id") long id,
                                     @RequestBody CreateUserRequest createUserRequest) {
         userService.updateUserPassword(id, createUserRequest);
-        return "User Password updated";
+        return "User password updated";
     }
 }
 
