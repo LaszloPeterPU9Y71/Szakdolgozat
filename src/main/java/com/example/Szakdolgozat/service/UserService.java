@@ -5,6 +5,7 @@ import com.example.Szakdolgozat.repository.UserRepository;
 import com.example.Szakdolgozat.service.mapper.UserMapper;
 import com.example.Szakdolgozat.web.model.CreateUserRequest;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 
 public class UserService {
 
     private final UserRepository userRepository;
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
 
 

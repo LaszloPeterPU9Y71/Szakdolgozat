@@ -27,7 +27,7 @@ public class OwnerCompanyEmloyeeEntity {
     @Column(name = "ownerCompanyEmployeeTelNum", nullable = false)
     private int telNum;
 
-    @Column(name = "ownerCompanyEmployeeEmail", nullable = false)
+    @Column(name = "ownerCompanyEmployeeEmail", nullable = false, unique = true)
     private String email;
 
     @Column(name = "ownerCompanyEmployeePassword", nullable = false)

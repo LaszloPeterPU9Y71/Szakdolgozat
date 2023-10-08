@@ -32,7 +32,7 @@ public class ToolEntity {
     @Column(name = "toolItemNumber", nullable = false)
     private String itemNumber;
 
-    @Column(name = "toolSerialNumber", nullable = false)
+    @Column(name = "toolSerialNumber", nullable = false, unique = true)
     private String serialNumber;
 
     @Column(name = "toolDateOfRecieving", nullable = true)

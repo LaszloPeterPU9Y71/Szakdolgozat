@@ -6,35 +6,34 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
-
+@Data
 @Getter
 @Setter
-@Data
 @Builder
 
-public class CreateToolRequest {
+public class CreateOwnerCompanyRequest {
+
 
     @NotBlank(message = "A mező kitöltése kötelező")
     private String name;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private String typeNumber;
+    private int postalCode;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private String itemNumber;
+    private String town;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    
-    private String serialNumber;
+    private String street;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
-    private LocalDateTime dateOfReceiving;
+    private String taxNumber;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private String status;
+    private String accountNumber;
 
+    @NotBlank(message = "A mező kitöltése kötelező")
+    private boolean status;
 }
+

@@ -31,7 +31,7 @@ public class OwnerCompanyEntity{
     @Column(name = "ownerCompanyStreet", nullable = false)
     private String street;
 
-    @Column(name = "ownerCompanyTaxNumber", nullable = false)
+    @Column(name = "ownerCompanyTaxNumber", nullable = false, unique = true)
     private String taxNumber;
 
     @Column(name = "ownerCompanyAccountNumber", nullable = true)

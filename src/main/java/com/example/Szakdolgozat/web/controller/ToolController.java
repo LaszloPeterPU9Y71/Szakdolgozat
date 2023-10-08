@@ -4,6 +4,8 @@ import com.example.Szakdolgozat.entities.ToolEntity;
 import com.example.Szakdolgozat.repository.ToolRepository;
 import com.example.Szakdolgozat.service.ToolService;
 import com.example.Szakdolgozat.web.model.CreateToolRequest;
+import com.example.Szakdolgozat.web.model.CreateUserRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +50,26 @@ public class ToolController {
     @GetMapping("/serial/{serialNumber}")
     public ResponseEntity<List<ToolEntity>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
         return new ResponseEntity<>(toolRepository.findBySerialNumber(serialNumber), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public String updateToolData(@PathVariable("id") long id,
+                                 @RequestBody CreateToolRequest createToolRequest) {
+        toolService.updateToolData(id, createToolRequest);
+        return "Tool data updated!";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteTool(@PathVariable("id") long id) {
+        toolService.deleteTool(id);
+        return "The tool with id: " + id + " has been deleted";
+    }
+
+    @PutMapping("/updateStatus/{id}")
+    public String updateToolStatus(@PathVariable("id") long id,
+                                 @RequestBody CreateToolRequest createToolRequest) {
+        toolService.updateToolStatus(id, createToolRequest);
+        return "Tool Status updated!";
     }
 
 
