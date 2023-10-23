@@ -1,6 +1,7 @@
 package com.example.Szakdolgozat.repository;
 
 import com.example.Szakdolgozat.entities.OwnerCompanyEmloyeeEntity;
+import com.example.Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
@@ -10,5 +11,5 @@ public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerComp
 
     Optional<OwnerCompanyEmloyeeEntity> findByEmail(String email);
 
-
+    Iterable<OwnerCompanyEmloyeeEntity> findAllById(long id);
 }

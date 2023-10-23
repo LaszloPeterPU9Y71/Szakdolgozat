@@ -4,7 +4,6 @@ import com.example.Szakdolgozat.entities.ToolEntity;
 import com.example.Szakdolgozat.repository.ToolRepository;
 import com.example.Szakdolgozat.service.mapper.ToolMapper;
 import com.example.Szakdolgozat.web.model.CreateToolRequest;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class ToolService {
         return toolRepository.save(tool);
     }
 
-    public Optional<ToolEntity> updateToolData(long id, CreateToolRequest createToolRequest){
+    public void updateToolData(long id, CreateToolRequest createToolRequest){
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumber(createToolRequest.getSerialNumber());
 
@@ -40,7 +39,7 @@ public class ToolService {
         } else if(maybeToolSerialNumber.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User not found with serial number %s", createToolRequest.getSerialNumber()));
         }
-        return Optional.of(toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest)));
+        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
     }
 
     private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest) {
@@ -61,7 +60,7 @@ public class ToolService {
         }
     }
 
-    public Optional<ToolEntity> updateToolStatus(long id, CreateToolRequest createToolRequest){
+    public void updateToolStatus(long id, CreateToolRequest createToolRequest){
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumber(createToolRequest.getSerialNumber());
 
@@ -70,7 +69,7 @@ public class ToolService {
         } else if(maybeToolSerialNumber.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Tool not found with serial number %s", createToolRequest.getSerialNumber()));
         }
-        return Optional.of(toolRepository.save(updateToolStatus(maybeToolEntity.get(), createToolRequest)));
+        toolRepository.save(updateToolStatus(maybeToolEntity.get(), createToolRequest));
     }
 
     public ToolEntity updateToolStatus(ToolEntity current, CreateToolRequest createToolRequest) {

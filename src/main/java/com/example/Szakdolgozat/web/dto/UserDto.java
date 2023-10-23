@@ -1,9 +1,7 @@
 package com.example.Szakdolgozat.web.dto;
 
 
-import jakarta.persistence.Column;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

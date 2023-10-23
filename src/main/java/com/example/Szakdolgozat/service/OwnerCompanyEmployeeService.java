@@ -4,6 +4,7 @@ import com.example.Szakdolgozat.entities.OwnerCompanyEmloyeeEntity;
 import com.example.Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import com.example.Szakdolgozat.service.mapper.OwnerCompanyEmployeeMapper;
 import com.example.Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,13 +15,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OwnerCompanyEmployeeService {
 
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final OwnerCompanyEmployeeMapper ownerCompanyEmployeeMapper;
 
 
-    public OwnerCompanyEmloyeeEntity addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest){
+    public OwnerCompanyEmloyeeEntity addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception{
         String email = createOwnerCompanyEmployeeRequest.getEmail();
         Optional<OwnerCompanyEmloyeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
@@ -29,6 +31,7 @@ public class OwnerCompanyEmployeeService {
         }
         OwnerCompanyEmloyeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
         employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
+        employee.setStatus(true);
         return ownerCompanyEmployeeRepository.save(employee);
 
     }
