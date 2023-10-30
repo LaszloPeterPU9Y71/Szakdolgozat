@@ -2,6 +2,9 @@ package com.example.Szakdolgozat.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.catalina.User;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,6 +38,9 @@ public class CompanyEntity {
 
     @Column(name = "companyStatus", nullable = false)
     private Boolean status;
+
+    @OneToMany(mappedBy = "companyEntity")
+    private Set<UserEntity> users;
 }
 
 

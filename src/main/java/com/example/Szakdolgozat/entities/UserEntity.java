@@ -39,6 +39,11 @@ public class UserEntity {
     @Column(name = "UserStatus", nullable = false)
     private boolean status;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "UserCompanyId",
+            foreignKey = @ForeignKey(name = "FK_User_Company"))
+    private CompanyEntity companyEntity;
 
-    // If state is true, the user is available, if false, user is soft deleted.
+
+
 }

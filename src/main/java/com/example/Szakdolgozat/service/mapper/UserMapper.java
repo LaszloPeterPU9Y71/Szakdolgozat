@@ -1,5 +1,6 @@
 package com.example.Szakdolgozat.service.mapper;
 
+import com.example.Szakdolgozat.entities.CompanyEntity;
 import com.example.Szakdolgozat.entities.UserEntity;
 import com.example.Szakdolgozat.web.model.CreateUserRequest;
 import org.springframework.stereotype.Component;

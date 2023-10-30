@@ -3,6 +3,8 @@ package com.example.Szakdolgozat.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -41,4 +43,6 @@ public class OwnerCompanyEntity{
     private Boolean status;
 
 
+    @OneToMany(mappedBy = "ownerCompanyEntity")
+    private Set<OwnerCompanyEmloyeeEntity> employee;
 }

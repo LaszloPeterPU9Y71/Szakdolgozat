@@ -19,11 +19,12 @@ public class SparePartsController {
 
     private final SparePartsService sparePartsService;
 
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("all")
     public Iterable<SparePartsEntity> findAll(){return sparePartsRepository.findAll(); }
 
-    @PostMapping("add")
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @PostMapping("/create")
     public SparePartsEntity addSpareParts(@RequestBody CreateSparePartsRequest createSparePartsRequest) throws Exception {
         return sparePartsService.addSparePart(createSparePartsRequest);
     }

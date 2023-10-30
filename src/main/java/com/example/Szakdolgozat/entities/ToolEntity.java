@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,6 +43,24 @@ public class ToolEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ToolDefect",
+        joinColumns = @JoinColumn(name = "toolId"),
+            foreignKey = @ForeignKey(name = "FK_Tool_Defect"),
+        inverseJoinColumns = @JoinColumn(name = "defectId"),
+            inverseForeignKey = @ForeignKey(name = "FK_Defect_Tool"))
+    private Set<DefectEntity> defects;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "ToolEmployeeId",
+            foreignKey = @ForeignKey(name = "FK_Tool_Employee"))
+    private OwnerCompanyEmloyeeEntity ownerCompanyEmloyeeEntity;
 
+    @ManyToMany
+    @JoinTable(name = "ToolSpareparts",
+            joinColumns = @JoinColumn(name = "toolId"),
+            foreignKey = @ForeignKey(name = "FK_Tool_SpareParts"),
+            inverseJoinColumns = @JoinColumn(name = "sparePartsId"),
+            inverseForeignKey = @ForeignKey(name = "FK_SpareParts_Tool"))
+    private Set<ToolEntity> toolEntitySet;
 }

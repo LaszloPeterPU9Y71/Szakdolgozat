@@ -10,4 +10,5 @@ public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
        List<ToolEntity> findByName(String name);
        List<ToolEntity> findByTypeNumber(String typeNumber);
        List<ToolEntity> findBySerialNumber(String serialNumber);
+       List<ToolEntity> findByItemNumber(String itemNumber);
 }

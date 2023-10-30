@@ -23,25 +23,26 @@ public class OwnerCompanyController {
     private final OwnerCompanyRepository ownerCompanyRepository;
     private final OwnerCompanyService ownerCompanyService;
 
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
     public OwnerCompanyEntity addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest){
         return ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
     }
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
     public @ResponseBody Iterable<OwnerCompanyEntity> findAllOwnerCompany(){return ownerCompanyRepository.findAll();}
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{taxNumber}")
     public String deleteOwnerCompany(@PathVariable("taxNumber") String taxNumber){
         ownerCompanyService.deleteOwnerCompany(taxNumber);
         return "Owner company with tax number: " + taxNumber + " has been deleted";
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findbyname/{ownerCompanyName}")
     public ResponseEntity<List<OwnerCompanyEntity>> findOwnerCOmpanyByName(@PathVariable("ownerCompanyName") String ownerCompanyName){
         return new ResponseEntity<>( ownerCompanyRepository.findByName(ownerCompanyName), HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findbytaxnumber/{taxNumber}")
     public ResponseEntity<Optional<OwnerCompanyEntity>> findOwnerCompanyByTaxNumber(@PathVariable("taxNumber") String taxNumber){
         return new ResponseEntity<>(ownerCompanyRepository.findByTaxNumber(taxNumber), HttpStatus.OK);

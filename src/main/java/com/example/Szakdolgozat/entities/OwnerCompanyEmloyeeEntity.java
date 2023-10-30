@@ -4,6 +4,9 @@ package com.example.Szakdolgozat.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -38,5 +41,15 @@ public class OwnerCompanyEmloyeeEntity {
 
     @Column(name = "ownerCompanyEmployeeStatus", nullable = false)
     private boolean status;
+
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "OwnerCompanyEmployee",
+            foreignKey = @ForeignKey(name = "FK_OwnerCompany_Employee"))
+    private OwnerCompanyEntity ownerCompanyEntity;
+
+    @OneToMany(mappedBy="ownerCompanyEmloyeeEntity")
+    private List<ToolEntity> tools;
+
 
 }

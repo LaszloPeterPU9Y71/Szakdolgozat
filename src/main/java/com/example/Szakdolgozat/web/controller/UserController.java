@@ -16,13 +16,13 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserService userService;
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public UserEntity createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
 
         return userService.addUser(createUserRequest);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
     public @ResponseBody Iterable<UserEntity> findAllUsers(){
         return userRepository.findAll();

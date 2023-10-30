@@ -16,12 +16,12 @@ public class OwnerCompanyEmployeeController {
 
     private final OwnerCompanyEmployeeService ownerCompanyEmployeeService;
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addEmployee")
     public OwnerCompanyEmloyeeEntity addEmployee(@RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception {
         return ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findall")
     public Iterable<OwnerCompanyEmloyeeEntity> findAllEmployee(){
         return ownerCompanyEmployeeRepository.findAll();

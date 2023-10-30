@@ -31,7 +31,7 @@ public class ToolController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/status/{status}")
+    @GetMapping("/status={status}")
     public ResponseEntity<List<ToolEntity>> findByStatus(@PathVariable ("status") String status){
         return new ResponseEntity<>(toolRepository.findByStatus(status), HttpStatus.OK);
     }
@@ -40,13 +40,19 @@ public class ToolController {
     public ResponseEntity<List<ToolEntity>> findToolByName(@PathVariable (value = "toolName") String name){
         return new ResponseEntity<>(toolRepository.findByName(name), HttpStatus.OK);
     }
+
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/type/{typeNumber}")
+    @GetMapping("/item={itemNumber}")
+    public ResponseEntity<List<ToolEntity>> findToolItemNumber(@PathVariable (value = "itemNumber") String itemNumber){
+        return new ResponseEntity<>(toolRepository.findByItemNumber(itemNumber), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/type={typeNumber}")
     public ResponseEntity<List<ToolEntity>> findToolByItemNumber(@PathVariable ("typeNumber") String typeNumber){
         return new ResponseEntity<>(toolRepository.findByTypeNumber(typeNumber), HttpStatus.OK);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/serial/{serialNumber}")
+    @GetMapping("/serial={serialNumber}")
     public ResponseEntity<List<ToolEntity>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
         return new ResponseEntity<>(toolRepository.findBySerialNumber(serialNumber), HttpStatus.OK);
     }
@@ -64,7 +70,7 @@ public class ToolController {
         return "The tool with id: " + id + " has been deleted";
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @PutMapping("/updateStatus/{id}")
+    @PutMapping("/updateStatus={id}")
     public String updateToolStatus(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolStatus(id, createToolRequest);

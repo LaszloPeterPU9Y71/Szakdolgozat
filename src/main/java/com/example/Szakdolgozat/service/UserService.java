@@ -4,7 +4,6 @@ import com.example.Szakdolgozat.entities.UserEntity;
 import com.example.Szakdolgozat.repository.UserRepository;
 import com.example.Szakdolgozat.service.mapper.UserMapper;
 import com.example.Szakdolgozat.web.model.CreateUserRequest;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +32,8 @@ public class UserService {
 
         UserEntity user = userMapper.map(createUserRequest);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setStatus(true);
+
         return userRepository.save(user);
     }
 
@@ -45,7 +46,7 @@ public class UserService {
         }
     }
 
-    public Optional<UserEntity> updateUserPersonalData(long id, CreateUserRequest createUserRequest) {
+    public void updateUserPersonalData(long id, CreateUserRequest createUserRequest) {
         Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
         Optional<UserEntity> existingEmail = userRepository.findByEmail(createUserRequest.getEmail());
 
@@ -54,7 +55,7 @@ public class UserService {
         } else if (existingEmail.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User e-mail address already exists: %s", existingEmail.get().getEmail()));
         }
-        return Optional.of(userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest)));
+        userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest));
     }
 
     public Optional<UserEntity> updateUserPassword(long id, CreateUserRequest createUserRequest) {

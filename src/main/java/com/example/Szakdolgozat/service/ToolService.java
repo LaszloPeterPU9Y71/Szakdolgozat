@@ -27,6 +27,7 @@ public class ToolService {
     public ToolEntity addTool(CreateToolRequest createToolRequest) throws Exception {
         ToolEntity tool = toolMapper.map(createToolRequest);
         tool.setDateOfReceiving(LocalDateTime.now());
+        tool.setStatus("Beérkezett");
         return toolRepository.save(tool);
     }
 
