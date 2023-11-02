@@ -1,6 +1,7 @@
 package com.example.Szakdolgozat.web.dto;
 
 
+
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,5 +1,6 @@
 package com.example.Szakdolgozat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.catalina.User;
@@ -9,10 +10,11 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"users"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"users"})
 public class CompanyEntity {
 
     @Id

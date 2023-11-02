@@ -19,7 +19,6 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public UserEntity createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
-
         return userService.addUser(createUserRequest);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
@@ -27,6 +26,10 @@ public class UserController {
     public @ResponseBody Iterable<UserEntity> findAllUsers(){
         return userRepository.findAll();
     }
+
+
+
+
 
     @DeleteMapping("/delete/{id}")
     public String softDelete(@PathVariable("id") long id) {

@@ -20,10 +20,8 @@ public class DefectService {
         String name = createDefectRequest.getName();
         Optional<DefectEntity> mayBeName = defectRepository.findByName(name);
         if (mayBeName.isPresent()) {
-
             throw new Exception(String.format("Defect name  already exists: '%s'", name));
         }
-
         DefectEntity defect = defectMapper.map(createDefectRequest);
 
         return defectRepository.save(defect);

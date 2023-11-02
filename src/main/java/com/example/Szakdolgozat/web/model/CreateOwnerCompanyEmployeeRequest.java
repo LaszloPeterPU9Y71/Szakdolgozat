@@ -33,5 +33,7 @@ public class CreateOwnerCompanyEmployeeRequest {
         @NotBlank(message = "A mező kitöltése kötelező")
         private boolean status;
 
+
+
 }
 

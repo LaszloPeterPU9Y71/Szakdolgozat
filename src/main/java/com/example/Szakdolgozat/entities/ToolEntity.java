@@ -48,7 +48,8 @@ public class ToolEntity {
         joinColumns = @JoinColumn(name = "toolId"),
             foreignKey = @ForeignKey(name = "FK_Tool_Defect"),
         inverseJoinColumns = @JoinColumn(name = "defectId"),
-            inverseForeignKey = @ForeignKey(name = "FK_Defect_Tool"))
+            inverseForeignKey = @ForeignKey(name = "FK_Defect_Tool")
+    )
     private Set<DefectEntity> defects;
 
     @ManyToOne(optional = false)
@@ -56,11 +57,11 @@ public class ToolEntity {
             foreignKey = @ForeignKey(name = "FK_Tool_Employee"))
     private OwnerCompanyEmloyeeEntity ownerCompanyEmloyeeEntity;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ToolSpareparts",
             joinColumns = @JoinColumn(name = "toolId"),
             foreignKey = @ForeignKey(name = "FK_Tool_SpareParts"),
             inverseJoinColumns = @JoinColumn(name = "sparePartsId"),
             inverseForeignKey = @ForeignKey(name = "FK_SpareParts_Tool"))
-    private Set<ToolEntity> toolEntitySet;
+    private Set<SparePartsEntity> Spareparts;
 }

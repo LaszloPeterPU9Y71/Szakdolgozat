@@ -1,6 +1,7 @@
 package com.example.Szakdolgozat.service;
 
 import com.example.Szakdolgozat.entities.OwnerCompanyEmloyeeEntity;
+import com.example.Szakdolgozat.entities.OwnerCompanyEntity;
 import com.example.Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import com.example.Szakdolgozat.service.mapper.OwnerCompanyEmployeeMapper;
 import com.example.Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
@@ -22,8 +23,10 @@ public class OwnerCompanyEmployeeService {
     private final OwnerCompanyEmployeeMapper ownerCompanyEmployeeMapper;
 
 
+
     public OwnerCompanyEmloyeeEntity addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception{
         String email = createOwnerCompanyEmployeeRequest.getEmail();
+
         Optional<OwnerCompanyEmloyeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
         if(maybeEmployee.isPresent()){
@@ -32,6 +35,7 @@ public class OwnerCompanyEmployeeService {
         OwnerCompanyEmloyeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
         employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
         employee.setStatus(true);
+
         return ownerCompanyEmployeeRepository.save(employee);
 
     }

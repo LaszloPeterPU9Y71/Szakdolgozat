@@ -4,6 +4,8 @@ package com.example.Szakdolgozat.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -39,10 +41,21 @@ public class UserEntity {
     @Column(name = "UserStatus", nullable = false)
     private boolean status;
 
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "UserCompanyId",
             foreignKey = @ForeignKey(name = "FK_User_Company"))
     private CompanyEntity companyEntity;
+
+
+    @ManyToMany
+    @JoinTable(name = "UserTool",
+        joinColumns = @JoinColumn(name = "UserId"),
+        foreignKey = @ForeignKey(name = "FK_User_Tool"),
+        inverseJoinColumns = @JoinColumn(name = "toolId"),
+        inverseForeignKey = @ForeignKey(name = "FK_Tool_User")
+    )
+    private List<ToolEntity> toolEntity;
 
 
 

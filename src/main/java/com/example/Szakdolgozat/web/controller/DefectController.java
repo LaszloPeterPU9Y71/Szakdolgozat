@@ -24,7 +24,6 @@ public class DefectController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public DefectEntity createDefect(@RequestBody CreateDefectRequest createDefectRequest) throws Exception {
-
         return defectService.addDefect(createDefectRequest);
     }
 

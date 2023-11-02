@@ -1,6 +1,8 @@
 package com.example.Szakdolgozat.service;
 
+import com.example.Szakdolgozat.entities.CompanyEntity;
 import com.example.Szakdolgozat.entities.UserEntity;
+import com.example.Szakdolgozat.repository.CompanyRepository;
 import com.example.Szakdolgozat.repository.UserRepository;
 import com.example.Szakdolgozat.service.mapper.UserMapper;
 import com.example.Szakdolgozat.web.model.CreateUserRequest;
@@ -19,12 +21,16 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final CompanyRepository companyRepository;
+
+
 
 
 
     public UserEntity addUser(CreateUserRequest createUserRequest) throws Exception {
         String email = createUserRequest.getEmail();
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
+
         if (maybeEmail.isPresent()) {
 
             throw new Exception(String.format("User e-mail address already exists: '%s'", email));
@@ -33,7 +39,7 @@ public class UserService {
         UserEntity user = userMapper.map(createUserRequest);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setStatus(true);
-
+        user.setCompanyEntity(companyRepository.findById(1));
         return userRepository.save(user);
     }
 
