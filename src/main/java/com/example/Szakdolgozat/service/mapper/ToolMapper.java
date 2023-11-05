@@ -15,7 +15,6 @@ public class ToolMapper {
                 .typeNumber(createToolRequest.getTypeNumber())
                 .itemNumber(createToolRequest.getItemNumber())
                 .serialNumber(createToolRequest.getSerialNumber())
-                .status(createToolRequest.getStatus())
                 .build();
     }
 }

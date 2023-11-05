@@ -3,6 +3,7 @@ package com.example.Szakdolgozat.service;
 import com.example.Szakdolgozat.entities.OwnerCompanyEmloyeeEntity;
 import com.example.Szakdolgozat.entities.OwnerCompanyEntity;
 import com.example.Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
+import com.example.Szakdolgozat.repository.OwnerCompanyRepository;
 import com.example.Szakdolgozat.service.mapper.OwnerCompanyEmployeeMapper;
 import com.example.Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import jakarta.transaction.Transactional;
@@ -21,7 +22,7 @@ public class OwnerCompanyEmployeeService {
 
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final OwnerCompanyEmployeeMapper ownerCompanyEmployeeMapper;
-
+    private final OwnerCompanyRepository ownerCompanyRepository;
 
 
     public OwnerCompanyEmloyeeEntity addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception{
@@ -35,7 +36,7 @@ public class OwnerCompanyEmployeeService {
         OwnerCompanyEmloyeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
         employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
         employee.setStatus(true);
-
+        employee.setOwnerCompanyEntity(ownerCompanyRepository.findById(1));
         return ownerCompanyEmployeeRepository.save(employee);
 
     }

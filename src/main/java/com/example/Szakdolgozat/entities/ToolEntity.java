@@ -1,5 +1,6 @@
 package com.example.Szakdolgozat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
+@JsonIgnoreProperties(value = {"ownerCompanyEmloyeeEntity"})
 
 public class ToolEntity {
 
