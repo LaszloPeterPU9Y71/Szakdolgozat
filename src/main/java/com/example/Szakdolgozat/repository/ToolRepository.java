@@ -4,6 +4,7 @@ import com.example.Szakdolgozat.entities.ToolEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
        List<ToolEntity> findByStatus(String status);
@@ -11,4 +12,5 @@ public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
        List<ToolEntity> findByTypeNumber(String typeNumber);
        List<ToolEntity> findBySerialNumber(String serialNumber);
        List<ToolEntity> findByItemNumber(String itemNumber);
+
 }

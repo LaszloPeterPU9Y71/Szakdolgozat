@@ -1,6 +1,7 @@
 package com.example.Szakdolgozat.service;
 
 import com.example.Szakdolgozat.entities.ToolEntity;
+import com.example.Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import com.example.Szakdolgozat.repository.ToolRepository;
 import com.example.Szakdolgozat.service.mapper.ToolMapper;
 import com.example.Szakdolgozat.web.model.CreateToolRequest;
@@ -21,6 +22,7 @@ public class ToolService {
     private final ToolRepository toolRepository;
 
     private final ToolMapper toolMapper;
+    private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
 
 
 
@@ -28,6 +30,7 @@ public class ToolService {
         ToolEntity tool = toolMapper.map(createToolRequest);
         tool.setDateOfReceiving(LocalDateTime.now());
         tool.setStatus("Beérkezett");
+        tool.setOwnerCompanyEmloyeeEntity(ownerCompanyEmployeeRepository.findById(1));
         return toolRepository.save(tool);
     }
 
