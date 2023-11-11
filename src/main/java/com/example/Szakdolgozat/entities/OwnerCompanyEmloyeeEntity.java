@@ -32,9 +32,6 @@ public class OwnerCompanyEmloyeeEntity {
     @Column(name = "ownerCompanyEmployeeEmail", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "ownerCompanyEmployeePassword", nullable = false)
-    private String password;
-
     @Column(name = "ownerCompanyEmployeeTitle", nullable = false)
     private String title;
 

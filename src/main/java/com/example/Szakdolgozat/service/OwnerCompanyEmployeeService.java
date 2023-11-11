@@ -34,9 +34,8 @@ public class OwnerCompanyEmployeeService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("The employee exists with: %s email address", email));
         }
         OwnerCompanyEmloyeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
-        employee.setPassword(new BCryptPasswordEncoder().encode(employee.getPassword()));
         employee.setStatus(true);
-        employee.setOwnerCompanyEntity(ownerCompanyRepository.findById(1));
+        employee.setOwnerCompanyEntity(ownerCompanyRepository.findById(2));
         return ownerCompanyEmployeeRepository.save(employee);
 
     }

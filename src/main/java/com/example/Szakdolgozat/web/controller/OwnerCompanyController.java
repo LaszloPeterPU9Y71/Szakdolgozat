@@ -39,8 +39,8 @@ public class OwnerCompanyController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findbyname/{ownerCompanyName}")
-    public ResponseEntity<List<OwnerCompanyEntity>> findOwnerCOmpanyByName(@PathVariable("ownerCompanyName") String ownerCompanyName){
-        return new ResponseEntity<>( ownerCompanyRepository.findByName(ownerCompanyName), HttpStatus.OK);
+    public ResponseEntity<List<OwnerCompanyEntity>> findOwnerCompanyByName(@PathVariable("ownerCompanyName") String ownerCompanyName){
+        return new ResponseEntity<>( ownerCompanyRepository.findByNameContainingIgnoreCase(ownerCompanyName), HttpStatus.OK);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findbytaxnumber/{taxNumber}")

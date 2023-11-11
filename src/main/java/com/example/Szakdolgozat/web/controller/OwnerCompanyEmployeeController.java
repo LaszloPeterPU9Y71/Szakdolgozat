@@ -6,7 +6,11 @@ import com.example.Szakdolgozat.service.OwnerCompanyEmployeeService;
 import com.example.Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +31,9 @@ public class OwnerCompanyEmployeeController {
         return ownerCompanyEmployeeRepository.findAll();
     }
 
-
-
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/findemployee/{employeename}")
+    public ResponseEntity<Set<OwnerCompanyEmloyeeEntity>> findEmployeeByName(@PathVariable (value = "employeename") String name) {
+        return new ResponseEntity<>(ownerCompanyEmployeeRepository.findByNameContainingIgnoreCase(name), HttpStatus.OK);
+    }
 }

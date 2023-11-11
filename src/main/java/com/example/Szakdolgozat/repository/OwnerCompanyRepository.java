@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface OwnerCompanyRepository extends CrudRepository<OwnerCompanyEntity, Long> {
 
-    List<OwnerCompanyEntity> findByName(String name);
+    List<OwnerCompanyEntity> findByNameContainingIgnoreCase(String name);
 
     Optional<OwnerCompanyEntity> findByTaxNumber(String taxNumber);
 

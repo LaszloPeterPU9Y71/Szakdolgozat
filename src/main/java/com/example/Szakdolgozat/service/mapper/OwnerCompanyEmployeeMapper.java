@@ -12,7 +12,6 @@ public class OwnerCompanyEmployeeMapper {
                 .name(createOwnerCompanyEmployeeRequest.getName())
                 .telNum(createOwnerCompanyEmployeeRequest.getTelNum())
                 .email(createOwnerCompanyEmployeeRequest.getEmail())
-                .password(createOwnerCompanyEmployeeRequest.getPassword())
                 .title(createOwnerCompanyEmployeeRequest.getTitle())
                 .status(createOwnerCompanyEmployeeRequest.isStatus())
                 .build();
