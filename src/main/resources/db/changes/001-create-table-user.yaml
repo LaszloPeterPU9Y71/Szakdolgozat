@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-user
+      author: admin
+      changes:
+        - createTable:
+            tableName: user_entity
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: user_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: user_password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: user_status
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: user_tel_num
+                  type: int
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: user_title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: user_company_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: user_entity
+            file: ./db/testdata/user.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+              - column:
+                  name: user_name
+                  type: varchar(255)
+              - column:
+                  name: user_password
+                  type: varchar(255)
+              - column:
+                  name: user_status
+                  type: boolean
+              - column:
+                  name: user_tel_num
+                  type: int
+              - column:
+                  name: user_title
+                  type: varchar(255)
+              - column:
+                  name: user_company_id
+                  type: bigint

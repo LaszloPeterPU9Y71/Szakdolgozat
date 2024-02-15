@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-spare-parts
+      author: admin
+      changes:
+        - createTable:
+            tableName: spare_parts_entity
+            columns:
+              - column:
+                  name: spare_parts_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: spare_parts_netto_buying_price
+                  type: int
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: spare_parts_netto_selling_price
+                  type: int
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: spare_parts_item_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: spare_parts_item_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: spare_parts_entity
+            file: ./db/testdata/spare-parts.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: spare_parts_id
+                  type: bigint
+              - column:
+                  name: spare_parts_netto_buying_price
+                  type: int
+              - column:
+                  name: spare_parts_netto_selling_price
+                  type: int
+              - column:
+                  name: spare_parts_item_name
+                  type: varchar(255)
+              - column:
+                  name: spare_parts_item_number
+                  type: varchar(255)

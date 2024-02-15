@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-defect
+      author: admin
+      changes:
+        - createTable:
+            tableName: defect_entity
+            columns:
+              - column:
+                  name: defect_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: defect_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: defect_entity
+            file: ./db/testdata/defect.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: defect_id
+                  type: bigint
+              - column:
+                  name: defect_name
+                  type: varchar(255)

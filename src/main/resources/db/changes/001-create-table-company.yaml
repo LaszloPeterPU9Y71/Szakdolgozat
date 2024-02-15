@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-company
+      author: admin
+      changes:
+        - createTable:
+            tableName: company_entity
+            columns:
+              - column:
+                  name: company_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: company_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: company_postal_code
+                  type: int
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: company_status
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: company_street
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: company_tax_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: company_town
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: company_entity
+            file: ./db/testdata/company.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: company_id
+                  type: bigint
+              - column:
+                  name: company_name
+                  type: varchar(255)
+              - column:
+                  name: company_postal_code
+                  type: int
+              - column:
+                  name: company_status
+                  type: boolean
+              - column:
+                  name: company_street
+                  type: varchar(255)
+              - column:
+                  name: company_tax_number
+                  type: varchar(255)
+              - column:
+                  name: company_town
+                  type: varchar(255)

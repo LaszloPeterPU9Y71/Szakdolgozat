@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-tool-defect
+      author: admin
+      changes:
+        - createTable:
+            tableName: tool_defect
+            columns:
+              - column:
+                  name: tool_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: defect_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: tool_defecty
+            file: ./db/testdata/tool-defect.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: tool_id
+                  type: bigint
+              - column:
+                  name: defect_id
+                  type: bigint

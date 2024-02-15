@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-user-tool
+      author: admin
+      changes:
+        - createTable:
+            tableName: user-tool
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: tool_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: user-tool
+            file: ./db/testdata/user-tool.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+              - column:
+                  name: tool_id
+                  type: bigint

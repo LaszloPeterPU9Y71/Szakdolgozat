@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-owner-employee
+      author: admin
+      changes:
+        - createTable:
+            tableName: owner_company_employee_entity
+            columns:
+              - column:
+                  name: owner_company_employee_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: owner_company_employee_email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_employee_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_employee_status
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_employee_tel_num
+                  type: int
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_employee_title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_employee
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: owner_company_employee_entity
+            file: ./db/testdata/owner-employee.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: owner_company_employee_id
+                  type: bigint
+              - column:
+                  name: owner_company_employee_email
+                  type: varchar(255)
+              - column:
+                  name: owner_company_employee_name
+                  type: varchar(255)
+              - column:
+                  name: owner_company_employee_status
+                  type: boolean
+              - column:
+                  name: owner_company_employee_tel_num
+                  type: int
+              - column:
+                  name: owner_company_employee_title
+                  type: varchar(255)
+              - column:
+                  name: owner_company_employee
+                  type: bigint

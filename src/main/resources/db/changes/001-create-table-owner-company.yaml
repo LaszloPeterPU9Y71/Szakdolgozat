@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-owner-company
+      author: admin
+      changes:
+        - createTable:
+            tableName: owner_company_employee_entity
+            columns:
+              - column:
+                  name: owner_company__id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: owner_company_account_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_postal_code
+                  type: int
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_status
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_street
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_tax_number
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: owner_company_town
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+
+        - loadData:
+            tableName: owner_company_employee_entity
+            file: ./db/testdata/owner-company.csv
+            encoding: UTF-8
+            quot-char: '"'
+
+            columns:
+              - column:
+                  name: owner_company_id
+                  type: bigint
+              - column:
+                  name: owner_company_account_number
+                  type: varchar(255)
+              - column:
+                  name: owner_company_name
+                  type: varchar(255)
+              - column:
+                  name: owner_company_postal_code
+                  type: int
+              - column:
+                  name: owner_company_status
+                  type: boolean
+              - column:
+                  name: owner_company_street
+                  type: varchar(255)
+              - column:
+                  name: owner_company_tax_number
+                  type: bigint
+              - column:
+                  name: owner_company_town
+                  type: bigint
