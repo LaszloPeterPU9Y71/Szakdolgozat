@@ -1,13 +1,13 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-table-owner-company
+      id: 003-create-table-owner-company
       author: admin
       changes:
         - createTable:
-            tableName: owner_company_employee_entity
+            tableName: owner_company_entity
             columns:
               - column:
-                  name: owner_company__id
+                  name: owner_company_id
                   type: bigint
                   constraints:
                     nullable: false
@@ -44,19 +44,19 @@ databaseChangeLog:
                     primaryKey: false
               - column:
                   name: owner_company_tax_number
-                  type: bigint
+                  type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
                   name: owner_company_town
-                  type: bigint
+                  type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
 
         - loadData:
-            tableName: owner_company_employee_entity
+            tableName: owner_company_entity
             file: ./db/testdata/owner-company.csv
             encoding: UTF-8
             quot-char: '"'

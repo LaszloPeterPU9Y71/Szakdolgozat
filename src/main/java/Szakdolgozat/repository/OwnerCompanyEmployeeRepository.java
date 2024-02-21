@@ -1,20 +1,20 @@
 package Szakdolgozat.repository;
 
-import Szakdolgozat.entities.OwnerCompanyEmloyeeEntity;
+import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 import java.util.Set;
 
-public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerCompanyEmloyeeEntity, Long> {
+public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerCompanyEmployeeEntity, Long> {
 
 
-    Set<OwnerCompanyEmloyeeEntity> findByOwnerCompanyEntityIdAndNameContainingIgnoreCase(Long Id, String name);
-    Set<OwnerCompanyEmloyeeEntity> findByNameContainingIgnoreCase(String name);
+    Set<OwnerCompanyEmployeeEntity> findByOwnerCompanyEntityIdAndNameContainingIgnoreCase(Long Id, String name);
+    Set<OwnerCompanyEmployeeEntity> findByNameContainingIgnoreCase(String name);
 
-    Optional<OwnerCompanyEmloyeeEntity> findByEmail(String email);
+    Optional<OwnerCompanyEmployeeEntity> findByEmail(String email);
 
-    OwnerCompanyEmloyeeEntity findById(long id);
+    OwnerCompanyEmployeeEntity findById(long id);
 
 
 

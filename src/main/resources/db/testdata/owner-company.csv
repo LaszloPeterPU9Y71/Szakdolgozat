@@ -1,2 +1,2 @@
-owner_company_id;owner_company_account_number;owner_company_name;owner_company_postal_code;owner_company_status;owner_company_street;owner_company_tax_number;owner_company_town
-1;123456789;Próba Tamás;9023;true;Mészáros;11234567-2-08;Győr
+owner_company_id,owner_company_account_number,owner_company_name,owner_company_postal_code,owner_company_status,owner_company_street,owner_company_tax_number,owner_company_town
+1,123456789,Próba Kft,9023,true,Mészáros,11234567-2-08,Győr

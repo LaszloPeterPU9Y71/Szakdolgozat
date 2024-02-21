@@ -33,7 +33,7 @@ public class ToolService {
 
         tool.setDateOfReceiving(LocalDateTime.now());
         tool.setStatus("Beérkezett");
-        tool.setOwnerCompanyEmloyeeEntity(ownerCompanyEmployeeRepository.findById(createToolRequest.getOwnerCompanyEmployeeId()));
+        tool.setOwnerCompanyEmployeeEntity(ownerCompanyEmployeeRepository.findById(createToolRequest.getOwnerCompanyEmployeeId()));
         tool.setDefects(defectRepository.findById(createToolRequest.getDefectsId()));
         return toolRepository.save(tool);
     }

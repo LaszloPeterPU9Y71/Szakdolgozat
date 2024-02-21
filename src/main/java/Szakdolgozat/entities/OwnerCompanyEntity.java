@@ -20,32 +20,32 @@ public class OwnerCompanyEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ownerCompanyId", nullable = false)
+    @Column(name = "owner_company_id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "ownerCompanyName", nullable = false)
+    @Column(name = "owner_company_name", nullable = false)
     private String companyName;
 
-    @Column(name = "ownerCompanyPostalCode", nullable = false)
+    @Column(name = "owner_company_postal_code", nullable = false)
     private int postalCode;
 
-    @Column(name = "ownerCompanyTown", nullable = false)
+    @Column(name = "owner_company_town", nullable = false)
     private String town;
 
-    @Column(name = "ownerCompanyStreet", nullable = false)
+    @Column(name = "owner_company_street", nullable = false)
     private String street;
 
-    @Column(name = "ownerCompanyTaxNumber", nullable = false, unique = true)
+    @Column(name = "owner_company_tax_number", nullable = false, unique = true)
     private String taxNumber;
 
-    @Column(name = "ownerCompanyAccountNumber", nullable = true)
+    @Column(name = "owner_company_account_number", nullable = true)
     private String accountNumber;
 
-    @Column(name = "ownerCompanyStatus", nullable = false)
+    @Column(name = "owner_company_status", nullable = false)
     private Boolean status;
 
 
     @OneToMany(mappedBy = "ownerCompanyEntity")
-    private Set<OwnerCompanyEmloyeeEntity> employee;
+    private Set<OwnerCompanyEmployeeEntity> employee;
 }

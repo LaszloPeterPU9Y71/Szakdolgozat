@@ -19,11 +19,11 @@ public class DefectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "defectId", nullable = false)
+    @Column(name = "defect_id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "defectName", nullable = false)
+    @Column(name = "defect_name", nullable = false)
     private String name;
 
 }

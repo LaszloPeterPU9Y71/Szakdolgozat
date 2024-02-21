@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-table-user
+      id: 008-create-table-user
       author: admin
       changes:
         - createTable:
@@ -32,7 +32,7 @@ databaseChangeLog:
                     primaryKey: false
               - column:
                   name: user_tel_num
-                  type: int
+                  type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
@@ -48,7 +48,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
-
+              - column:
+                  name: user_email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
         - loadData:
             tableName: user_entity
             file: ./db/testdata/user.csv
@@ -77,3 +82,6 @@ databaseChangeLog:
               - column:
                   name: user_company_id
                   type: bigint
+              - column:
+                  name: user_email
+                  type: varchar(255)

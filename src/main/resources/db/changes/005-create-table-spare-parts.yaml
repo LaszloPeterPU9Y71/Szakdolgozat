@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-table-spare-parts
+      id: 005-create-table-spare-parts
       author: admin
       changes:
         - createTable:

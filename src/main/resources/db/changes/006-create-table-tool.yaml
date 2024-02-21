@@ -1,79 +1,88 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-table-owner-employee
+      id: 006-create-table-tool
       author: admin
       changes:
         - createTable:
-            tableName: owner_company_employee_entity
+            tableName: tool_entity
             columns:
               - column:
-                  name: owner_company_employee_id
+                  name: tool_id
                   type: bigint
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: owner_company_employee_email
+                  name: tool_date_of_recieving
+                  type: datetime
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: tool_item_number
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee_name
+                  name: tool_name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee_status
-                  type: boolean
-                  constraints:
-                    nullable: false
-                    primaryKey: false
-              - column:
-                  name: owner_company_employee_tel_num
-                  type: int
-                  constraints:
-                    nullable: false
-                    primaryKey: false
-              - column:
-                  name: owner_company_employee_title
+                  name: tool_serial_number
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: tool_type_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: tool_employee_id
                   type: bigint
                   constraints:
                     nullable: false
                     primaryKey: false
 
         - loadData:
-            tableName: owner_company_employee_entity
-            file: ./db/testdata/owner-employee.csv
+            tableName: tool_entity
+            file: ./db/testdata/tool.csv
             encoding: UTF-8
             quot-char: '"'
 
             columns:
               - column:
-                  name: owner_company_employee_id
+                  name: tool_id
                   type: bigint
               - column:
-                  name: owner_company_employee_email
+                  name: tool_date_of_recieving
+                  type: datetime
+              - column:
+                  name: tool_item_number
                   type: varchar(255)
               - column:
-                  name: owner_company_employee_name
+                  name: tool_name
                   type: varchar(255)
               - column:
-                  name: owner_company_employee_status
-                  type: boolean
-              - column:
-                  name: owner_company_employee_tel_num
-                  type: int
-              - column:
-                  name: owner_company_employee_title
+                  name: tool_serial_number
                   type: varchar(255)
               - column:
-                  name: owner_company_employee
+                  name: status
+                  type: varchar(255)
+              - column:
+                  name: tool_type_number
+                  type: varchar(255)
+              - column:
+                  name: tool_employee_id
                   type: bigint

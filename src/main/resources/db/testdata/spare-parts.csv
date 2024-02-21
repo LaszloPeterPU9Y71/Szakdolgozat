@@ -1,2 +1,2 @@
-spare_parts_id;spare_parts_netto_buying_price;spare_parts_netto_selling_price;spare_parts_item_name;spare_parts_item_number
-1;1000;1270;Szénkefe;123456-6
+spare_parts_id,spare_parts_netto_buying_price,spare_parts_netto_selling_price,spare_parts_item_name,spare_parts_item_number
+1,1000,1270,Szénkefe,123456-6

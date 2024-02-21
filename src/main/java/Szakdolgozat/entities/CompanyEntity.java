@@ -18,29 +18,29 @@ public class CompanyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "companyId", nullable = false)
+    @Column(name = "company_id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "companyName", nullable = false)
+    @Column(name = "company_name", nullable = false)
     private String name;
 
-    @Column(name = "comapnyPostalCode", nullable = false)
+    @Column(name = "company_postal_code", nullable = false)
     private int postalCode;
 
-    @Column(name = "companyTown", nullable = false)
+    @Column(name = "company_town", nullable = false)
     private String town;
 
-    @Column(name = "companyStreet", nullable = false)
+    @Column(name = "company_street", nullable = false)
     private String street;
 
-    @Column(name = "companyTaxNumber", nullable = false)
+    @Column(name = "company_tax_number", nullable = false)
     private String taxNumber;
 
-    @Column(name = "companyStatus", nullable = false)
+    @Column(name = "company_status", nullable = false)
     private Boolean status;
 
-    @OneToMany(mappedBy = "companyEntity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "companyEntity")
     private Set<UserEntity> users;
 }
 

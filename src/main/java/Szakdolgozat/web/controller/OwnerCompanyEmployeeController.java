@@ -1,6 +1,6 @@
 package Szakdolgozat.web.controller;
 
-import Szakdolgozat.entities.OwnerCompanyEmloyeeEntity;
+import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.service.OwnerCompanyEmployeeService;
 import Szakdolgozat.web.dto.ResponseDto;
@@ -27,7 +27,7 @@ public class OwnerCompanyEmployeeController {
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addEmployee")
-    public ResponseDto<OwnerCompanyEmloyeeEntity> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest, BindingResult bindingResult) throws Exception {
+    public ResponseDto<OwnerCompanyEmployeeEntity> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest, BindingResult bindingResult) throws Exception {
         if(bindingResult.hasErrors()){
             return new ResponseDto<>(bindingResult.getAllErrors().stream().map(ObjectError::toString).collect(Collectors.toSet()));
         }
@@ -35,13 +35,13 @@ public class OwnerCompanyEmployeeController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findall")
-    public Iterable<OwnerCompanyEmloyeeEntity> findAllEmployee(){
+    public Iterable<OwnerCompanyEmployeeEntity> findAllEmployee(){
         return ownerCompanyEmployeeRepository.findAll();
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findemployee/{employeename}")
-    public ResponseEntity<Set<OwnerCompanyEmloyeeEntity>> findEmployeeByName(@PathVariable (value = "employeename") String name) {
+    public ResponseEntity<Set<OwnerCompanyEmployeeEntity>> findEmployeeByName(@PathVariable (value = "employeename") String name) {
         return new ResponseEntity<>(ownerCompanyEmployeeRepository.findByNameContainingIgnoreCase(name), HttpStatus.OK);
     }
 }
