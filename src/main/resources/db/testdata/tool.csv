@@ -1,2 +1,8 @@
 tool_id,tool_date_of_recieving,tool_item_number,tool_name,tool_serial_number,status,tool_type_number,tool_employee_id
-1,2024-01-27 12:12:12,3608123d27,Fúrókalapács,123456789,in,GBH 180-LI,1
+1,2024-01-27 12:12:12,3608123d29,Fúrókalapács,123456789,in,GBH 180-LI,1
+2,2024-01-27 12:12:12,3608123d28,Csavarbehajtó,123456788,in,GSR 180-LI,2
+3,2024-01-27 12:12:12,3608123d27,Ütvefúró,123456787,in,GSB 13 RE,3
+4,2024-01-27 12:12:12,3608123d26,Akkus csavarozó,123456786,in,GSB 180-LI,4
+5,2024-01-27 12:12:12,3608123d25,Csavarozó,123456785,in,DDF482Z,5
+6,2024-01-27 12:12:12,3608123d24,Porszívó,123456784,in,CTL 36 E AC,6
+7,2024-01-27 12:12:12,3608123d23,Falcsiszoló,123456783,in,LHS 225 E,7

@@ -25,10 +25,10 @@ public class SparePartsEntity {
     @Column(name = "spare_parts_item_number", nullable = false, unique = true)
     private String partNumber;
 
-    @Column(name = "spareparts_netto_buying_price", nullable = false)
+    @Column(name = "spare_parts_netto_buying_price", nullable = false)
     private int nettoBuyingPrice;
 
-    @Column(name = "spareparts_netto_selling_price", nullable = false)
+    @Column(name = "spare_parts_netto_selling_price", nullable = false)
     private int nettoSellingPrice;
 
 

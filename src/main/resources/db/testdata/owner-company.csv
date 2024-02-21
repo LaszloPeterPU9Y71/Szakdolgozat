@@ -1,2 +1,8 @@
 owner_company_id,owner_company_account_number,owner_company_name,owner_company_postal_code,owner_company_status,owner_company_street,owner_company_tax_number,owner_company_town
-1,123456789,Próba Kft,9023,true,Mészáros,11234567-2-08,Győr
+1,123456789,Bontunk Kft,9023,true,Mészáros,11234569-2-08,Győr
+2,123456788,Építünk Kft,9023,true,Mészáros,11234568-2-08,Győr
+3,123456787,Felújítunk Kft,9023,true,Mészáros,11234567-2-08,Győr
+4,123456786,Ács Kft,9023,true,Mészáros,11234566-2-08,Győr
+5,123456785,Tetőfedő Kft,9023,true,Mészáros,11234565-2-08,Győr
+6,123456784,Bádogos Kft,9023,true,Mészáros,11234564-2-08,Győr
+7,123456783,Burkoló Kft,9023,true,Mészáros,11234563-2-08,Győr

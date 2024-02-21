@@ -1,2 +1,8 @@
 owner_company_employee_id,owner_company_employee_email,owner_company_employee_name,owner_company_employee_status,owner_company_employee_tel_num,owner_company_employee_title,owner_company_employee
-1,galagonya@gmail.com,Kovács Árpád,true,706211428,Beszerző,1
+1,info@bontunk.hu,Kovács Árpád,true,706211429,Beszerző,1
+2,info@epitunk.hu,Horváth Árpád,true,706211428,Beszerző,2
+3,info@felujitunk.hu,Imre Árpád,true,706211427,Beszerző,3
+4,info@acs.hu,Kovács Géza,true,706211426,Beszerző,4
+5,info@tetofedo.hu,Kovács Béla,true,706211425,Beszerző,5
+6,info@badogos.hu,László Péter,true,706211424,Beszerző,6
+7,info@burkolo.hu,Péter László,true,706211423,Beszerző,7
