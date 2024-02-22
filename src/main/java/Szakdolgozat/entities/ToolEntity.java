@@ -60,7 +60,7 @@ public class ToolEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tool_spareparts",
-            joinColumns = @JoinColumn(name = "toolId"),
+            joinColumns = @JoinColumn(name = "tool_id"),
             foreignKey = @ForeignKey(name = "FK_Tool_spareParts"),
             inverseJoinColumns = @JoinColumn(name = "spare_parts_id"),
             inverseForeignKey = @ForeignKey(name = "FK_SpareParts_Tool"))

@@ -44,8 +44,6 @@ public class OwnerCompanyEmployeeEntity {
             foreignKey = @ForeignKey(name = "FK_Owner_company_employee"))
     private OwnerCompanyEntity ownerCompanyEntity;
 
-    @OneToMany(mappedBy="ownerCompanyEmployeeEntity")
-    private List<ToolEntity> tools;
 
 
 }

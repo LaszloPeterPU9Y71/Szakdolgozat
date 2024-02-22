@@ -40,7 +40,7 @@ public class CompanyEntity {
     @Column(name = "company_status", nullable = false)
     private Boolean status;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "companyEntity")
+    @OneToMany(mappedBy = "companyEntity")
     private Set<UserEntity> users;
 }
 
