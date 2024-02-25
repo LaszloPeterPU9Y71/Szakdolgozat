@@ -5,6 +5,7 @@ import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.service.CompanyService;
 import Szakdolgozat.web.model.CreateCompanyRequest;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class CompanyController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
-    public CompanyEntity createUser(@RequestBody CreateCompanyRequest createCompanyRequest) throws Exception {
+    public CompanyEntity createUser(@RequestBody CreateCompanyRequest createCompanyRequest) throws ValidationException {
         return companyService.addCompany(createCompanyRequest);
     }
 

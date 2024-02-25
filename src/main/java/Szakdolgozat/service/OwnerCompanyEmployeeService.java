@@ -30,6 +30,7 @@ public class OwnerCompanyEmployeeService {
         if(maybeEmployee.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("The employee exists with: %s email address", email));
         }
+
         OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
         employee.setStatus(true);
         employee.setOwnerCompanyEntity(ownerCompanyRepository.findByCompanyNameContaining(createOwnerCompanyEmployeeRequest.getCompanyName()));
