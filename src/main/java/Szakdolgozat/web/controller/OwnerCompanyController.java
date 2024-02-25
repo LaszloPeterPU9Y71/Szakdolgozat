@@ -33,6 +33,9 @@ public class OwnerCompanyController {
     public @ResponseBody Iterable<OwnerCompanyEntity> findAllOwnerCompany() {
         return ownerCompanyRepository.findAll();
     }
+
+
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{taxNumber}")
     public String deleteOwnerCompany(@PathVariable("taxNumber") String taxNumber){

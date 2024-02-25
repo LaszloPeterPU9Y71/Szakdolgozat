@@ -1,33 +1,31 @@
 package Szakdolgozat.web.model;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Getter
 @Setter
 
-public class CreateUserRequest {
-
+public class CreateCompanyRequest {
     @NotBlank(message = "A mező kitöltése kötelező")
     private String name;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private String telNum;
+    private int postalCode;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    @Email
-    private String email;
+    private String town;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private String password;
+    private String street;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private String title;
+    private String taxNumber;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    private boolean status;
+    private Boolean status;
 
 }

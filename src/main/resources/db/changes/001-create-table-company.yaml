@@ -9,9 +9,11 @@ databaseChangeLog:
               - column:
                   name: company_id
                   type: bigint
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
+
               - column:
                   name: company_name
                   type: varchar(255)

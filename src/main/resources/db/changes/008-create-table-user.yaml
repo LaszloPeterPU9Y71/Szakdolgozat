@@ -9,6 +9,7 @@ databaseChangeLog:
               - column:
                   name: user_id
                   type: bigint
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
