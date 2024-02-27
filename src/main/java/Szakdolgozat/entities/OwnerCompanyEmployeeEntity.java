@@ -4,8 +4,6 @@ package Szakdolgozat.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -27,7 +25,7 @@ public class OwnerCompanyEmployeeEntity {
     private String name;
 
     @Column(name = "owner_company_employee_tel_num", nullable = false)
-    private int telNum;
+    private String telNum;
 
     @Column(name = "owner_company_employee_email", nullable = false, unique = true)
     private String email;

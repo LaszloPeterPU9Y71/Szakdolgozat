@@ -1,6 +1,7 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.entities.UserEntity;
+import Szakdolgozat.exeption.Exceptions;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.UserRepository;
 import Szakdolgozat.service.mapper.UserMapper;
@@ -27,13 +28,13 @@ public class UserService {
 
 
 
-    public UserEntity addUser(CreateUserRequest createUserRequest) throws ValidationException {
+    public UserEntity addUser(CreateUserRequest createUserRequest) throws Exceptions {
         String email = createUserRequest.getEmail();
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
 
         if (maybeEmail.isPresent()) {
 
-            throw new ValidationException(String.format("Ez az e-mail cím már használatban van: '%s'", email));
+            throw new Exceptions(String.format("Ez az e-mail cím már használatban van: '%s'", email));
         }
 
         UserEntity user = userMapper.map(createUserRequest);

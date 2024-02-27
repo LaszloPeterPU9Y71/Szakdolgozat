@@ -19,7 +19,7 @@ public class CreateOwnerCompanyEmployeeRequest {
         private String name;
 
         @NotBlank(message = "A mező kitöltése kötelező")
-        private int telNum;
+        private String telNum;
 
         @NotBlank(message = "A mező kitöltése kötelező")
         @Email

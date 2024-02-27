@@ -5,6 +5,7 @@ import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.mapper.OwnerCompanyMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,6 +25,7 @@ public class OwnerCompanyService {
         if (maybeCompany.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("The company with tax number: %s is already exists", taxNumber ));
         }
+
             OwnerCompanyEntity ownerCompany = OwnerCompanyMapper.map(createOwnerCompanyRequest);
             ownerCompany.setStatus(true);
             return ownerCompanyRepository.save(ownerCompany);
