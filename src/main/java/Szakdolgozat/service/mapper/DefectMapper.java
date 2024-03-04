@@ -9,6 +9,7 @@ public class DefectMapper {
     public DefectEntity map(CreateDefectRequest createDefectRequest){
         return DefectEntity.builder()
                 .name(createDefectRequest.getName())
+                .descrition(createDefectRequest.getDescription())
                 .build();
     }
 

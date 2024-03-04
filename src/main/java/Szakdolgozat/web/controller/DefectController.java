@@ -30,6 +30,7 @@ public class DefectController {
         DefectDto defectDto = DefectDto.builder()
                 .id(x.getId())
                 .name(x.getName())
+                .description(x.getDescrition())
                 .build();
         return ResponseEntity.ok(defectDto);
     }

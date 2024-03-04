@@ -3,6 +3,7 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.ToolService;
+import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,18 @@ public class ToolController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
-    public ToolEntity createTool(@RequestBody CreateToolRequest createToolRequest) throws Exception {
-        return toolService.addTool(createToolRequest);
+    public ResponseEntity<ToolDto> createTool(@RequestBody CreateToolRequest createToolRequest) throws Exception {
+        ToolEntity x = toolService.addTool(createToolRequest);
+        ToolDto toolDto = ToolDto.builder()
+                .status(x.getStatus())
+                .dateOfReceiving(x.getDateOfReceiving())
+                .id(x.getId())
+                .itemNumber(x.getItemNumber())
+                .name(x.getName())
+                .serialNumber(x.getSerialNumber())
+                .typeNumber(x.getTypeNumber())
+                .build();
+        return ResponseEntity.ok(toolDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")

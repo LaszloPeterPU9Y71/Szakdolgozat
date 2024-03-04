@@ -1,12 +1,15 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.entities.CompanyEntity;
+import Szakdolgozat.globalExceptionHandler.AlreadyRegisteredException;
+import Szakdolgozat.globalExceptionHandler.MissingDataException;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.service.mapper.CompanyMapper;
 import Szakdolgozat.web.dto.CompanyDto;
 import Szakdolgozat.web.model.CreateCompanyRequest;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,9 +27,9 @@ public class CompanyService {
         String taxNumber = createCompanyRequest.getTaxNumber();
         Optional<CompanyEntity> maybeTax = companyRepository.findByTaxNumber(taxNumber);
 
-        if (maybeTax.isPresent()) {
-            throw new ValidationException(String.format("Ez a cég már regisztrálva van: '%s'", taxNumber));
-        }
+        if  (maybeTax.isPresent()) {
+            throw new AlreadyRegisteredException(String.format("Ezzel az adószámmal már regisztráltaka céget: '%s'", taxNumber), HttpStatus.CONFLICT);
+            }
         CompanyEntity company = CompanyMapper.map(createCompanyRequest);
         company.setStatus(true);
 

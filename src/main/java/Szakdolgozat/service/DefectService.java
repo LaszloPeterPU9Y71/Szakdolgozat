@@ -1,4 +1,6 @@
 package Szakdolgozat.service;
+import Szakdolgozat.exeption.Exceptions;
+
 import Szakdolgozat.service.mapper.DefectMapper;
 import Szakdolgozat.web.model.CreateDefectRequest;
 import Szakdolgozat.entities.DefectEntity;
@@ -21,7 +23,7 @@ public class DefectService {
         String name = createDefectRequest.getName();
         Optional<DefectEntity> mayBeName = defectRepository.findByName(name);
         if (mayBeName.isPresent()) {
-            throw new ValidationException(String.format("A hiba megnevezése már létezik: '%s'", name));
+            throw new Exceptions(String.format("A hiba megnevezése már létezik: '%s'", name));
         }
         DefectEntity defect = defectMapper.map(createDefectRequest);
 

@@ -3,8 +3,10 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.UserEntity;
 import Szakdolgozat.repository.UserRepository;
 import Szakdolgozat.service.UserService;
+import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,8 +20,18 @@ public class UserController {
     private final UserService userService;
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
-    public UserEntity createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
-        return userService.addUser(createUserRequest);
+    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
+        UserEntity x = userService.addUser(createUserRequest);
+        UserDto userDto = UserDto.builder()
+                .email(x.getEmail())
+                .status(x.getStatus())
+                .title(x.getTitle())
+                .telNum(x.getTelNum())
+                .name(x.getName())
+                .password(x.getPassword())
+                .id(x.getId())
+                .build();
+        return ResponseEntity.ok(userDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")

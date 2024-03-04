@@ -1,10 +1,13 @@
 package Szakdolgozat.web.controller;
 
 import Szakdolgozat.service.SparePartsService;
+import Szakdolgozat.web.dto.SparePartsDto;
 import Szakdolgozat.web.model.CreateSparePartsRequest;
 import Szakdolgozat.entities.SparePartsEntity;
 import Szakdolgozat.repository.SparePartsRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class SparePartsController {
 
     private final SparePartsRepository sparePartsRepository;
-
     private final SparePartsService sparePartsService;
 
     @CrossOrigin(origins = "http://localhost:4200/")
@@ -24,8 +26,16 @@ public class SparePartsController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
-    public SparePartsEntity addSpareParts(@RequestBody CreateSparePartsRequest createSparePartsRequest) throws Exception {
-        return sparePartsService.addSparePart(createSparePartsRequest);
+    public ResponseEntity<SparePartsDto> addSpareParts(@RequestBody CreateSparePartsRequest createSparePartsRequest) throws Exception {
+        SparePartsEntity x = sparePartsService.addSparePart(createSparePartsRequest);
+        SparePartsDto sparePartsDto = SparePartsDto.builder()
+                .id(x.getId())
+                .partName(x.getPartName())
+                .partNumber(x.getPartNumber())
+                .nettoBuyingPrice(x.getNettoBuyingPrice())
+                .nettoSellingPrice(x.getNettoSellingPrice())
+                .build();
+        return ResponseEntity.ok(sparePartsDto);
     }
 
 

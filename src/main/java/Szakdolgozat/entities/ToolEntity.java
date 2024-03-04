@@ -44,6 +44,7 @@ public class ToolEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tool_defect",
         joinColumns = @JoinColumn(name = "tool_id"),

@@ -27,7 +27,7 @@ public class SparePartsService {
         String partNumber = createSparePartsRequest.getPartNumber();
         Optional<SparePartsEntity> maybeSparePart = sparePartsRepository.findByPartNumber(partNumber);
         if(maybeSparePart.isPresent()) {
-            throw new Exception(String.format("This item number is already exists", partNumber));
+            throw new Exception(String.format("Ez a cikkszám már létezik: %s", partNumber));
         }
         SparePartsEntity spareParts = sparePartsMapper.map(createSparePartsRequest);
         return sparePartsRepository.save(spareParts);
@@ -35,7 +35,7 @@ public class SparePartsService {
 
     public void deleteSparePart(String partNumber){
         if(sparePartsRepository.findByPartNumber(partNumber).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("Spare part not found with number: %s", partNumber));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("Nem találom ezt a cikkszámú alkatrészt: %s", partNumber));
         }else{
             sparePartsRepository.deleteByPartNumber(partNumber);
         }

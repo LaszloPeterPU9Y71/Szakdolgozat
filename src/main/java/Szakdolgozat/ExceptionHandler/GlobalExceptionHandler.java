@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(ValidationException.class)
+/*   @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Object> handleException(ValidationException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
 
@@ -27,18 +27,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .badRequest()
                 .body("Az adatok kitöltése hiányos");
-    }
+    }*/
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception ex) {
         return ResponseEntity
                 .badRequest()
                 .body(ex.getMessage());
-    }
+    }/*
     @ExceptionHandler(Error.class)
     public ResponseEntity<?> handleError(Error error){
         return ResponseEntity
                 .badRequest()
                 .body("Nem várt hiba történt, kérem frissítse az oldalt!");
     }
-
+*/
 }

@@ -1,6 +1,7 @@
 package Szakdolgozat.web.controller;
 
 import Szakdolgozat.entities.CompanyEntity;
+import Szakdolgozat.entities.DefectEntity;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.service.CompanyService;
 import Szakdolgozat.web.dto.CompanyDto;
@@ -29,19 +30,8 @@ public class CompanyController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
-    public ResponseEntity<List<CompanyDto>> getAllCompanies() {
-        List<CompanyDto> dtos = new ArrayList<>();
-
-        // Fetch entities from repository and convert to DTOs
-        Iterable<CompanyEntity> companies = companyRepository.findAll();
-        for (CompanyEntity company : companies) {
-            dtos.add(new CompanyDto()); // Assuming CompanyDto constructor takes CompanyEntity
-        }
-
-        if (dtos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    public @ResponseBody Iterable<CompanyEntity> findAllCompany() {
+        return companyRepository.findAll();
     }
 
 
