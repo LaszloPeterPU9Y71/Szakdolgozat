@@ -39,7 +39,7 @@ public class UserEntity {
     private String title;
 
     @Column(name = "user_status", nullable = false)
-    private boolean status;
+    private Boolean status;
 
 
     @ManyToOne(optional = false)

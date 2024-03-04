@@ -34,14 +34,12 @@ public class OwnerCompanyEmployeeEntity {
     private String title;
 
     @Column(name = "owner_company_employee_status", nullable = false)
-    private boolean status;
+    private Boolean status;
 
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner_company_employee",
             foreignKey = @ForeignKey(name = "FK_Owner_company_employee"))
     private OwnerCompanyEntity ownerCompanyEntity;
-
-
 
 }

@@ -6,7 +6,6 @@ import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.UserRepository;
 import Szakdolgozat.service.mapper.UserMapper;
 import Szakdolgozat.web.model.CreateUserRequest;
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

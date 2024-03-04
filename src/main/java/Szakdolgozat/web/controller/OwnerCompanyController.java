@@ -4,6 +4,7 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.OwnerCompanyService;
+import Szakdolgozat.web.dto.OwnerCompanyDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,19 @@ public class OwnerCompanyController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
-    public OwnerCompanyEntity addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest){
-        return ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
+    public ResponseEntity<OwnerCompanyDto> addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest){
+        var x = ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
+        OwnerCompanyDto ownerCompanyDto = OwnerCompanyDto.builder()
+                .companyName(x.getCompanyName())
+                .town(x.getTown())
+                .accountNumber(x.getAccountNumber())
+                .street(x.getStreet())
+                .status(x.getStatus())
+                .id(x.getId())
+                .postalCode(x.getPostalCode())
+                .taxNumber(x.getTaxNumber())
+                .build();
+        return ResponseEntity.ok(ownerCompanyDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")

@@ -1,23 +1,23 @@
 package Szakdolgozat.web.dto;
 
 
-import Szakdolgozat.entities.CompanyEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 
-public class CompanyDto {
-
+public class OwnerCompanyDto {
     private long id;
-    private String name;
+    private String companyName;
     private int postalCode;
     private String town;
     private String street;
     private String taxNumber;
+    private String accountNumber;
     private Boolean status;
-
 }

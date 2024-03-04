@@ -3,8 +3,10 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.DefectEntity;
 import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.service.DefectService;
+import Szakdolgozat.web.dto.DefectDto;
 import Szakdolgozat.web.model.CreateDefectRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,13 @@ public class DefectController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
-    public DefectEntity createDefect(@RequestBody CreateDefectRequest createDefectRequest) throws Exception {
-        return defectService.addDefect(createDefectRequest);
+    public ResponseEntity<DefectDto> createDefect(@RequestBody CreateDefectRequest createDefectRequest) throws Exception {
+        var x = defectService.addDefect(createDefectRequest);
+        DefectDto defectDto = DefectDto.builder()
+                .id(x.getId())
+                .name(x.getName())
+                .build();
+        return ResponseEntity.ok(defectDto);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")

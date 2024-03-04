@@ -33,7 +33,6 @@ public class OwnerCompanyEmployeeService {
 
         OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
         employee.setStatus(true);
-        employee.setOwnerCompanyEntity(ownerCompanyRepository.findByCompanyNameContaining(createOwnerCompanyEmployeeRequest.getCompanyName()));
         return ownerCompanyEmployeeRepository.save(employee);
 
     }

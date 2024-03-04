@@ -1,24 +1,21 @@
 package Szakdolgozat.web.dto;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
-@Getter
-@Setter
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
 
-
+public class OwnerCompanyEmployeeDto {
     private long id;
     private String name;
-    private int telNum;
+    private String telNum;
     private String email;
-    private String password;
     private String title;
     private Boolean status;
-
-
 }

@@ -15,9 +15,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleException(ValidationException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
 
-        /*return ResponseEntity
-                .badRequest()
-                .body(ex.getMessage());*/
     }
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<?> handleException(ResponseStatusException ex){

@@ -3,6 +3,7 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.service.OwnerCompanyEmployeeService;
+import Szakdolgozat.web.dto.OwnerCompanyEmployeeDto;
 import Szakdolgozat.web.dto.ResponseDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import jakarta.transaction.Transactional;
@@ -27,11 +28,18 @@ public class OwnerCompanyEmployeeController {
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addEmployee")
-    public ResponseDto<OwnerCompanyEmployeeEntity> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest, BindingResult bindingResult) throws Exception {
-        if(bindingResult.hasErrors()){
-            return new ResponseDto<>(bindingResult.getAllErrors().stream().map(ObjectError::toString).collect(Collectors.toSet()));
-        }
-        return new ResponseDto<>(ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest));
+    public ResponseEntity<OwnerCompanyEmployeeDto> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception {
+
+        var x = ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
+        OwnerCompanyEmployeeDto ownerCompanyEmployeeDto = OwnerCompanyEmployeeDto.builder()
+                .email(x.getEmail())
+                .id(x.getId())
+                .status(x.getStatus())
+                .title(x.getTitle())
+                .telNum(x.getTelNum())
+                .name(x.getName())
+                 .build();
+        return ResponseEntity.ok(ownerCompanyEmployeeDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findall")

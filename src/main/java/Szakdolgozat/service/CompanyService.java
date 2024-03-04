@@ -3,11 +3,14 @@ package Szakdolgozat.service;
 import Szakdolgozat.entities.CompanyEntity;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.service.mapper.CompanyMapper;
+import Szakdolgozat.web.dto.CompanyDto;
 import Szakdolgozat.web.model.CreateCompanyRequest;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
@@ -29,5 +32,11 @@ public class CompanyService {
 
         return companyRepository.save(company);
     }
+    public Iterable<CompanyEntity> findAllCompany(){
+        return companyRepository.findAll();
+    }
+
+
+
 
 }

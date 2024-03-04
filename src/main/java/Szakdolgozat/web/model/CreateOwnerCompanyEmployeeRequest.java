@@ -1,6 +1,5 @@
 package Szakdolgozat.web.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -30,12 +29,6 @@ public class CreateOwnerCompanyEmployeeRequest {
 
         @NotBlank(message = "A mező kitöltése kötelező")
         private boolean status;
-
-        @JsonProperty(value = "companyName")
-        private String companyName;
-
-
-
 
 
 }
