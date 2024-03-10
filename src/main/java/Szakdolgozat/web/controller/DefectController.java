@@ -27,12 +27,7 @@ public class DefectController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public ResponseEntity<DefectDto> createDefect(@RequestBody CreateDefectRequest createDefectRequest) throws Exception {
-        var x = defectService.addDefect(createDefectRequest);
-        DefectDto defectDto = DefectDto.builder()
-                .id(x.getId())
-                .name(x.getName())
-                .description(x.getDescrition())
-                .build();
+        DefectDto defectDto = defectService.addDefect(createDefectRequest);
         return ResponseEntity.ok(defectDto);
     }
 

@@ -26,6 +26,6 @@ public class DefectEntity {
     private String name;
 
     @Column(name = "defect_description", nullable = true)
-    private String descrition;
+    private String description;
 
 }

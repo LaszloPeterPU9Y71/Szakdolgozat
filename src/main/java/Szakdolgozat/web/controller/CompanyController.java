@@ -32,17 +32,7 @@ public class CompanyController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
     public ResponseEntity<CompanyDto> createUser(@RequestBody CreateCompanyRequest createCompanyRequest) throws Exception {
-
-        var x =  companyService.addCompany(createCompanyRequest);
-        CompanyDto companyDto = CompanyDto.builder()
-                .id(x.getId())
-                .status(x.getStatus())
-                .street(x.getStreet())
-                .town(x.getTown())
-                .taxNumber(x.getTaxNumber())
-                .postalCode(x.getPostalCode())
-                .name(x.getName())
-                .build();
+        CompanyDto companyDto = companyService.addCompany(createCompanyRequest);
         return ResponseEntity.ok(companyDto);
     }
 
