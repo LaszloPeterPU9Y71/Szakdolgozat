@@ -16,7 +16,6 @@ public class UserDto {
     private String name;
     private String telNum;
     private String email;
-    private String password;
     private String title;
     private Boolean status;
 

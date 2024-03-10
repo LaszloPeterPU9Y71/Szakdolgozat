@@ -23,7 +23,7 @@ public class OwnerCompanyService {
         Optional<OwnerCompanyEntity> maybeCompany = ownerCompanyRepository.findByTaxNumber(taxNumber);
 
         if (maybeCompany.isPresent()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("The company with tax number: %s is already exists", taxNumber ));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("A cég a következő adószámmal már létezik: %s !", taxNumber ));
         }
 
             OwnerCompanyEntity ownerCompany = OwnerCompanyMapper.map(createOwnerCompanyRequest);
@@ -55,7 +55,7 @@ public class OwnerCompanyService {
 
     public void deleteOwnerCompany(String taxNumber) {
         if(!ownerCompanyRepository.existsByTaxNumber(taxNumber)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Company with tax number: %s not found", taxNumber));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("A következő adószámú céget nem találom: %s !", taxNumber));
 
         }else{
             ownerCompanyRepository.deleteByTaxNumber(taxNumber);

@@ -30,7 +30,7 @@ public class OwnerCompanyEmployeeController {
     @PostMapping("/addEmployee")
     public ResponseEntity<OwnerCompanyEmployeeDto> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception {
 
-        var x = ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
+        OwnerCompanyEmployeeEntity x = ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
         OwnerCompanyEmployeeDto ownerCompanyEmployeeDto = OwnerCompanyEmployeeDto.builder()
                 .email(x.getEmail())
                 .id(x.getId())

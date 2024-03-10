@@ -1,10 +1,11 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.entities.UserEntity;
-import Szakdolgozat.exeption.Exceptions;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.UserRepository;
+import Szakdolgozat.service.mapper.UserMapStructDto;
 import Szakdolgozat.service.mapper.UserMapper;
+import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,25 +23,27 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final CompanyRepository companyRepository;
+    private final UserMapStructDto userMapStructDto;
 
 
 
 
 
-    public UserEntity addUser(CreateUserRequest createUserRequest) throws Exceptions {
+    public UserDto addUser(CreateUserRequest createUserRequest) throws Exception {
         String email = createUserRequest.getEmail();
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
 
         if (maybeEmail.isPresent()) {
 
-            throw new Exceptions(String.format("Ez az e-mail cím már használatban van: '%s'", email));
+            throw new Exception(String.format("Ez az e-mail cím már használatban van: '%s'", email));
         }
 
         UserEntity user = userMapper.map(createUserRequest);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setStatus(true);
         user.setCompanyEntity(companyRepository.findById(1));
-        return userRepository.save(user);
+        UserEntity userEntity = userRepository.save(user);
+        return userMapStructDto.fromEntityToDto(userEntity);
     }
 
 

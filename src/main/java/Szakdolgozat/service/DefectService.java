@@ -1,29 +1,31 @@
 package Szakdolgozat.service;
-import Szakdolgozat.exeption.Exceptions;
 
+import Szakdolgozat.entities.DefectEntity;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.AlreadyCreatedException;
+import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.service.mapper.DefectMapper;
 import Szakdolgozat.web.model.CreateDefectRequest;
-import Szakdolgozat.entities.DefectEntity;
-import Szakdolgozat.repository.DefectRepository;
-import jakarta.validation.ValidationException;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
+
+
 public class DefectService {
+
     private final DefectRepository defectRepository;
     private final DefectMapper defectMapper;
 
-
-
-    public DefectEntity addDefect(CreateDefectRequest createDefectRequest) throws Exception {
+    public DefectEntity addDefect(CreateDefectRequest createDefectRequest) throws AlreadyCreatedException {
         String name = createDefectRequest.getName();
         Optional<DefectEntity> mayBeName = defectRepository.findByName(name);
+
         if (mayBeName.isPresent()) {
-            throw new Exceptions(String.format("A hiba megnevezése már létezik: '%s'", name));
+            throw new AlreadyCreatedException(String.format("A hiba megnevezése már létezik: '%s'", name));
         }
         DefectEntity defect = defectMapper.map(createDefectRequest);
 

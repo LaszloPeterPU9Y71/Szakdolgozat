@@ -3,6 +3,7 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.UserEntity;
 import Szakdolgozat.repository.UserRepository;
 import Szakdolgozat.service.UserService;
+import Szakdolgozat.service.mapper.UserMapStructDto;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +19,11 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final UserService userService;
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
-        UserEntity x = userService.addUser(createUserRequest);
-        UserDto userDto = UserDto.builder()
-                .email(x.getEmail())
-                .status(x.getStatus())
-                .title(x.getTitle())
-                .telNum(x.getTelNum())
-                .name(x.getName())
-                .password(x.getPassword())
-                .id(x.getId())
-                .build();
+        UserDto userDto = userService.addUser(createUserRequest);
         return ResponseEntity.ok(userDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")

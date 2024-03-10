@@ -5,6 +5,7 @@ import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.service.DefectService;
 import Szakdolgozat.web.dto.DefectDto;
 import Szakdolgozat.web.model.CreateDefectRequest;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
