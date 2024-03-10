@@ -10,6 +10,7 @@ import Szakdolgozat.web.model.CreateCompanyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
@@ -32,8 +33,16 @@ public class CompanyService {
         CompanyEntity companyEntity = companyRepository.save(company);
         return companyMapStructDto.fromEntityToDto(companyEntity);
     }
-    public Iterable<CompanyEntity> findAllCompany(){
-        return companyRepository.findAll();
+    public List<CompanyDto> findAllCompanies(){
+        Iterable<CompanyEntity> companyEntities = companyRepository.findAll();
+        return companyMapStructDto.fromEntityToDtoList(companyEntities);
+
+    }
+
+    public List<CompanyDto> findAllCompaniesByName(String name){
+        Iterable<CompanyEntity> companyEntities = companyRepository.findByNameContainingIgnoreCase(name);
+        return companyMapStructDto.fromEntityToDtoList(companyEntities);
+
     }
 
 

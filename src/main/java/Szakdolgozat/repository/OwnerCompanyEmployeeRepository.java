@@ -9,8 +9,7 @@ import java.util.Set;
 public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerCompanyEmployeeEntity, Long> {
 
 
-    Set<OwnerCompanyEmployeeEntity> findByOwnerCompanyEntityIdAndNameContainingIgnoreCase(Long Id, String name);
-    Set<OwnerCompanyEmployeeEntity> findByNameContainingIgnoreCase(String name);
+    Iterable<OwnerCompanyEmployeeEntity> findByNameContainingIgnoreCase(String name);
 
     Optional<OwnerCompanyEmployeeEntity> findByEmail(String email);
 

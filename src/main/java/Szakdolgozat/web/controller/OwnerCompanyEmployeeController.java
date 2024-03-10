@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,13 +35,15 @@ public class OwnerCompanyEmployeeController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findall")
-    public Iterable<OwnerCompanyEmployeeEntity> findAllEmployee(){
-        return ownerCompanyEmployeeRepository.findAll();
+    public ResponseEntity<List<OwnerCompanyEmployeeDto>> findAllOwnerCompany(){
+        List<OwnerCompanyEmployeeDto> ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findAllOwnerCompany();
+        return ResponseEntity.ok(ownerCompanyEmployeeDtos);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findemployee/{employeename}")
-    public ResponseEntity<Set<OwnerCompanyEmployeeEntity>> findEmployeeByName(@PathVariable (value = "employeename") String name) {
-        return new ResponseEntity<>(ownerCompanyEmployeeRepository.findByNameContainingIgnoreCase(name), HttpStatus.OK);
+    public ResponseEntity<List<OwnerCompanyEmployeeDto>> findEmployeeByName(@PathVariable (value = "employeename") String name) {
+        List<OwnerCompanyEmployeeDto> ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findOwnerCompanyByName(name);
+        return ResponseEntity.ok(ownerCompanyEmployeeDtos);
     }
 }

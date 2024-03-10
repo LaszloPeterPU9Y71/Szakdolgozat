@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,16 @@ public class OwnerCompanyEmployeeService {
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.save(employee);
         return ownerCompanyEmployeeMapStructDto.fromEntityToDto(ownerCompanyEmployeeEntity);
 
+    }
+
+    public List<OwnerCompanyEmployeeDto> findAllOwnerCompany(){
+        Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities = ownerCompanyEmployeeRepository.findAll();
+        return ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities);
+    }
+
+    public List<OwnerCompanyEmployeeDto> findOwnerCompanyByName(String name){
+        Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities = ownerCompanyEmployeeRepository.findByNameContainingIgnoreCase(name);
+        return ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities);
     }
 
 

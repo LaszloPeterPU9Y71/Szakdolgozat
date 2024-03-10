@@ -10,6 +10,7 @@ import Szakdolgozat.web.model.CreateDefectRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,5 +33,15 @@ public class DefectService {
         DefectEntity defect = defectMapper.map(createDefectRequest);
         DefectEntity defectEntity = defectRepository.save(defect);
         return defectMapStructDto.fromEntitytoDto(defectEntity);
+    }
+
+    public List<DefectDto> findAllDefects(){
+        Iterable<DefectEntity> defectEntities = defectRepository.findAll();
+        return defectMapStructDto.fromEntitytoDtoList(defectEntities);
+    }
+
+    public List<DefectDto> findDefectsByName(String name){
+        Iterable<DefectEntity> defectEntities = defectRepository.findByNameContainingIgnoreCase(name);
+        return defectMapStructDto.fromEntitytoDtoList(defectEntities);
     }
 }

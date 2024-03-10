@@ -8,10 +8,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         componentModel = "spring" )
 public interface OwnerCompanyEmployeeMapStructDto {
     OwnerCompanyEmployeeDto fromEntityToDto(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity);
+
+    List<OwnerCompanyEmployeeDto> fromEntityToDtoList(Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities);
 }

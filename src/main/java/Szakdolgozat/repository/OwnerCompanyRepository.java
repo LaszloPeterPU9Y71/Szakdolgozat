@@ -10,7 +10,7 @@ public interface OwnerCompanyRepository extends CrudRepository<OwnerCompanyEntit
 
     List<OwnerCompanyEntity> findByCompanyNameContainingIgnoreCase(String name);
 
-    OwnerCompanyEntity findByCompanyNameContaining(String name);
+    OwnerCompanyEntity findByTaxNumberContaining(String taxNumber);
 
     Optional<OwnerCompanyEntity> findByTaxNumber(String taxNumber);
 

@@ -11,7 +11,7 @@ public interface CompanyRepository extends CrudRepository<CompanyEntity, Long> {
 
     Optional<CompanyEntity> findByTaxNumber(String taxNumber);
 
-    Iterable<CompanyEntity> findByName(String company);
+    Iterable<CompanyEntity> findByNameContainingIgnoreCase(String company);
 
     CompanyEntity findById(long id);
 

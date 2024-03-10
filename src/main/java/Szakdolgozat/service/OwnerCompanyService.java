@@ -1,8 +1,10 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.AlreadyRegisteredException;
+import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyMapStructDto;
 import Szakdolgozat.web.dto.OwnerCompanyDto;
+import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyRequest;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.repository.OwnerCompanyRepository;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +25,20 @@ public class OwnerCompanyService {
     private final OwnerCompanyRepository ownerCompanyRepository;
     private final OwnerCompanyMapStructDto ownerCompanyMapStructDto;
 
+    public List<OwnerCompanyDto> findAllOwnerCompany(){
+        Iterable<OwnerCompanyEntity> ownerCompanyEntities = ownerCompanyRepository.findAll();
+        return ownerCompanyMapStructDto.fromEntityToDtoList(ownerCompanyEntities);
+    }
+
+    public List<OwnerCompanyDto> findByOwnerCompanyName(String name){
+        List<OwnerCompanyEntity> ownerCompanyEntities = ownerCompanyRepository.findByCompanyNameContainingIgnoreCase(name);
+        return ownerCompanyMapStructDto.fromEntityToDtoList(ownerCompanyEntities);
+    }
+
+    public OwnerCompanyDto findByOwnerCompanyTaxNumber(String taxNumber){
+       OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findByTaxNumberContaining(taxNumber);
+        return ownerCompanyMapStructDto.fromEntityToDto(ownerCompanyEntity);
+    }
 
 
     public OwnerCompanyDto addOwnerCompany(CreateOwnerCompanyRequest createOwnerCompanyRequest)throws  Exception{

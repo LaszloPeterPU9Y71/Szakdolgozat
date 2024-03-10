@@ -33,13 +33,16 @@ public class DefectController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
-    public @ResponseBody Iterable<DefectEntity> findAllDefects() {
-        return defectRepository.findAll();
+    public ResponseEntity<List<DefectDto>> findAllDefects(){
+        List<DefectDto> defectDtos = defectService.findAllDefects();
+        return ResponseEntity.ok(defectDtos);
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/name/{defectName}")
-    public ResponseEntity<List<DefectEntity>> findDefectByName(@PathVariable(value = "defectName") String name) {
-        return new ResponseEntity<>(defectRepository.findByNameContainingIgnoreCase(name), HttpStatus.OK);
+    public ResponseEntity<List<DefectDto>> findDefectsByName(@PathVariable(value = "defectName") String name) {
+        List<DefectDto> defectDtos = defectService.findDefectsByName(name);
+        return ResponseEntity.ok(defectDtos);
     }
 }

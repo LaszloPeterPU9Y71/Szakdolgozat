@@ -1,14 +1,16 @@
 package Szakdolgozat.web.controller;
 
-import Szakdolgozat.entities.CompanyEntity;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.service.CompanyService;
+import Szakdolgozat.service.mapper.entityToDto.CompanyMapStructDto;
 import Szakdolgozat.web.dto.CompanyDto;
 import Szakdolgozat.web.model.CreateCompanyRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -18,23 +20,34 @@ import org.springframework.web.bind.annotation.*;
 
 public class CompanyController {
 
-    private final CompanyRepository companyRepository;
+
     private final CompanyService companyService;
 
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
-    public @ResponseBody Iterable<CompanyEntity> findAllComapny() {
-        return companyRepository.findAll();
-    }
+    public ResponseEntity<List<CompanyDto>> findAllCompanies(){
+            List<CompanyDto> companyDtos = companyService.findAllCompanies();
+            return ResponseEntity.ok(companyDtos);
 
+    }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
-    public ResponseEntity<CompanyDto> createUser(@RequestBody CreateCompanyRequest createCompanyRequest) throws Exception {
+    public ResponseEntity<CompanyDto> addCompany(@RequestBody CreateCompanyRequest createCompanyRequest) throws Exception {
         CompanyDto companyDto = companyService.addCompany(createCompanyRequest);
         return ResponseEntity.ok(companyDto);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/findCompaniesByName/{companyName}")
+    public ResponseEntity<List<CompanyDto>> findAllCompaniesByName(@PathVariable (value="companyName") String name){
+        List<CompanyDto> companyDtos = companyService.findAllCompaniesByName(name);
+        return ResponseEntity.ok(companyDtos);
+
+    }
+
+
 
 
 }
