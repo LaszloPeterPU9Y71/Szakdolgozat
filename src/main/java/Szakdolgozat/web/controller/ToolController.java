@@ -64,25 +64,28 @@ public class ToolController {
         List<ToolDto> toolDtos = toolService.findBySerialNumber(serialNumber);
         return ResponseEntity.ok(toolDtos);
     }
+
+
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update/{id}")
     public String updateToolData(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolData(id, createToolRequest);
-        return "Tool data updated!";
+        return "A gép adatai frissültek!";
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{id}")
     public String deleteTool(@PathVariable("id") long id) {
         toolService.deleteTool(id);
-        return "The tool with id: " + id + " has been deleted";
+        return "A : " + id + " azonosítójú gép törlése sikeres.";
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/updateStatus={id}")
     public String updateToolStatus(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolStatus(id, createToolRequest);
-        return "Tool Status updated!";
+        return "A gép státusza megváltozott!";
     }
 
 

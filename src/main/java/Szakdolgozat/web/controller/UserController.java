@@ -1,7 +1,5 @@
 package Szakdolgozat.web.controller;
 
-import Szakdolgozat.entities.UserEntity;
-import Szakdolgozat.repository.UserRepository;
 import Szakdolgozat.service.UserService;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class UserController {
 
-    private final UserRepository userRepository;
+
     private final UserService userService;
 
     @CrossOrigin(origins = "http://localhost:4200/")
@@ -38,21 +36,21 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public String softDelete(@PathVariable("id") long id) {
         userService.softDelete(id);
-        return "The user with id: " + id + " has been deleted";
+        return "A: " + id + " azonosítójú felhasználót törlésre került";
     }
 
     @PutMapping("/update/{id}")
     public String updateUserData(@PathVariable("id") long id,
                                @RequestBody CreateUserRequest createUserRequest) {
             userService.updateUserPersonalData(id, createUserRequest);
-        return "User data updated!";
+        return "A felhasználó adatai frissültek!";
     }
 
     @PutMapping("/pw/{id}")
     public String updateUserPassword(@PathVariable("id") long id,
                                     @RequestBody CreateUserRequest createUserRequest) {
         userService.updateUserPassword(id, createUserRequest);
-        return "User password updated";
+        return "A felhasználó jelszava frissült";
     }
 }
 

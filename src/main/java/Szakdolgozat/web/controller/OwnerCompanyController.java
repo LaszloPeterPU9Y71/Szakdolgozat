@@ -30,13 +30,12 @@ public class OwnerCompanyController {
         OwnerCompanyDto ownerCompanyDto = ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
         return ResponseEntity.ok(ownerCompanyDto);
     }
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
     public @ResponseBody Iterable<OwnerCompanyEntity> findAllOwnerCompany() {
         return ownerCompanyRepository.findAll();
     }
-
-
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{taxNumber}")
@@ -44,11 +43,13 @@ public class OwnerCompanyController {
         ownerCompanyService.deleteOwnerCompany(taxNumber);
         return "Owner company with tax number: " + taxNumber + " has been deleted";
     }
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findbyname/{ownerCompanyName}")
     public ResponseEntity<List<OwnerCompanyEntity>> findOwnerCompanyByName(@PathVariable("ownerCompanyName") String ownerCompanyName){
         return new ResponseEntity<>( ownerCompanyRepository.findByCompanyNameContainingIgnoreCase(ownerCompanyName), HttpStatus.OK);
     }
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/findbytaxnumber/{taxNumber}")
     public ResponseEntity<Optional<OwnerCompanyEntity>> findOwnerCompanyByTaxNumber(@PathVariable("taxNumber") String taxNumber){

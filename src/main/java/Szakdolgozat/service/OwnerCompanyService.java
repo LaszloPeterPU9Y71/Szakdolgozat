@@ -22,6 +22,8 @@ public class OwnerCompanyService {
     private final OwnerCompanyRepository ownerCompanyRepository;
     private final OwnerCompanyMapStructDto ownerCompanyMapStructDto;
 
+
+
     public OwnerCompanyDto addOwnerCompany(CreateOwnerCompanyRequest createOwnerCompanyRequest)throws  Exception{
         String taxNumber = createOwnerCompanyRequest.getTaxNumber();
         Optional<OwnerCompanyEntity> maybeCompany = ownerCompanyRepository.findByTaxNumber(taxNumber);

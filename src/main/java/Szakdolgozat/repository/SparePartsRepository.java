@@ -7,8 +7,11 @@ import java.util.Optional;
 
 public interface SparePartsRepository extends CrudRepository<SparePartsEntity, Long> {
 
-    Optional<SparePartsEntity> findByPartNumber(String SpareParts);
+    Optional<SparePartsEntity> findByPartNumberContainingIgnoreCase(String number);
 
+    Iterable<SparePartsEntity> findByPartNameIsContainingIgnoreCase(String name);
+
+    Iterable<SparePartsEntity> findByPartNumberContaining(String number);
     void deleteByPartNumber(String partNumber);
 
 

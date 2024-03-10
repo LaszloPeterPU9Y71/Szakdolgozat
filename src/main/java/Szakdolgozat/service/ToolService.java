@@ -96,7 +96,7 @@ public class ToolService {
 
     public void deleteTool(long id) {
         if (!toolRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Tool not found with id: %s", id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
         } else {
             toolRepository.deleteById(id);
         }
@@ -107,9 +107,9 @@ public class ToolService {
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
         if(maybeToolEntity.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Tool not found with id %s", id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
         } else if(maybeToolSerialNumber.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Tool not found with serial number %s", createToolRequest.getSerialNumber()));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
         }
         toolRepository.save(updateToolStatus(maybeToolEntity.get(), createToolRequest));
     }
