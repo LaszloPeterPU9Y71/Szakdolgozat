@@ -31,6 +31,36 @@ public class ToolService {
 
 
 
+    public List<ToolDto> findAllTools(){
+        Iterable<ToolEntity> toolEntities = toolRepository.findAll();
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
+    public List<ToolDto> findByStatus(String status){
+        List<ToolEntity> toolEntities = toolRepository.findByStatusContainingIgnoreCase(status);
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
+    public List<ToolDto> findByName(String name){
+        List<ToolEntity> toolEntities = toolRepository.findByNameContainingIgnoreCase(name);
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
+    public List<ToolDto> findByItemNumber(String itemNumber){
+        List<ToolEntity> toolEntities = toolRepository.findByItemNumberContainingIgnoreCase(itemNumber);
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
+    public List<ToolDto> findByTypeNumber(String typeNumber){
+        List<ToolEntity> toolEntities = toolRepository.findByTypeNumberContainingIgnoreCase(typeNumber);
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
+    public List<ToolDto> findBySerialNumber(String serialNumber){
+        List<ToolEntity> toolEntities = toolRepository.findBySerialNumberContainingIgnoreCase(serialNumber);
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
     public ToolDto addTool(CreateToolRequest createToolRequest) throws Exception {
         ToolEntity tool = toolMapper.map(createToolRequest);
 
@@ -47,9 +77,9 @@ public class ToolService {
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
         if(maybeToolEntity.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User not found with id %s", id));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval:  %s", id));
         } else if(maybeToolSerialNumber.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User not found with serial number %s", createToolRequest.getSerialNumber()));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
         }
         toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
     }

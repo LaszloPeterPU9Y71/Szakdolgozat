@@ -28,35 +28,41 @@ public class ToolController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
-    public Iterable<ToolEntity> findAllTools(){
-        return toolRepository.findAll();
+    public ResponseEntity<List<ToolDto>> findAllTools(){
+        List<ToolDto> toolDtos = toolService.findAllTools();
+        return ResponseEntity.ok(toolDtos);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/status={status}")
-    public ResponseEntity<List<ToolEntity>> findByStatus(@PathVariable ("status") String status){
-        return new ResponseEntity<>(toolRepository.findByStatusContainingIgnoreCase(status), HttpStatus.OK);
+    public ResponseEntity<List<ToolDto>> findByStatus(@PathVariable ("status") String status){
+        List<ToolDto> toolDtos = toolService.findByStatus(status);
+        return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/name={toolName}")
-    public ResponseEntity<List<ToolEntity>> findToolByName(@PathVariable (value = "toolName") String name){
-        return new ResponseEntity<>(toolRepository.findByNameContainingIgnoreCase(name), HttpStatus.OK);
+    public ResponseEntity<List<ToolDto>> findToolByName(@PathVariable (value = "toolName") String name){
+        List<ToolDto> toolDtos = toolService.findByName(name);
+        return ResponseEntity.ok(toolDtos);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/item={itemNumber}")
-    public ResponseEntity<List<ToolEntity>> findToolItemNumber(@PathVariable (value = "itemNumber") String itemNumber){
-        return new ResponseEntity<>(toolRepository.findByItemNumberContainingIgnoreCase(itemNumber), HttpStatus.OK);
+    public ResponseEntity<List<ToolDto>> findToolByItemNumber(@PathVariable (value = "itemNumber") String itemNumber){
+        List<ToolDto> toolDtos = toolService.findByItemNumber(itemNumber);
+        return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/type={typeNumber}")
-    public ResponseEntity<List<ToolEntity>> findToolByItemNumber(@PathVariable ("typeNumber") String typeNumber){
-        return new ResponseEntity<>(toolRepository.findByTypeNumberContainingIgnoreCase(typeNumber), HttpStatus.OK);
+    public ResponseEntity<List<ToolDto>> findToolByTypeNumber(@PathVariable ("typeNumber") String typeNumber){
+        List<ToolDto> toolDtos = toolService.findByTypeNumber(typeNumber);
+        return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/serial={serialNumber}")
-    public ResponseEntity<List<ToolEntity>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
-        return new ResponseEntity<>(toolRepository.findBySerialNumberContainingIgnoreCase(serialNumber), HttpStatus.OK);
+    public ResponseEntity<List<ToolDto>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
+        List<ToolDto> toolDtos = toolService.findBySerialNumber(serialNumber);
+        return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update/{id}")

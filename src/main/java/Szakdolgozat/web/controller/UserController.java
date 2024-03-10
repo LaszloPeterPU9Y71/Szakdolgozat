@@ -29,7 +29,7 @@ public class UserController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
-    public @ResponseBody ResponseEntity<List<UserDto>> findAllUsers(){
+    public ResponseEntity<List<UserDto>> findAllUsers(){
         List<UserDto> userDto = userService.findAllUsers();
         return ResponseEntity.ok(userDto);
     }
