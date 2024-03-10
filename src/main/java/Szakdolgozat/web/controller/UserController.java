@@ -3,12 +3,13 @@ package Szakdolgozat.web.controller;
 import Szakdolgozat.entities.UserEntity;
 import Szakdolgozat.repository.UserRepository;
 import Szakdolgozat.service.UserService;
-import Szakdolgozat.service.mapper.UserMapStructDto;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -28,14 +29,12 @@ public class UserController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/all")
-    public @ResponseBody Iterable<UserEntity> findAllUsers(){
-        return userRepository.findAll();
+    public @ResponseBody ResponseEntity<List<UserDto>> findAllUsers(){
+        List<UserDto> userDto = userService.findAllUsers();
+        return ResponseEntity.ok(userDto);
     }
 
-
-
-
-
+    
     @DeleteMapping("/delete/{id}")
     public String softDelete(@PathVariable("id") long id) {
         userService.softDelete(id);

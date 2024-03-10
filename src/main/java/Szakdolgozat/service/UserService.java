@@ -3,8 +3,8 @@ package Szakdolgozat.service;
 import Szakdolgozat.entities.UserEntity;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.UserRepository;
-import Szakdolgozat.service.mapper.UserMapStructDto;
 import Szakdolgozat.service.mapper.UserMapper;
+import Szakdolgozat.service.mapper.entityToDto.UserMapStructDto;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,12 @@ public class UserService {
 
 
 
+    public List<UserDto> findAllUsers(){
+        Iterable<UserEntity> userEntities =  userRepository.findAll();
+        return userMapStructDto.fromEntitytoDtoList(userEntities);
 
+
+    }
 
     public UserDto addUser(CreateUserRequest createUserRequest) throws Exception {
         String email = createUserRequest.getEmail();

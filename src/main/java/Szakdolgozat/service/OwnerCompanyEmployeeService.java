@@ -1,6 +1,11 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
+import Szakdolgozat.entities.OwnerCompanyEntity;
+import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyEmployeeMapStructDto;
+import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyMapStructDto;
+import Szakdolgozat.web.dto.OwnerCompanyDto;
+import Szakdolgozat.web.dto.OwnerCompanyEmployeeDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.OwnerCompanyRepository;
@@ -20,10 +25,11 @@ public class OwnerCompanyEmployeeService {
 
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final OwnerCompanyEmployeeMapper ownerCompanyEmployeeMapper;
-    private final OwnerCompanyRepository ownerCompanyRepository;
+    private final OwnerCompanyEmployeeMapStructDto ownerCompanyEmployeeMapStructDto;
 
 
-    public OwnerCompanyEmployeeEntity addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception{
+
+    public OwnerCompanyEmployeeDto addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception{
         String email = createOwnerCompanyEmployeeRequest.getEmail();
         Optional<OwnerCompanyEmployeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
@@ -33,7 +39,8 @@ public class OwnerCompanyEmployeeService {
 
         OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
         employee.setStatus(true);
-        return ownerCompanyEmployeeRepository.save(employee);
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.save(employee);
+        return ownerCompanyEmployeeMapStructDto.fromEntityToDto(ownerCompanyEmployeeEntity);
 
     }
 

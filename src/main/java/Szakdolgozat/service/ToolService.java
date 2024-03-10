@@ -1,6 +1,8 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.service.mapper.ToolMapper;
+import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
+import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.DefectRepository;
@@ -25,17 +27,19 @@ public class ToolService {
     private final ToolMapper toolMapper;
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final DefectRepository defectRepository;
+    private final ToolMapStructDto toolMapStructDto;
 
 
 
-    public ToolEntity addTool(CreateToolRequest createToolRequest) throws Exception {
+    public ToolDto addTool(CreateToolRequest createToolRequest) throws Exception {
         ToolEntity tool = toolMapper.map(createToolRequest);
 
         tool.setDateOfReceiving(LocalDateTime.now());
         tool.setStatus("Beérkezett");
         tool.setOwnerCompanyEmployeeEntity(ownerCompanyEmployeeRepository.findById(createToolRequest.getOwnerCompanyEmployeeId()));
         tool.setDefects(defectRepository.findById(createToolRequest.getDefectsId()));
-        return toolRepository.save(tool);
+        ToolEntity toolEntity = toolRepository.save(tool);
+        return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
     public void updateToolData(long id, CreateToolRequest createToolRequest){

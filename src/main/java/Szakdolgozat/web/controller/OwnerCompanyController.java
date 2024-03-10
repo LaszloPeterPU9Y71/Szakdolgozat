@@ -26,18 +26,8 @@ public class OwnerCompanyController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
-    public ResponseEntity<OwnerCompanyDto> addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest){
-        var x = ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
-        OwnerCompanyDto ownerCompanyDto = OwnerCompanyDto.builder()
-                .companyName(x.getCompanyName())
-                .town(x.getTown())
-                .accountNumber(x.getAccountNumber())
-                .street(x.getStreet())
-                .status(x.getStatus())
-                .id(x.getId())
-                .postalCode(x.getPostalCode())
-                .taxNumber(x.getTaxNumber())
-                .build();
+    public ResponseEntity<OwnerCompanyDto> addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest) throws Exception {
+        OwnerCompanyDto ownerCompanyDto = ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
         return ResponseEntity.ok(ownerCompanyDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")

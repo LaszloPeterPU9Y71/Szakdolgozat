@@ -1,5 +1,7 @@
 package Szakdolgozat.service;
 
+import Szakdolgozat.service.mapper.entityToDto.SparePartsMapStructDto;
+import Szakdolgozat.web.dto.SparePartsDto;
 import Szakdolgozat.web.model.CreateSparePartsRequest;
 import Szakdolgozat.entities.SparePartsEntity;
 import Szakdolgozat.repository.SparePartsRepository;
@@ -19,18 +21,19 @@ public class SparePartsService {
 
 
     private final SparePartsRepository sparePartsRepository;
-
     private final  SparePartsMapper sparePartsMapper;
+    private final SparePartsMapStructDto sparePartsMapStructDto;
 
 
-    public SparePartsEntity addSparePart(CreateSparePartsRequest createSparePartsRequest) throws Exception {
+    public SparePartsDto addSparePart(CreateSparePartsRequest createSparePartsRequest) throws Exception {
         String partNumber = createSparePartsRequest.getPartNumber();
         Optional<SparePartsEntity> maybeSparePart = sparePartsRepository.findByPartNumber(partNumber);
         if(maybeSparePart.isPresent()) {
             throw new Exception(String.format("Ez a cikkszám már létezik: %s", partNumber));
         }
         SparePartsEntity spareParts = sparePartsMapper.map(createSparePartsRequest);
-        return sparePartsRepository.save(spareParts);
+        SparePartsEntity sparePartsEntity = sparePartsRepository.save(spareParts);
+        return sparePartsMapStructDto.fromEntityToDto(sparePartsEntity);
     }
 
     public void deleteSparePart(String partNumber){

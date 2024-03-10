@@ -27,14 +27,7 @@ public class SparePartsController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public ResponseEntity<SparePartsDto> addSpareParts(@RequestBody CreateSparePartsRequest createSparePartsRequest) throws Exception {
-        SparePartsEntity x = sparePartsService.addSparePart(createSparePartsRequest);
-        SparePartsDto sparePartsDto = SparePartsDto.builder()
-                .id(x.getId())
-                .partName(x.getPartName())
-                .partNumber(x.getPartNumber())
-                .nettoBuyingPrice(x.getNettoBuyingPrice())
-                .nettoSellingPrice(x.getNettoSellingPrice())
-                .build();
+        SparePartsDto sparePartsDto = sparePartsService.addSparePart(createSparePartsRequest);
         return ResponseEntity.ok(sparePartsDto);
     }
 

@@ -23,16 +23,7 @@ public class ToolController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
     public ResponseEntity<ToolDto> createTool(@RequestBody CreateToolRequest createToolRequest) throws Exception {
-        ToolEntity x = toolService.addTool(createToolRequest);
-        ToolDto toolDto = ToolDto.builder()
-                .status(x.getStatus())
-                .dateOfReceiving(x.getDateOfReceiving())
-                .id(x.getId())
-                .itemNumber(x.getItemNumber())
-                .name(x.getName())
-                .serialNumber(x.getSerialNumber())
-                .typeNumber(x.getTypeNumber())
-                .build();
+        ToolDto toolDto = toolService.addTool(createToolRequest);
         return ResponseEntity.ok(toolDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")

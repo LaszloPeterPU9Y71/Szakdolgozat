@@ -29,16 +29,7 @@ public class OwnerCompanyEmployeeController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addEmployee")
     public ResponseEntity<OwnerCompanyEmployeeDto> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception {
-
-        OwnerCompanyEmployeeEntity x = ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
-        OwnerCompanyEmployeeDto ownerCompanyEmployeeDto = OwnerCompanyEmployeeDto.builder()
-                .email(x.getEmail())
-                .id(x.getId())
-                .status(x.getStatus())
-                .title(x.getTitle())
-                .telNum(x.getTelNum())
-                .name(x.getName())
-                 .build();
+        OwnerCompanyEmployeeDto ownerCompanyEmployeeDto = ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
         return ResponseEntity.ok(ownerCompanyEmployeeDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")

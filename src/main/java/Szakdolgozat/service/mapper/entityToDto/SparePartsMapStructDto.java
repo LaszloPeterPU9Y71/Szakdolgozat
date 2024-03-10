@@ -1,17 +1,19 @@
-package Szakdolgozat.service.mapper;
+package Szakdolgozat.service.mapper.entityToDto;
 
-import Szakdolgozat.entities.UserEntity;
-import Szakdolgozat.web.dto.UserDto;
+import Szakdolgozat.entities.SparePartsEntity;
+import Szakdolgozat.web.dto.SparePartsDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
+
+import java.util.List;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         componentModel = "spring" )
+public interface SparePartsMapStructDto {
 
-public interface UserMapStructDto {
-    UserDto fromEntityToDto(UserEntity userEntity);
+    SparePartsDto fromEntityToDto(SparePartsEntity sparePartsEntity);
 
 }
