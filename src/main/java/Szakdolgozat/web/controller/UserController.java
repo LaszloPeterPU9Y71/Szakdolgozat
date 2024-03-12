@@ -36,7 +36,7 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public String softDelete(@PathVariable("id") long id) {
         userService.softDelete(id);
-        return "A: " + id + " azonosítójú felhasználót törlésre került";
+        return "A: " + id + " azonosítójú felhasználó törlésre került";
     }
 
     @PutMapping("/update/{id}")

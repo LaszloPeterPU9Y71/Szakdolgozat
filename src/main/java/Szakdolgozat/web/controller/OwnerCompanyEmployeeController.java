@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class OwnerCompanyEmployeeController {
 
     private final OwnerCompanyEmployeeService ownerCompanyEmployeeService;
-    private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addEmployee")
     public ResponseEntity<OwnerCompanyEmployeeDto> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception {

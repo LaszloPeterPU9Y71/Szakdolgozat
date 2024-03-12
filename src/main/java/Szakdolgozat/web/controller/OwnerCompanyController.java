@@ -1,20 +1,15 @@
 package Szakdolgozat.web.controller;
 
 
-import Szakdolgozat.entities.OwnerCompanyEntity;
-import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.OwnerCompanyService;
-import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyMapStructDto;
 import Szakdolgozat.web.dto.OwnerCompanyDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/owner")
@@ -22,9 +17,8 @@ import java.util.Optional;
 @Transactional
 public class OwnerCompanyController {
 
-    private final OwnerCompanyRepository ownerCompanyRepository;
     private final OwnerCompanyService ownerCompanyService;
-    private final OwnerCompanyMapStructDto ownerCompanyMapStructDto;
+
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addCompany")
@@ -42,9 +36,9 @@ public class OwnerCompanyController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{taxNumber}")
-    public String deleteOwnerCompany(@PathVariable("taxNumber") String taxNumber){
+    public ResponseEntity<String> deleteOwnerCompany(@PathVariable("taxNumber") String taxNumber){
         ownerCompanyService.deleteOwnerCompany(taxNumber);
-        return "A cég ezzel az adószámmal törlésre került: " + taxNumber + ".";
+        return ResponseEntity.ok("A cég ezzel az adószámmal törlésre került: " + taxNumber + ".");
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")

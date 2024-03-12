@@ -14,8 +14,6 @@ public interface OwnerCompanyRepository extends CrudRepository<OwnerCompanyEntit
 
     Optional<OwnerCompanyEntity> findByTaxNumber(String taxNumber);
 
-    OwnerCompanyEntity findById(long id);
-
 
     boolean existsByTaxNumber(String taxNumber);
 

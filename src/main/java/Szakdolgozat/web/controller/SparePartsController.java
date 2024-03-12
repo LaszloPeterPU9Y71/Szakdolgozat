@@ -20,9 +20,9 @@ import java.util.List;
 
 public class SparePartsController {
 
-    private final SparePartsRepository sparePartsRepository;
+
     private final SparePartsService sparePartsService;
-    private final SparePartsMapStructDto sparePartsMapStructDto;
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("all")
     public ResponseEntity<List<SparePartsDto>> findAllSpareParts(){

@@ -1,16 +1,13 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.AlreadyRegisteredException;
-import Szakdolgozat.entities.ToolEntity;
-import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyMapStructDto;
-import Szakdolgozat.web.dto.OwnerCompanyDto;
-import Szakdolgozat.web.dto.ToolDto;
-import Szakdolgozat.web.model.CreateOwnerCompanyRequest;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.mapper.OwnerCompanyMapper;
+import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyMapStructDto;
+import Szakdolgozat.web.dto.OwnerCompanyDto;
+import Szakdolgozat.web.model.CreateOwnerCompanyRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
