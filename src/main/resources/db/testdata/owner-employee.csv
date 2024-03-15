@@ -1,4 +1,4 @@
-owner_company_employee_id,owner_company_employee_email,owner_company_employee_name,owner_company_employee_status,owner_company_employee_tel_num,owner_company_employee_title,owner_company_employee
+owner_company_employee_id,owner_company_employee_email,owner_company_employee_name,owner_company_employee_status,owner_company_employee_tel_num,owner_company_employee_title,owner_company_id
 1,info@bontunk.hu,Kovács Árpád,true,706211429,Beszerző,1
 2,info@epitunk.hu,Horváth Árpád,true,706211428,Beszerző,2
 3,info@felujitunk.hu,Imre Árpád,true,706211427,Beszerző,3

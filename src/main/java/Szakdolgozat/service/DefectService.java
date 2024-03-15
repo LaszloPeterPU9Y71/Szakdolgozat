@@ -1,7 +1,8 @@
 package Szakdolgozat.service;
 
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.entities.DefectEntity;
-import Szakdolgozat.ExceptionHandler.customExceptionHandler.AlreadyCreatedException;
 import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.service.mapper.DefectMapper;
 import Szakdolgozat.service.mapper.entityToDto.DefectMapStructDto;
@@ -23,12 +24,12 @@ public class DefectService {
     private final DefectRepository defectRepository;
     private final DefectMapper defectMapper;
     private final DefectMapStructDto defectMapStructDto;
-    public DefectDto addDefect(CreateDefectRequest createDefectRequest) throws AlreadyCreatedException {
+    public DefectDto addDefect(CreateDefectRequest createDefectRequest) throws ConstraintViolationException {
         String name = createDefectRequest.getName();
         Optional<DefectEntity> mayBeName = defectRepository.findByName(name);
 
         if (mayBeName.isPresent()) {
-            throw new AlreadyCreatedException(String.format("A hiba megnevezése már létezik: '%s'", name));
+            throw new ConstraintViolationException(String.format("A hiba megnevezése már létezik: '%s'", name));
         }
         DefectEntity defect = defectMapper.map(createDefectRequest);
         DefectEntity defectEntity = defectRepository.save(defect);
@@ -40,8 +41,11 @@ public class DefectService {
         return defectMapStructDto.fromEntitytoDtoList(defectEntities);
     }
 
-    public List<DefectDto> findDefectsByName(String name){
+    public List<DefectDto> findDefectsByName(String name) throws DataNotFoundException {
         Iterable<DefectEntity> defectEntities = defectRepository.findByNameContainingIgnoreCase(name);
+        if(defectRepository.findByNameContainingIgnoreCase(name).isEmpty()){
+            throw new DataNotFoundException(String.format("Ezzel a megnevezéssel nem található hiba: %s !", name));
+        }
         return defectMapStructDto.fromEntitytoDtoList(defectEntities);
     }
 }

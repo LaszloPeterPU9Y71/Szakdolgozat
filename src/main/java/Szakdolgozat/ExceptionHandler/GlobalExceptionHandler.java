@@ -1,41 +1,44 @@
 package Szakdolgozat.ExceptionHandler;
 
 
-import jakarta.validation.ValidationException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataAlreadyExistsException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Object> alreadyCreatedException(ValidationException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-
-    }
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<Object> alreadyRegisteredException(ResponseStatusException ex){
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> constraintViolationException(ConstraintViolationException ex){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<Object> dataNotFoundException(DataNotFoundException ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(DataAlreadyExistsException.class)
+    public ResponseEntity<Object> dataAlreadyExistsException(DataAlreadyExistsException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> wrongTypeOfData (DataIntegrityViolationException exeption){
+    public ResponseEntity<Object> dataMissingException(DataIntegrityViolationException ex){
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(exeption.getMessage());
+                .status(HttpStatus.NOT_FOUND)
+                .body("Az adatok rosszul, vagy hiányosan lettek kitöltve!");
     }
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> missingDataException(Exception ex) {
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(ex.getMessage());
-    }
+
     @ExceptionHandler(Error.class)
     public ResponseEntity<Object> handleError(Error error){
         return ResponseEntity

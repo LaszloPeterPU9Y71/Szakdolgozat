@@ -1,5 +1,6 @@
 package Szakdolgozat.service;
 
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyEmployeeMapStructDto;
@@ -30,12 +31,12 @@ public class OwnerCompanyEmployeeService {
 
 
 
-    public OwnerCompanyEmployeeDto addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception{
+    public OwnerCompanyEmployeeDto addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws ConstraintViolationException {
         String email = createOwnerCompanyEmployeeRequest.getEmail();
         Optional<OwnerCompanyEmployeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
         if(maybeEmployee.isPresent()){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("The employee exists with: %s email address", email));
+            throw new ConstraintViolationException(String.format("Ezzel az e-mail címmel már regiszráltak ügyfelet: %s !", email));
         }
 
         OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);

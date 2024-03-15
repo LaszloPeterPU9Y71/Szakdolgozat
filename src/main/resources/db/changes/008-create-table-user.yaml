@@ -55,6 +55,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
+                    unique: true
         - loadData:
             tableName: user_entity
             file: ./db/testdata/user.csv

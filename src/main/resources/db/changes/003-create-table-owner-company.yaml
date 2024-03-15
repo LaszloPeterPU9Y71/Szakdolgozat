@@ -49,6 +49,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
+                    unique: true
               - column:
                   name: owner_company_town
                   type: varchar(255)

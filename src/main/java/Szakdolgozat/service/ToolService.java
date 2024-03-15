@@ -1,5 +1,7 @@
 package Szakdolgozat.service;
 
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataAlreadyExistsException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.service.mapper.ToolMapper;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
 import Szakdolgozat.web.dto.ToolDto;
@@ -9,6 +11,7 @@ import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.ToolRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,39 +34,56 @@ public class ToolService {
 
 
 
-    public List<ToolDto> findAllTools(){
+    public List<ToolDto> findAllTools() throws DataNotFoundException{
         Iterable<ToolEntity> toolEntities = toolRepository.findAll();
+        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+            throw new DataNotFoundException("Még nem vettek fel javítandó gépet az adatbázisba");
+        }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public List<ToolDto> findByStatus(String status){
+    public List<ToolDto> findByStatus(String status) throws DataNotFoundException{
         List<ToolEntity> toolEntities = toolRepository.findByStatusContainingIgnoreCase(status);
+        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+            throw new DataNotFoundException("Nincs ilyen státuszú gép.");
+        }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public List<ToolDto> findByName(String name){
+    public List<ToolDto> findByName(String name) throws DataNotFoundException{
         List<ToolEntity> toolEntities = toolRepository.findByNameContainingIgnoreCase(name);
+        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen megnevezésű gépet: %s !", name));
+        }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
     public List<ToolDto> findByItemNumber(String itemNumber){
         List<ToolEntity> toolEntities = toolRepository.findByItemNumberContainingIgnoreCase(itemNumber);
+        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen cikkszámú gépet: %s !", itemNumber));
+        }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
     public List<ToolDto> findByTypeNumber(String typeNumber){
         List<ToolEntity> toolEntities = toolRepository.findByTypeNumberContainingIgnoreCase(typeNumber);
+        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen típusszámú gépet: %s !", typeNumber));
+        }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
     public List<ToolDto> findBySerialNumber(String serialNumber){
         List<ToolEntity> toolEntities = toolRepository.findBySerialNumberContainingIgnoreCase(serialNumber);
+        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen gyártási számú gépet: %s !", serialNumber));
+        }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
     public ToolDto addTool(CreateToolRequest createToolRequest) throws Exception {
         ToolEntity tool = toolMapper.map(createToolRequest);
-
         tool.setDateOfReceiving(LocalDateTime.now());
         tool.setStatus("Beérkezett");
         tool.setOwnerCompanyEmployeeEntity(ownerCompanyEmployeeRepository.findById(createToolRequest.getOwnerCompanyEmployeeId()));
@@ -72,19 +92,19 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
-    public void updateToolData(long id, CreateToolRequest createToolRequest){
+    public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
         if(maybeToolEntity.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval:  %s", id));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval:  %s", id));
         } else if(maybeToolSerialNumber.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
         }
         toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
     }
 
-    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest) {
+    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest){
         current.setName(createToolRequest.getName());
         current.setTypeNumber(createToolRequest.getTypeNumber());
         current.setItemNumber(createToolRequest.getItemNumber());
@@ -94,22 +114,22 @@ public class ToolService {
         return current;
     }
 
-    public void deleteTool(long id) {
+    public void deleteTool(long id) throws DataNotFoundException {
         if (!toolRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
         } else {
             toolRepository.deleteById(id);
         }
     }
 
-    public void updateToolStatus(long id, CreateToolRequest createToolRequest){
+    public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException{
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
         if(maybeToolEntity.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
         } else if(maybeToolSerialNumber.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
         }
         toolRepository.save(updateToolStatus(maybeToolEntity.get(), createToolRequest));
     }

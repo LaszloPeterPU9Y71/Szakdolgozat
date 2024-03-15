@@ -37,6 +37,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
+                    unique: true
 
         - loadData:
             tableName: spare_parts_entity

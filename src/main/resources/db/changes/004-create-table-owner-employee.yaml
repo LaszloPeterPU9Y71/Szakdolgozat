@@ -19,6 +19,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
+                    unique: true
               - column:
                   name: owner_company_employee_name
                   type: varchar(255)
@@ -44,7 +45,7 @@ databaseChangeLog:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee
+                  name: owner_company_id
                   type: bigint
                   constraints:
                     nullable: false
@@ -76,5 +77,5 @@ databaseChangeLog:
                   name: owner_company_employee_title
                   type: varchar(255)
               - column:
-                  name: owner_company_employee
+                  name: owner_company_id
                   type: bigint

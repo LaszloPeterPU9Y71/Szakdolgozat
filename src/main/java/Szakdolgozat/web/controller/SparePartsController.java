@@ -1,13 +1,9 @@
 package Szakdolgozat.web.controller;
 
 import Szakdolgozat.service.SparePartsService;
-import Szakdolgozat.service.mapper.entityToDto.SparePartsMapStructDto;
 import Szakdolgozat.web.dto.SparePartsDto;
 import Szakdolgozat.web.model.CreateSparePartsRequest;
-import Szakdolgozat.entities.SparePartsEntity;
-import Szakdolgozat.repository.SparePartsRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +44,14 @@ public class SparePartsController {
     public ResponseEntity<SparePartsDto> addSpareParts(@RequestBody CreateSparePartsRequest createSparePartsRequest) throws Exception {
         SparePartsDto sparePartsDto = sparePartsService.addSparePart(createSparePartsRequest);
         return ResponseEntity.ok(sparePartsDto);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @PutMapping("/update/{partNumber}")
+    public String updateSparePartsData(@PathVariable("partNumber") String number,
+                                 @RequestBody CreateSparePartsRequest createSparePartsRequest) {
+        sparePartsService.updateSparePartData(number, createSparePartsRequest);
+        return "Az alkatrész adatai frissültek!";
     }
 
 

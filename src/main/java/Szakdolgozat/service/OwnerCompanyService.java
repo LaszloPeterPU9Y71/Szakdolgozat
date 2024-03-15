@@ -1,6 +1,7 @@
 package Szakdolgozat.service;
 
-import Szakdolgozat.ExceptionHandler.customExceptionHandler.AlreadyRegisteredException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.mapper.OwnerCompanyMapper;
@@ -10,7 +11,6 @@ import Szakdolgozat.web.model.CreateOwnerCompanyRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,23 +27,29 @@ public class OwnerCompanyService {
         return ownerCompanyMapStructDto.fromEntityToDtoList(ownerCompanyEntities);
     }
 
-    public List<OwnerCompanyDto> findByOwnerCompanyName(String name){
+    public List<OwnerCompanyDto> findByOwnerCompanyName(String name) throws DataNotFoundException{
         List<OwnerCompanyEntity> ownerCompanyEntities = ownerCompanyRepository.findByCompanyNameContainingIgnoreCase(name);
+       if(ownerCompanyEntities.isEmpty()){
+           throw new DataNotFoundException("Nem szerepel hasonló nevű cég az adatbázisban");
+           }
         return ownerCompanyMapStructDto.fromEntityToDtoList(ownerCompanyEntities);
     }
 
-    public OwnerCompanyDto findByOwnerCompanyTaxNumber(String taxNumber){
+    public OwnerCompanyDto findByOwnerCompanyTaxNumber(String taxNumber)throws DataNotFoundException{
        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findByTaxNumberContaining(taxNumber);
-        return ownerCompanyMapStructDto.fromEntityToDto(ownerCompanyEntity);
+       if (ownerCompanyEntity == null){
+           throw new DataNotFoundException(String.format("Nem szerepel az adatbázisban ilyen adószámmal cég: %s !", taxNumber));
+       }
+    return ownerCompanyMapStructDto.fromEntityToDto(ownerCompanyEntity);
     }
 
 
-    public OwnerCompanyDto addOwnerCompany(CreateOwnerCompanyRequest createOwnerCompanyRequest)throws  Exception{
+    public OwnerCompanyDto addOwnerCompany(CreateOwnerCompanyRequest createOwnerCompanyRequest)throws ConstraintViolationException {
         String taxNumber = createOwnerCompanyRequest.getTaxNumber();
         Optional<OwnerCompanyEntity> maybeCompany = ownerCompanyRepository.findByTaxNumber(taxNumber);
 
         if (maybeCompany.isPresent()){
-            throw new AlreadyRegisteredException(String.format("A cég a következő adószámmal már létezik: %s !", taxNumber ));
+            throw new ConstraintViolationException(String.format("A cég a következő adószámmal már létezik: %s !", taxNumber ));
         }
 
             OwnerCompanyEntity ownerCompany = OwnerCompanyMapper.map(createOwnerCompanyRequest);
@@ -52,11 +58,11 @@ public class OwnerCompanyService {
             return ownerCompanyMapStructDto.fromEntityToDto(ownerCompanyEntity);
     }
 
-    public Optional<OwnerCompanyEntity> updateOwnerCompany(String taxNumber, CreateOwnerCompanyRequest createOwnerCompanyRequest){
+    public Optional<OwnerCompanyEntity> updateOwnerCompany(String taxNumber, CreateOwnerCompanyRequest createOwnerCompanyRequest) throws DataNotFoundException {
         Optional<OwnerCompanyEntity> maybeOwnerCompany = ownerCompanyRepository.findByTaxNumber(taxNumber);
 
         if(maybeOwnerCompany.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Owner company with tax number %s not found", taxNumber));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("A tulajdonos cég %s adószámmal nem található", taxNumber));
         }else {
             return Optional.of(ownerCompanyRepository.save(updateOwnerCompany(maybeOwnerCompany.get(), createOwnerCompanyRequest)));
         }
@@ -74,9 +80,9 @@ public class OwnerCompanyService {
     }
 
 
-    public void deleteOwnerCompany(String taxNumber) {
+    public void deleteOwnerCompany(String taxNumber) throws DataNotFoundException{
         if(!ownerCompanyRepository.existsByTaxNumber(taxNumber)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("A következő adószámú céget nem találom: %s !", taxNumber));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("A következő adószámú céget nem találom: %s !", taxNumber));
 
         }else{
             ownerCompanyRepository.deleteByTaxNumber(taxNumber);

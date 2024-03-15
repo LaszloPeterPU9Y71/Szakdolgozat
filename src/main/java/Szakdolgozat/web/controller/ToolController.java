@@ -81,7 +81,7 @@ public class ToolController {
         return "A : " + id + " azonosítójú gép törlése sikeres.";
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @PutMapping("/updateStatus={id}")
+    @PutMapping("/updateStatus/{id}")
     public String updateToolStatus(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolStatus(id, createToolRequest);

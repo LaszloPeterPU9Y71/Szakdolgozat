@@ -1,7 +1,7 @@
 package Szakdolgozat.service;
 
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
 import Szakdolgozat.entities.CompanyEntity;
-import Szakdolgozat.ExceptionHandler.customExceptionHandler.AlreadyRegisteredException;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.service.mapper.CompanyMapper;
 import Szakdolgozat.service.mapper.entityToDto.CompanyMapStructDto;
@@ -21,12 +21,12 @@ public class CompanyService {
 
 
 
-    public CompanyDto addCompany (CreateCompanyRequest createCompanyRequest) throws AlreadyRegisteredException {
+    public CompanyDto addCompany (CreateCompanyRequest createCompanyRequest) throws ConstraintViolationException {
         String taxNumber = createCompanyRequest.getTaxNumber();
         Optional<CompanyEntity> maybeTax = companyRepository.findByTaxNumber(taxNumber);
 
         if  (maybeTax.isPresent()) {
-            throw new AlreadyRegisteredException(String.format("Ezzel az adószámmal már regisztráltak céget: '%s'", taxNumber));
+            throw new ConstraintViolationException(String.format("Ezzel az adószámmal már regisztráltak céget: '%s'", taxNumber));
             }
         CompanyEntity company = CompanyMapper.map(createCompanyRequest);
         company.setStatus(true);

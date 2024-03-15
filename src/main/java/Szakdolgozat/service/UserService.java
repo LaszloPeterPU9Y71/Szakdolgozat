@@ -1,5 +1,7 @@
 package Szakdolgozat.service;
 
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataAlreadyExistsException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.entities.UserEntity;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.UserRepository;
@@ -8,6 +10,7 @@ import Szakdolgozat.service.mapper.entityToDto.UserMapStructDto;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,24 +27,28 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final CompanyRepository companyRepository;
+    @Qualifier("userMapStructDtoImplementation")
     private final UserMapStructDto userMapStructDto;
 
 
 
-    public List<UserDto> findAllUsers(){
+    public List<UserDto> findAllUsers() throws DataNotFoundException{
         Iterable<UserEntity> userEntities =  userRepository.findAll();
+        if(userMapStructDto.fromEntitytoDtoList(userEntities).isEmpty()){
+            throw new DataNotFoundException("Az adatbázisban még nem szerepelnek felhasználók");
+        }
         return userMapStructDto.fromEntitytoDtoList(userEntities);
 
 
     }
 
-    public UserDto addUser(CreateUserRequest createUserRequest) throws Exception {
+    public UserDto addUser(CreateUserRequest createUserRequest) throws DataAlreadyExistsException {
         String email = createUserRequest.getEmail();
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
 
         if (maybeEmail.isPresent()) {
 
-            throw new Exception(String.format("Ez az e-mail cím már használatban van: '%s'", email));
+            throw new DataAlreadyExistsException(String.format("Ez az e-mail cím már használatban van: '%s'", email));
         }
 
         UserEntity user = userMapper.map(createUserRequest);
@@ -53,31 +60,31 @@ public class UserService {
     }
 
 
-    public void softDelete(long id) {
-        if (!userRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User not found with id: %s", id));
-        } else {
-            userRepository.deleteById(id);
+    public void softDelete(long id) throws DataNotFoundException {
+        if (userRepository.findById(id).isEmpty()){
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található felhasználó ezzel az azonosítóval: %s", id));
         }
+            userRepository.deleteById(id);
+
     }
 
-    public void updateUserPersonalData(long id, CreateUserRequest createUserRequest) {
+    public void updateUserPersonalData(long id, CreateUserRequest createUserRequest) throws RuntimeException {
         Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
         Optional<UserEntity> existingEmail = userRepository.findByEmail(createUserRequest.getEmail());
 
         if (maybeUserEntity.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User not found with id: %s", id));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található felhasználó ezzel az azonosítóval: %s", id));
         } else if (existingEmail.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User e-mail address already exists: %s", existingEmail.get().getEmail()));
+            throw new DataAlreadyExistsException(HttpStatus.NOT_FOUND, String.format("Ez az e-mail cím már használatban van: %s !", existingEmail.get().getEmail()));
         }
         userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest));
     }
 
-    public Optional<UserEntity> updateUserPassword(long id, CreateUserRequest createUserRequest) {
+    public Optional<UserEntity> updateUserPassword(long id, CreateUserRequest createUserRequest) throws DataNotFoundException {
         Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
 
         if (maybeUserEntity.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User not found with id: %s", id));
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található felhasználó ezzel az azonosítóval: %s", id));
         }
         return Optional.of(userRepository.save(updateUserPassword(maybeUserEntity.get(), createUserRequest)));
     }

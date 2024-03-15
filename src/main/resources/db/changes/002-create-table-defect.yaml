@@ -19,6 +19,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
+                    unique: true
+
               - column:
                   name: defect_description
                   type: varchar(255)
