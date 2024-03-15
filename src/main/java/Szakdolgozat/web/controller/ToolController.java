@@ -1,12 +1,9 @@
 package Szakdolgozat.web.controller;
 
-import Szakdolgozat.entities.ToolEntity;
-import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.ToolService;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ToolController {
 
-    private final ToolRepository toolRepository;
     private final ToolService toolService;
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
-    public ResponseEntity<ToolDto> createTool(@RequestBody CreateToolRequest createToolRequest) throws Exception {
+    public ResponseEntity<ToolDto> createTool(@RequestBody CreateToolRequest createToolRequest) {
         ToolDto toolDto = toolService.addTool(createToolRequest);
         return ResponseEntity.ok(toolDto);
     }

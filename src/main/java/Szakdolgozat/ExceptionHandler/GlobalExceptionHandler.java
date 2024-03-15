@@ -33,14 +33,14 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> dataMissingException(DataIntegrityViolationException ex){
+    public ResponseEntity<Object> dataMissingException(){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("Az adatok rosszul, vagy hiányosan lettek kitöltve!");
     }
 
     @ExceptionHandler(Error.class)
-    public ResponseEntity<Object> handleError(Error error){
+    public ResponseEntity<Object> handleError(){
         return ResponseEntity
                 .badRequest()
                 .body("Nem várt hiba történt, kérem frissítse az oldalt!");

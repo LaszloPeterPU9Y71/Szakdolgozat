@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,13 +79,13 @@ public class UserService {
         userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest));
     }
 
-    public Optional<UserEntity> updateUserPassword(long id, CreateUserRequest createUserRequest) throws DataNotFoundException {
+    public void updateUserPassword(long id, CreateUserRequest createUserRequest) throws DataNotFoundException {
         Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
 
         if (maybeUserEntity.isEmpty()) {
             throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található felhasználó ezzel az azonosítóval: %s", id));
         }
-        return Optional.of(userRepository.save(updateUserPassword(maybeUserEntity.get(), createUserRequest)));
+        userRepository.save(updateUserPassword(maybeUserEntity.get(), createUserRequest));
     }
 
 

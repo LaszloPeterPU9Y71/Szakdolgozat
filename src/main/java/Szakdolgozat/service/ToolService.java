@@ -1,20 +1,17 @@
 package Szakdolgozat.service;
 
-import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataAlreadyExistsException;
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
-import Szakdolgozat.service.mapper.ToolMapper;
-import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
-import Szakdolgozat.web.dto.ToolDto;
-import Szakdolgozat.web.model.CreateToolRequest;
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.ToolRepository;
+import Szakdolgozat.service.mapper.ToolMapper;
+import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
+import Szakdolgozat.web.dto.ToolDto;
+import Szakdolgozat.web.model.CreateToolRequest;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -82,7 +79,7 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public ToolDto addTool(CreateToolRequest createToolRequest) throws Exception {
+    public ToolDto addTool(CreateToolRequest createToolRequest){
         ToolEntity tool = toolMapper.map(createToolRequest);
         tool.setDateOfReceiving(LocalDateTime.now());
         tool.setStatus("Beérkezett");

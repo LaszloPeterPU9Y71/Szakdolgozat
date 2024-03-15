@@ -21,7 +21,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
+    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) {
         UserDto userDto = userService.addUser(createUserRequest);
         return ResponseEntity.ok(userDto);
     }
