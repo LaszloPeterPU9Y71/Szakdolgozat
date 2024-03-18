@@ -37,6 +37,8 @@ public class OwnerCompanyEmployeeEntity {
     private Boolean status;
 
 
+
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner_company_id",
             foreignKey = @ForeignKey(name = "FK_Owner_company_id"))

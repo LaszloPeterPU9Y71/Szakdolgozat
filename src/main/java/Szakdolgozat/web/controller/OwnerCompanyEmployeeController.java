@@ -1,23 +1,20 @@
 package Szakdolgozat.web.controller;
 
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
-import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
+import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.service.OwnerCompanyEmployeeService;
+import Szakdolgozat.service.OwnerCompanyService;
+import Szakdolgozat.web.dto.OwnerCompanyDto;
 import Szakdolgozat.web.dto.OwnerCompanyEmployeeDto;
-import Szakdolgozat.web.dto.ResponseDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +23,7 @@ import java.util.stream.Collectors;
 public class OwnerCompanyEmployeeController {
 
     private final OwnerCompanyEmployeeService ownerCompanyEmployeeService;
+    private final OwnerCompanyService ownerCompanyService;
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/addEmployee")
@@ -46,4 +44,14 @@ public class OwnerCompanyEmployeeController {
         List<OwnerCompanyEmployeeDto> ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findOwnerCompanyByName(name);
         return ResponseEntity.ok(ownerCompanyEmployeeDtos);
     }
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @PutMapping("/company+employee/")
+    public void companyConnectEmployee(long companyId, long companyEmployeeId){
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeService.findOwnerCompanyEmployeeById(companyEmployeeId);
+        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyService.findOwnerCompanyById(companyId);
+        ownerCompanyEmployeeEntity.setOwnerCompanyEntity(ownerCompanyEntity);
+    }
+
+
+
 }

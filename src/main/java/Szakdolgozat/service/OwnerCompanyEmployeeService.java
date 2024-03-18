@@ -57,7 +57,8 @@ public class OwnerCompanyEmployeeService {
     }
 
 
-
-
-
+    public OwnerCompanyEmployeeEntity findOwnerCompanyEmployeeById(long companyId) {
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(companyId);
+    return ownerCompanyEmployeeEntity;
+    }
 }

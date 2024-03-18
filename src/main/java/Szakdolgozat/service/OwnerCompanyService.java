@@ -2,6 +2,7 @@ package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
+import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.mapper.OwnerCompanyMapper;
@@ -87,6 +88,11 @@ public class OwnerCompanyService {
         }else{
             ownerCompanyRepository.deleteByTaxNumber(taxNumber);
         }
+    }
+
+    public OwnerCompanyEntity findOwnerCompanyById(long companyId) {
+        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
+        return ownerCompanyEntity;
     }
 }
 

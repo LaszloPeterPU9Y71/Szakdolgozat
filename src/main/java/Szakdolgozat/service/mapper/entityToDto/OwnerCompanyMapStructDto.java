@@ -7,7 +7,6 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -19,7 +18,5 @@ public interface OwnerCompanyMapStructDto {
     OwnerCompanyDto fromEntityToDto(OwnerCompanyEntity ownerCompanyEntity);
 
     List<OwnerCompanyDto> fromEntityToDtoList(Iterable<OwnerCompanyEntity> ownerCompanyEntity);
-
-
 
 }
