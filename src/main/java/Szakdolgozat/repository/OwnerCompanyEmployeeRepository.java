@@ -4,7 +4,6 @@ import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
-import java.util.Set;
 
 public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerCompanyEmployeeEntity, Long> {
 
@@ -13,7 +12,11 @@ public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerComp
 
     Optional<OwnerCompanyEmployeeEntity> findByEmail(String email);
 
-    OwnerCompanyEmployeeEntity findById(long id);
+   OwnerCompanyEmployeeEntity findById(long id);
+
+
+
+
 
 
 

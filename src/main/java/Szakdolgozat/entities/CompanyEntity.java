@@ -18,26 +18,26 @@ public class CompanyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "company_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "company_postal_code", nullable = false)
+    @Column(name = "code", nullable = false)
     private int postalCode;
 
-    @Column(name = "company_town", nullable = false)
+    @Column(name = "town", nullable = false)
     private String town;
 
-    @Column(name = "company_street", nullable = false)
+    @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "company_tax_number", nullable = false)
+    @Column(name = "tax_number", nullable = false)
     private String taxNumber;
 
-    @Column(name = "company_status", nullable = false)
+    @Column(name = "status", nullable = false)
     private Boolean status;
 
     @OneToMany(mappedBy = "companyEntity")

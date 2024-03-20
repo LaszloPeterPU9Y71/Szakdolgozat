@@ -1,11 +1,10 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.ConstraintViolationException;
+import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyEmployeeMapStructDto;
-import Szakdolgozat.service.mapper.entityToDto.OwnerCompanyMapStructDto;
-import Szakdolgozat.web.dto.OwnerCompanyDto;
 import Szakdolgozat.web.dto.OwnerCompanyEmployeeDto;
 import Szakdolgozat.web.model.CreateOwnerCompanyEmployeeRequest;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
@@ -13,9 +12,7 @@ import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.service.mapper.OwnerCompanyEmployeeMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +25,8 @@ public class OwnerCompanyEmployeeService {
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final OwnerCompanyEmployeeMapper ownerCompanyEmployeeMapper;
     private final OwnerCompanyEmployeeMapStructDto ownerCompanyEmployeeMapStructDto;
+    private final OwnerCompanyRepository ownerCompanyRepository;
+
 
 
 
@@ -46,19 +45,34 @@ public class OwnerCompanyEmployeeService {
 
     }
 
-    public List<OwnerCompanyEmployeeDto> findAllOwnerCompany(){
+    public List<OwnerCompanyEmployeeDto> findAllOwnerCompanyEmployee() throws DataNotFoundException {
         Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities = ownerCompanyEmployeeRepository.findAll();
+            if(ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities).isEmpty()){
+                throw new DataNotFoundException("Az adatbázis üres");
+            }
         return ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities);
     }
 
-    public List<OwnerCompanyEmployeeDto> findOwnerCompanyByName(String name){
+    public List<OwnerCompanyEmployeeDto> findOwnerCompanyEmployeeByName(String name) throws DataNotFoundException{
         Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities = ownerCompanyEmployeeRepository.findByNameContainingIgnoreCase(name);
+            if(ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities).isEmpty()){
+                throw new DataNotFoundException("Ilyen nevű partner cég nincs az adatbázisban");
+        }
         return ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities);
     }
 
 
-    public OwnerCompanyEmployeeEntity findOwnerCompanyEmployeeById(long companyId) {
-        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(companyId);
-    return ownerCompanyEmployeeEntity;
+    public OwnerCompanyEmployeeEntity findOwnerCompanyEmployeeById(long companyId) throws DataNotFoundException{
+            if(ownerCompanyEmployeeRepository.findById(companyId) == null){
+                throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem szerepel cég az adatbázisban: %s", companyId));
+            }
+    return ownerCompanyEmployeeRepository.findById(companyId);
+    }
+
+
+    public void companyAssignEmployee(long companyId, long employeeId) {
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(employeeId);
+        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
+        ownerCompanyEmployeeEntity.setOwnerCompanyEntity(ownerCompanyEntity);
     }
 }

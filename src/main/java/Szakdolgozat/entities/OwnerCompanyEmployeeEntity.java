@@ -39,7 +39,7 @@ public class OwnerCompanyEmployeeEntity {
 
 
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "owner_company_id",
             foreignKey = @ForeignKey(name = "FK_Owner_company_id"))
     private OwnerCompanyEntity ownerCompanyEntity;

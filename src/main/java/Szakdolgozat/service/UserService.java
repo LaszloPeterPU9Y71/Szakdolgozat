@@ -79,14 +79,7 @@ public class UserService {
         userRepository.save(updateUserPersonalData(maybeUserEntity.get(), createUserRequest));
     }
 
-    public void updateUserPassword(long id, CreateUserRequest createUserRequest) throws DataNotFoundException {
-        Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
 
-        if (maybeUserEntity.isEmpty()) {
-            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található felhasználó ezzel az azonosítóval: %s", id));
-        }
-        userRepository.save(updateUserPassword(maybeUserEntity.get(), createUserRequest));
-    }
 
 
     private UserEntity updateUserPersonalData(UserEntity current, CreateUserRequest createUserRequest) {
@@ -97,6 +90,15 @@ public class UserService {
         current.setStatus(createUserRequest.isStatus());
         current.setPassword(new BCryptPasswordEncoder().encode(createUserRequest.getPassword()));
         return current;
+    }
+
+    public void updateUserPassword(long id, CreateUserRequest createUserRequest) throws DataNotFoundException {
+        Optional<UserEntity> maybeUserEntity = userRepository.findById(id);
+
+        if (maybeUserEntity.isEmpty()) {
+            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található felhasználó ezzel az azonosítóval: %s", id));
+        }
+        userRepository.save(updateUserPassword(maybeUserEntity.get(), createUserRequest));
     }
 
     private UserEntity updateUserPassword(UserEntity current, CreateUserRequest createUserRequest) {
