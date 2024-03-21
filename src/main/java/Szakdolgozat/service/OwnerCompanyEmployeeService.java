@@ -39,6 +39,7 @@ public class OwnerCompanyEmployeeService {
         }
 
         OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
+        employee.setOwnerCompanyEntity(null);
         employee.setStatus(true);
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.save(employee);
         return ownerCompanyEmployeeMapStructDto.fromEntityToDto(ownerCompanyEmployeeEntity);
@@ -70,9 +71,25 @@ public class OwnerCompanyEmployeeService {
     }
 
 
-    public void companyAssignEmployee(long companyId, long employeeId) {
+    public void companyAssignEmployee(long companyId, long employeeId) throws DataNotFoundException {
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(employeeId);
+        if(ownerCompanyEmployeeEntity == null){
+            throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem található alkalmazott: %s", employeeId));
+        }
         OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
+        if(ownerCompanyEntity == null){
+            throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem található cég: %s", companyId ));
+
+        }
         ownerCompanyEmployeeEntity.setOwnerCompanyEntity(ownerCompanyEntity);
+    }
+
+    public void companyUnassignEmployee(long employeeId) {
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(employeeId);
+        if(ownerCompanyEmployeeEntity == null){
+            throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem található alkalmazott: %s", employeeId));
+        }else if(ownerCompanyEmployeeEntity.getOwnerCompanyEntity()==null){
+            throw new DataNotFoundException("Ehhez a személyhez nincs hozzárendelve cég");
+        }else ownerCompanyEmployeeEntity.setOwnerCompanyEntity(null);
     }
 }

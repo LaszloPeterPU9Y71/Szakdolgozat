@@ -1,4 +1,4 @@
-defect_id,defect_name,defect_description
+id,name,description
 1,Kábeltörés,A tövénél van eltörve
 2,Szénkefe,
 3,Nem indul el,

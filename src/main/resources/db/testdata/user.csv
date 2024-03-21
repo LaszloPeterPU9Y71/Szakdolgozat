@@ -1,4 +1,4 @@
-user_id,user_name,user_password,user_status,user_tel_num,user_title,user_company_id,user_email
+id,name,password,status,tel_num,title,company_id,email
 1,László Péter,1234,true,70/1234569,Eladó,1,"peti@szerszamkucko.hu"
 2,Kovács Péter,1234,true,70/1234568,Eladó,2,"info@hiba.hu"
 3,Horváth Péter,1234,true,70/1234567,Eladó,3,"info@javitunk.hu"

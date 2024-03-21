@@ -12,30 +12,30 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 public class OwnerCompanyEmployeeEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "owner_company_employee_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "owner_company_employee_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "owner_company_employee_tel_num", nullable = false)
+    @Column(name = "tel_num", nullable = false)
     private String telNum;
 
-    @Column(name = "owner_company_employee_email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "owner_company_employee_title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "owner_company_employee_status", nullable = false)
+    @Column(name = "status", nullable = false)
     private Boolean status;
-
 
 
 

@@ -7,51 +7,51 @@ databaseChangeLog:
             tableName: owner_company_entity
             columns:
               - column:
-                  name: owner_company_id
+                  name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: owner_company_account_number
+                  name: account_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+                    primaryKey: false
+              - column:
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_name
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-                    primaryKey: false
-              - column:
-                  name: owner_company_postal_code
+                  name: postal_code
                   type: int
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_status
+                  name: status
                   type: boolean
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_street
+                  name: street
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_tax_number
+                  name: tax_number
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
                     unique: true
               - column:
-                  name: owner_company_town
+                  name: town
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -65,26 +65,26 @@ databaseChangeLog:
 
             columns:
               - column:
-                  name: owner_company_id
+                  name: id
                   type: bigint
               - column:
-                  name: owner_company_account_number
+                  name: account_number
                   type: varchar(255)
               - column:
-                  name: owner_company_name
+                  name: name
                   type: varchar(255)
               - column:
-                  name: owner_company_postal_code
+                  name: postal_code
                   type: int
               - column:
-                  name: owner_company_status
+                  name: status
                   type: boolean
               - column:
-                  name: owner_company_street
+                  name: street
                   type: varchar(255)
               - column:
-                  name: owner_company_tax_number
+                  name: tax_number
                   type: bigint
               - column:
-                  name: owner_company_town
+                  name: town
                   type: bigint

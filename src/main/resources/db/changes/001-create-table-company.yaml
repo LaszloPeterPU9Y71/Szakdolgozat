@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: company_entity
             columns:
               - column:
-                  name: company_id
+                  name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
@@ -15,37 +15,37 @@ databaseChangeLog:
                     primaryKey: true
 
               - column:
-                  name: company_name
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: company_postal_code
+                  name: postal_code
                   type: int
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: company_status
+                  name: status
                   type: boolean
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: company_street
+                  name: street
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: company_tax_number
+                  name: tax_number
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: company_town
+                  name: town
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -59,23 +59,23 @@ databaseChangeLog:
 
             columns:
               - column:
-                  name: company_id
+                  name: id
                   type: bigint
               - column:
-                  name: company_name
+                  name: name
                   type: varchar(255)
               - column:
-                  name: company_postal_code
+                  name: postal_code
                   type: int
               - column:
-                  name: company_status
+                  name: status
                   type: boolean
               - column:
-                  name: company_street
+                  name: street
                   type: varchar(255)
               - column:
-                  name: company_tax_number
+                  name: tax_number
                   type: varchar(255)
               - column:
-                  name: company_town
+                  name: town
                   type: varchar(255)

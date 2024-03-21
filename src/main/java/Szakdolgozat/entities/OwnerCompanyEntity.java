@@ -20,29 +20,29 @@ public class OwnerCompanyEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "owner_company_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "owner_company_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String companyName;
 
-    @Column(name = "owner_company_postal_code", nullable = false)
+    @Column(name = "postal_code", nullable = false)
     private int postalCode;
 
-    @Column(name = "owner_company_town", nullable = false)
+    @Column(name = "town", nullable = false)
     private String town;
 
-    @Column(name = "owner_company_street", nullable = false)
+    @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "owner_company_tax_number", nullable = false, unique = true)
+    @Column(name = "tax_number", nullable = false, unique = true)
     private String taxNumber;
 
-    @Column(name = "owner_company_account_number", nullable = true)
+    @Column(name = "account_number", nullable = true)
     private String accountNumber;
 
-    @Column(name = "owner_company_status", nullable = false)
+    @Column(name = "status", nullable = false)
     private Boolean status;
 
 

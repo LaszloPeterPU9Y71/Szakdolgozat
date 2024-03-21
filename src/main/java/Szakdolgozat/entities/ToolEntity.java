@@ -21,23 +21,23 @@ public class ToolEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tool_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "tool_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "tool_type_number", nullable = false)
+    @Column(name = "type_number", nullable = false)
     private String typeNumber;
 
-    @Column(name = "tool_item_number", nullable = false)
+    @Column(name = "item_number", nullable = false)
     private String itemNumber;
 
-    @Column(name = "tool_serial_number", nullable = false, unique = true)
+    @Column(name = "serial_number", nullable = false, unique = true)
     private String serialNumber;
 
-    @Column(name = "tool_date_of_recieving", nullable = true)
+    @Column(name = "date_of_recieving", nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
     private LocalDateTime dateOfReceiving;
 
@@ -46,7 +46,7 @@ public class ToolEntity {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tool_defect",
+    @JoinTable(name = "defect",
         joinColumns = @JoinColumn(name = "tool_id"),
             foreignKey = @ForeignKey(name = "FK_Tool_Defect"),
         inverseJoinColumns = @JoinColumn(name = "defect_id"),
@@ -55,7 +55,7 @@ public class ToolEntity {
     private List<DefectEntity> defects;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "tool_employee_id",
+    @JoinColumn(name = "employee_id",
             foreignKey = @ForeignKey(name = "FK_Tool_Employee"))
     private OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity;
 

@@ -49,7 +49,14 @@ public class OwnerCompanyEmployeeController {
 
 
     }
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @PutMapping("/unassign/{employeeId}")
+    public ResponseEntity<String> companyAssignEmployee(@PathVariable (value = "employeeId") long employeeId) {
+        ownerCompanyEmployeeService.companyUnassignEmployee(employeeId);
+        return ResponseEntity.ok("A cég és alkalmazott összerendelés megszűnt.");
 
+
+    }
 
 
 }

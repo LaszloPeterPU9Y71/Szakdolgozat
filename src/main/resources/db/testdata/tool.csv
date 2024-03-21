@@ -1,4 +1,4 @@
-tool_id,tool_date_of_recieving,tool_item_number,tool_name,tool_serial_number,status,tool_type_number,tool_employee_id
+id,date_of_recieving,item_number,name,serial_number,status,type_number,employee_id
 1,2024-01-27 12:12:12,3608123d29,Fúrókalapács,123456789,Beérkezett,GBH 180-LI,1
 2,2024-01-27 12:12:12,3608123d28,Csavarbehajtó,123456788,Folyamatban,GSR 180-LI,2
 3,2024-01-27 12:12:12,3608123d27,Ütvefúró,123456787,Beérkezett,GSB 13 RE,3

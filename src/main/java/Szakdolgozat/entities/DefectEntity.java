@@ -18,14 +18,14 @@ public class DefectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "defect_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "defect_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "defect_description", nullable = true)
+    @Column(name = "description", nullable = true)
     private String description;
 
 }

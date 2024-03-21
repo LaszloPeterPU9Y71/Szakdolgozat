@@ -1,4 +1,4 @@
-company_id,company_name,company_postal_code,company_status,company_street,company_tax_number,company_town
+id,name,postal_code,status,street,tax_number,town
 1,Szerszám Kuckó Kft,9023,true,Attila utca 49,12345678-2-08,Győr
 2,Hiba Kft,9011,true,Molnár,12345679-2-08,Győr
 3,Javítunk Kft,9011,true,Molnár,12345671-2-08,Győr

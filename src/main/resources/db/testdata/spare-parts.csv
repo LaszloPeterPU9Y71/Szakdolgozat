@@ -1,4 +1,4 @@
-spare_parts_id,spare_parts_netto_buying_price,spare_parts_netto_selling_price,spare_parts_item_name,spare_parts_item_number
+id,netto_buying_price,netto_selling_price,name,number
 1,1000,1270,Szénkefe,123457-6
 2,2000,2540,O-gyűrű,123456-6
 3,3000,3810,Motor,123455-6

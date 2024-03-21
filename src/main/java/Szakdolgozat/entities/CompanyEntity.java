@@ -25,7 +25,7 @@ public class CompanyEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "code", nullable = false)
+    @Column(name = "postal_code", nullable = false)
     private int postalCode;
 
     @Column(name = "town", nullable = false)

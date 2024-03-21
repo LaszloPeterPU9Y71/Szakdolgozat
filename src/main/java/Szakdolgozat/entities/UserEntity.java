@@ -19,31 +19,31 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "user_tel_num", nullable = false)
+    @Column(name = "tel_num", nullable = false)
     private String telNum;
 
-    @Column(name = "user_email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "user_password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "user_title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "user_status", nullable = false)
+    @Column(name = "status", nullable = false)
     private Boolean status;
 
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_company_id",
+    @JoinColumn(name = "company_id",
             foreignKey = @ForeignKey(name = "FK_User_Company"))
     private CompanyEntity companyEntity;
 

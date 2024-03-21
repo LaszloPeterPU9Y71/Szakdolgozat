@@ -7,32 +7,32 @@ databaseChangeLog:
             tableName: spare_parts_entity
             columns:
               - column:
-                  name: spare_parts_id
+                  name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: spare_parts_netto_buying_price
+                  name: netto_buying_price
                   type: int
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: spare_parts_netto_selling_price
+                  name: netto_selling_price
                   type: int
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: spare_parts_item_name
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: spare_parts_item_number
+                  name: number
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -47,17 +47,17 @@ databaseChangeLog:
 
             columns:
               - column:
-                  name: spare_parts_id
+                  name: id
                   type: bigint
               - column:
-                  name: spare_parts_netto_buying_price
+                  name: netto_buying_price
                   type: int
               - column:
-                  name: spare_parts_netto_selling_price
+                  name: netto_selling_price
                   type: int
               - column:
-                  name: spare_parts_item_name
+                  name: item_name
                   type: varchar(255)
               - column:
-                  name: spare_parts_item_number
+                  name: item_number
                   type: varchar(255)

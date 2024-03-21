@@ -7,50 +7,50 @@ databaseChangeLog:
             tableName: user_entity
             columns:
               - column:
-                  name: user_id
+                  name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: user_name
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: user_password
+                  name: password
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: user_status
+                  name: status
                   type: boolean
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: user_tel_num
+                  name: tel_num
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: user_title
+                  name: title
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: user_company_id
+                  name: company_id
                   type: bigint
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: user_email
+                  name: email
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -64,26 +64,26 @@ databaseChangeLog:
 
             columns:
               - column:
-                  name: user_id
+                  name: id
                   type: bigint
               - column:
-                  name: user_name
+                  name: name
                   type: varchar(255)
               - column:
-                  name: user_password
+                  name: password
                   type: varchar(255)
               - column:
-                  name: user_status
+                  name: status
                   type: boolean
               - column:
-                  name: user_tel_num
+                  name: tel_num
                   type: int
               - column:
-                  name: user_title
+                  name: title
                   type: varchar(255)
               - column:
-                  name: user_company_id
+                  name: company_id
                   type: bigint
               - column:
-                  name: user_email
+                  name: email
                   type: varchar(255)

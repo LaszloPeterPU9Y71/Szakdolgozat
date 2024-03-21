@@ -7,39 +7,39 @@ databaseChangeLog:
             tableName: owner_company_employee_entity
             columns:
               - column:
-                  name: owner_company_employee_id
+                  name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: owner_company_employee_email
+                  name: email
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
                     unique: true
               - column:
-                  name: owner_company_employee_name
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee_status
+                  name: status
                   type: boolean
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee_tel_num
+                  name: tel_num
                   type: varchar(255)
                   constraints:
                     nullable: false
                     primaryKey: false
               - column:
-                  name: owner_company_employee_title
+                  name: title
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -48,7 +48,7 @@ databaseChangeLog:
                   name: owner_company_id
                   type: bigint
                   constraints:
-                    nullable: false
+                    nullable: true
                     primaryKey: false
 
         - loadData:
@@ -59,22 +59,22 @@ databaseChangeLog:
 
             columns:
               - column:
-                  name: owner_company_employee_id
+                  name: id
                   type: bigint
               - column:
-                  name: owner_company_employee_email
+                  name: email
                   type: varchar(255)
               - column:
-                  name: owner_company_employee_name
+                  name: name
                   type: varchar(255)
               - column:
-                  name: owner_company_employee_status
+                  name: status
                   type: boolean
               - column:
-                  name: owner_company_employee_tel_num
+                  name: tel_num
                   type: int
               - column:
-                  name: owner_company_employee_title
+                  name: title
                   type: varchar(255)
               - column:
                   name: owner_company_id

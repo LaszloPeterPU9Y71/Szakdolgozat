@@ -7,14 +7,14 @@ databaseChangeLog:
             tableName: defect_entity
             columns:
               - column:
-                  name: defect_id
+                  name: id
                   type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: defect_name
+                  name: name
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -22,7 +22,7 @@ databaseChangeLog:
                     unique: true
 
               - column:
-                  name: defect_description
+                  name: description
                   type: varchar(255)
                   constraints:
                     nullable: true
@@ -36,12 +36,12 @@ databaseChangeLog:
 
             columns:
               - column:
-                  name: defect_id
+                  name: id
                   type: bigint
               - column:
-                  name: defect_name
+                  name: name
                   type: varchar(255)
               - column:
-                  name: defect_description
+                  name: description
                   type: varchar(255)
 
