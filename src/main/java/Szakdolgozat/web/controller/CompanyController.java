@@ -33,14 +33,14 @@ public class CompanyController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @PostMapping("/addCompany")
+    @PostMapping("/create")
     public ResponseEntity<CompanyDto> addCompany(@RequestBody CreateCompanyRequest createCompanyRequest) throws Exception {
         CompanyDto companyDto = companyService.addCompany(createCompanyRequest);
         return ResponseEntity.ok(companyDto);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/findCompaniesByName/{companyName}")
+    @GetMapping("/find-by-name/{companyName}")
     public ResponseEntity<List<CompanyDto>> findAllCompaniesByName(@PathVariable (value="companyName") String name){
         List<CompanyDto> companyDtos = companyService.findAllCompaniesByName(name);
         return ResponseEntity.ok(companyDtos);

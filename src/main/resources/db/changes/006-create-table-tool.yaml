@@ -23,7 +23,7 @@ databaseChangeLog:
                   name: item_number
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
                     primaryKey: false
               - column:
                   name: name
@@ -35,7 +35,7 @@ databaseChangeLog:
                   name: serial_number
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
                     primaryKey: false
               - column:
                   name: status
@@ -47,7 +47,7 @@ databaseChangeLog:
                   name: type_number
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
                     primaryKey: false
               - column:
                   name: employee_id

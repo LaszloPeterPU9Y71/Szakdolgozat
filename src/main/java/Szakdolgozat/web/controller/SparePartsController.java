@@ -27,14 +27,14 @@ public class SparePartsController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("findByName/{name}")
+    @GetMapping("find-by-name/{name}")
     public ResponseEntity<List<SparePartsDto>> findSparePartsByName(@PathVariable("name") String name){
         List<SparePartsDto> sparePartsDtos = sparePartsService.findSparePartsByName(name);
         return ResponseEntity.ok(sparePartsDtos);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("findByNumber/{number}")
+    @GetMapping("find-by-number/{number}")
     public ResponseEntity<List<SparePartsDto>> findSparePartsByNumber(@PathVariable("number") String number){
         List<SparePartsDto> sparePartsDtos = sparePartsService.findSparePartsByNumber(number);
         return ResponseEntity.ok(sparePartsDtos);

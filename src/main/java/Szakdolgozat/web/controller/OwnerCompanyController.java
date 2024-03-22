@@ -21,7 +21,7 @@ public class OwnerCompanyController {
 
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @PostMapping("/addCompany")
+    @PostMapping("/add-company")
     public ResponseEntity<OwnerCompanyDto> addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest) throws Exception {
         OwnerCompanyDto ownerCompanyDto = ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
         return ResponseEntity.ok(ownerCompanyDto);
@@ -42,14 +42,14 @@ public class OwnerCompanyController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/findbyname/{ownerCompanyName}")
+    @GetMapping("/find-by-name/{ownerCompanyName}")
     public ResponseEntity<List<OwnerCompanyDto>> findOwnerCompanyByName(@PathVariable("ownerCompanyName") String ownerCompanyName){
         List<OwnerCompanyDto> ownerCompanyDtos = ownerCompanyService.findByOwnerCompanyName(ownerCompanyName);
         return ResponseEntity.ok(ownerCompanyDtos);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/findbytaxnumber/{taxNumber}")
+    @GetMapping("/find-by-taxnumber/{taxNumber}")
     public ResponseEntity<OwnerCompanyDto> findOwnerCompanyByTaxNumber(@PathVariable("taxNumber") String taxNumber){
         OwnerCompanyDto ownerCompanyDtos = ownerCompanyService.findByOwnerCompanyTaxNumber(taxNumber);
         return ResponseEntity.ok(ownerCompanyDtos);

@@ -28,13 +28,13 @@ public class ToolEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "type_number", nullable = false)
+    @Column(name = "type_number")
     private String typeNumber;
 
-    @Column(name = "item_number", nullable = false)
+    @Column(name = "item_number")
     private String itemNumber;
 
-    @Column(name = "serial_number", nullable = false, unique = true)
+    @Column(name = "serial_number")
     private String serialNumber;
 
     @Column(name = "date_of_recieving", nullable = true)
@@ -46,7 +46,7 @@ public class ToolEntity {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "defect",
+    @JoinTable(name = "tool_defect",
         joinColumns = @JoinColumn(name = "tool_id"),
             foreignKey = @ForeignKey(name = "FK_Tool_Defect"),
         inverseJoinColumns = @JoinColumn(name = "defect_id"),

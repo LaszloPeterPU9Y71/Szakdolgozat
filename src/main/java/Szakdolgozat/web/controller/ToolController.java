@@ -30,32 +30,32 @@ public class ToolController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/status={status}")
+    @GetMapping("/status/{status}")
     public ResponseEntity<List<ToolDto>> findByStatus(@PathVariable ("status") String status){
         List<ToolDto> toolDtos = toolService.findByStatus(status);
         return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/name={toolName}")
+    @GetMapping("/name/{toolName}")
     public ResponseEntity<List<ToolDto>> findToolByName(@PathVariable (value = "toolName") String name){
         List<ToolDto> toolDtos = toolService.findByName(name);
         return ResponseEntity.ok(toolDtos);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/item={itemNumber}")
+    @GetMapping("/item/{itemNumber}")
     public ResponseEntity<List<ToolDto>> findToolByItemNumber(@PathVariable (value = "itemNumber") String itemNumber){
         List<ToolDto> toolDtos = toolService.findByItemNumber(itemNumber);
         return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/type={typeNumber}")
+    @GetMapping("/type/{typeNumber}")
     public ResponseEntity<List<ToolDto>> findToolByTypeNumber(@PathVariable ("typeNumber") String typeNumber){
         List<ToolDto> toolDtos = toolService.findByTypeNumber(typeNumber);
         return ResponseEntity.ok(toolDtos);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/serial={serialNumber}")
+    @GetMapping("/serial/{serialNumber}")
     public ResponseEntity<List<ToolDto>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
         List<ToolDto> toolDtos = toolService.findBySerialNumber(serialNumber);
         return ResponseEntity.ok(toolDtos);
@@ -77,7 +77,7 @@ public class ToolController {
         return "A : " + id + " azonosítójú gép törlése sikeres.";
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @PutMapping("/updateStatus/{id}")
+    @PutMapping("/update-status/{id}")
     public String updateToolStatus(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolStatus(id, createToolRequest);
