@@ -106,7 +106,6 @@ public class ToolService {
         current.setTypeNumber(createToolRequest.getTypeNumber());
         current.setItemNumber(createToolRequest.getItemNumber());
         current.setSerialNumber(createToolRequest.getSerialNumber());
-        current.setDateOfReceiving(LocalDateTime.now());
         current.setStatus(createToolRequest.getStatus());
         return current;
     }

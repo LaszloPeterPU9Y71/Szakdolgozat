@@ -20,4 +20,5 @@ public class ToolDto {
     private String serialNumber;
     private LocalDateTime dateOfReceiving;
     private String status;
+    private String description;
 }

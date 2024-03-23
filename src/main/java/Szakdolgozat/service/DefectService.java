@@ -33,12 +33,12 @@ public class DefectService {
         }
         DefectEntity defect = defectMapper.map(createDefectRequest);
         DefectEntity defectEntity = defectRepository.save(defect);
-        return defectMapStructDto.fromEntitytoDto(defectEntity);
+        return defectMapStructDto.fromEntityToDto(defectEntity);
     }
 
     public List<DefectDto> findAllDefects(){
         Iterable<DefectEntity> defectEntities = defectRepository.findAll();
-        return defectMapStructDto.fromEntitytoDtoList(defectEntities);
+        return defectMapStructDto.fromEntityToDtoList(defectEntities);
     }
 
     public List<DefectDto> findDefectsByName(String name) throws DataNotFoundException {
@@ -46,6 +46,6 @@ public class DefectService {
         if(defectRepository.findByNameContainingIgnoreCase(name).isEmpty()){
             throw new DataNotFoundException(String.format("Ezzel a megnevezéssel nem található hiba: %s !", name));
         }
-        return defectMapStructDto.fromEntitytoDtoList(defectEntities);
+        return defectMapStructDto.fromEntityToDtoList(defectEntities);
     }
 }

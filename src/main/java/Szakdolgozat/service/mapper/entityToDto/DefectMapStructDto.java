@@ -15,8 +15,8 @@ import java.util.List;
 
 public interface DefectMapStructDto {
 
-    DefectDto fromEntitytoDto(DefectEntity defectEntity);
+    DefectDto fromEntityToDto(DefectEntity defectEntity);
 
-    List<DefectDto> fromEntitytoDtoList(Iterable<DefectEntity> defectEntities);
+    List<DefectDto> fromEntityToDtoList(Iterable<DefectEntity> defectEntities);
 
 }

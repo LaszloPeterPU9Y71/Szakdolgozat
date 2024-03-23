@@ -17,8 +17,4 @@ public class CreateDefectRequest {
     @NotBlank(message = "A mező kitöltése kötelező")
     private String name;
 
-    @NotBlank(message = "A mező kitöltése kötelező")
-    private String description;
-
-
 }

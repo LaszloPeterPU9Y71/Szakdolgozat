@@ -39,7 +39,7 @@ public class OwnerCompanyEntity{
     @Column(name = "tax_number", nullable = false, unique = true)
     private String taxNumber;
 
-    @Column(name = "account_number", nullable = true)
+    @Column(name = "account_number")
     private String accountNumber;
 
     @Column(name = "status", nullable = false)

@@ -29,7 +29,7 @@ public class OwnerCompanyEmployeeController {
         return ResponseEntity.ok(ownerCompanyEmployeeDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("/find-all")
+    @GetMapping("/all")
     public ResponseEntity<List<OwnerCompanyEmployeeDto>> findAllOwnerCompanyEmployee(){
         List<OwnerCompanyEmployeeDto> ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findAllOwnerCompanyEmployee();
         return ResponseEntity.ok(ownerCompanyEmployeeDtos);

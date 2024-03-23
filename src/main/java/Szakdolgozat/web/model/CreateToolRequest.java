@@ -37,6 +37,8 @@ public class CreateToolRequest {
     @NotBlank(message = "A mező kitöltése kötelező")
     private String status;
 
+    private String description;
+
     @JsonProperty(value= "ownerCompanyEmployee")
     private long ownerCompanyEmployeeId;
 

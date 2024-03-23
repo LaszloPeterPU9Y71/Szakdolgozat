@@ -21,12 +21,7 @@ databaseChangeLog:
                     primaryKey: false
                     unique: true
 
-              - column:
-                  name: description
-                  type: varchar(255)
-                  constraints:
-                    nullable: true
-                    primaryKey: false
+
 
         - loadData:
             tableName: defect_entity
@@ -41,7 +36,5 @@ databaseChangeLog:
               - column:
                   name: name
                   type: varchar(255)
-              - column:
-                  name: description
-                  type: varchar(255)
+
 
