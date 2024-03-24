@@ -22,7 +22,7 @@ public class OwnerCompanyEmployeeController {
     private final OwnerCompanyEmployeeService ownerCompanyEmployeeService;
     private final OwnerCompanyService ownerCompanyService;
 
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/add-employee")
     public ResponseEntity<OwnerCompanyEmployeeDto> addEmployee(@Valid @RequestBody CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws Exception {
         OwnerCompanyEmployeeDto ownerCompanyEmployeeDto = ownerCompanyEmployeeService.addEmployee(createOwnerCompanyEmployeeRequest);
@@ -45,13 +45,13 @@ public class OwnerCompanyEmployeeController {
     @PutMapping("/company-assign-employee/{companyId}/{employeeId}")
     public ResponseEntity<String> companyAssignEmployee(@PathVariable (value = "companyId") long companyId, @PathVariable (value = "employeeId") long employeeId) {
         ownerCompanyEmployeeService.companyAssignEmployee(companyId, employeeId);
-        return ResponseEntity.ok("Az alkalmazotthoz hozzárendelésre kerlült cégehez.");
+        return ResponseEntity.ok("Az alkalmazotthoz hozzárendelésre kerlült a cége.");
 
 
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/company-unassign-employee/{employeeId}")
-    public ResponseEntity<String> companyAssignEmployee(@PathVariable (value = "employeeId") long employeeId) {
+    public ResponseEntity<String> companyUnassignEmployee(@PathVariable (value = "employeeId") long employeeId) {
         ownerCompanyEmployeeService.companyUnassignEmployee(employeeId);
         return ResponseEntity.ok("A cég és alkalmazott összerendelés megszűnt.");
 

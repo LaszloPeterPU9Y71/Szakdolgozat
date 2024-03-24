@@ -38,7 +38,7 @@ public class ToolEntity {
     private String serialNumber;
 
     @Column(name = "date_of_recieving")
-    @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime dateOfReceiving;
 
     @Column(name = "status", nullable = false)

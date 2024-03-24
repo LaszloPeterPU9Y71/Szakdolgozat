@@ -2,6 +2,9 @@ package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataAlreadyExistsException;
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
+import Szakdolgozat.entities.CompanyEntity;
+import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
+import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.entities.UserEntity;
 import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.UserRepository;
@@ -9,6 +12,7 @@ import Szakdolgozat.service.mapper.UserMapper;
 import Szakdolgozat.service.mapper.entityToDto.UserMapStructDto;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -53,7 +57,6 @@ public class UserService {
         UserEntity user = userMapper.map(createUserRequest);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setStatus(true);
-        user.setCompanyEntity(companyRepository.findById(1));
         UserEntity userEntity = userRepository.save(user);
         return userMapStructDto.fromEntityToDto(userEntity);
     }
@@ -106,4 +109,27 @@ public class UserService {
         return current;
     }
 
+    public void companyAssignUser(long companyId, long userId) throws DataNotFoundException {
+        UserEntity userEntity = userRepository.findByIdEquals(userId);
+        System.out.println(userEntity);
+        if(userEntity == null){
+            throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem található alkalmazott: %s", userId));
+        }
+        CompanyEntity companyEntity = companyRepository.findById(companyId);
+        System.out.println(companyEntity);
+        if(companyEntity == null){
+            throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem található cég: %s", companyId ));
+        }
+        userEntity.setCompanyEntity(companyEntity);
+
+    }
+
+    public void companyUnassignUser(long userId) throws DataNotFoundException {
+        UserEntity userEntity = userRepository.findByIdEquals(userId);
+        if(userEntity == null){
+            throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem található alkalmazott: %s", userId));
+        }else if(userEntity.getCompanyEntity() == null){
+            throw new DataNotFoundException("Ehhez a személyhez nincs hozzárendelve cég");
+        }else userEntity.setCompanyEntity(null);
+    }
 }

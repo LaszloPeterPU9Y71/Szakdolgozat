@@ -42,7 +42,7 @@ public class UserEntity {
     private Boolean status;
 
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "company_id",
             foreignKey = @ForeignKey(name = "FK_User_Company"))
     private CompanyEntity companyEntity;

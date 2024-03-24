@@ -52,6 +52,22 @@ public class UserController {
         userService.updateUserPassword(id, createUserRequest);
         return "A felhasználó jelszava frissült";
     }
+
+
+    @PutMapping("/company-assign-user/{companyId}/{userId}")
+    public ResponseEntity<String> companyAssignUser(@PathVariable (value = "companyId") long companyId, @PathVariable (value = "userId") long userId) {
+        userService.companyAssignUser(companyId, userId);
+        return ResponseEntity.ok("Az alkalmazotthoz hozzárendelésre került a cége.");
+
+
+    }
+    @PutMapping("/company-unassign-user/{userId}")
+    public ResponseEntity<String> companyUnassignUser(@PathVariable (value = "userId") long userId) {
+        userService.companyUnassignUser(userId);
+        return ResponseEntity.ok("A cég és alkalmazott összerendelés megszűnt.");
+
+
+    }
 }
 
 
