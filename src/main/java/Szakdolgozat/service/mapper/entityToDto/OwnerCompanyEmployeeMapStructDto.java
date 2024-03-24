@@ -5,6 +5,7 @@ import Szakdolgozat.entities.OwnerCompanyEntity;
 import Szakdolgozat.web.dto.OwnerCompanyDto;
 import Szakdolgozat.web.dto.OwnerCompanyEmployeeDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
@@ -15,6 +16,7 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         componentModel = "spring" )
 public interface OwnerCompanyEmployeeMapStructDto {
+    @Mapping(source = "ownerCompanyEntity.id", target = "ownerCompanyId")
     OwnerCompanyEmployeeDto fromEntityToDto(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity);
 
     List<OwnerCompanyEmployeeDto> fromEntityToDtoList(Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities);

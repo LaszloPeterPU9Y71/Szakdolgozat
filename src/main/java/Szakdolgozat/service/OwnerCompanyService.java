@@ -23,10 +23,17 @@ public class OwnerCompanyService {
     private final OwnerCompanyRepository ownerCompanyRepository;
     private final OwnerCompanyMapStructDto ownerCompanyMapStructDto;
 
+
     public List<OwnerCompanyDto> findAllOwnerCompany(){
         Iterable<OwnerCompanyEntity> ownerCompanyEntities = ownerCompanyRepository.findAll();
         return ownerCompanyMapStructDto.fromEntityToDtoList(ownerCompanyEntities);
     }
+
+    public OwnerCompanyDto findOwnerCompanyById(long companyId) {
+        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
+        return ownerCompanyMapStructDto.fromEntityToDto(ownerCompanyEntity);
+    }
+
 
     public List<OwnerCompanyDto> findByOwnerCompanyName(String name) throws DataNotFoundException{
         List<OwnerCompanyEntity> ownerCompanyEntities = ownerCompanyRepository.findByCompanyNameContainingIgnoreCase(name);
@@ -90,10 +97,7 @@ public class OwnerCompanyService {
         }
     }
 
-    public OwnerCompanyEntity findOwnerCompanyById(long companyId) {
-        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
-        return ownerCompanyEntity;
-    }
+
 }
 
 

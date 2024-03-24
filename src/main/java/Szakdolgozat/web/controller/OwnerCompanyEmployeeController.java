@@ -20,7 +20,6 @@ import java.util.List;
 public class OwnerCompanyEmployeeController {
 
     private final OwnerCompanyEmployeeService ownerCompanyEmployeeService;
-    private final OwnerCompanyService ownerCompanyService;
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/add-employee")

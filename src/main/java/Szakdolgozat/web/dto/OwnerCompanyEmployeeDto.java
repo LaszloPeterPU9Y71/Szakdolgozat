@@ -18,4 +18,5 @@ public class OwnerCompanyEmployeeDto {
     private String email;
     private String title;
     private Boolean status;
+    private long ownerCompanyId;
 }
