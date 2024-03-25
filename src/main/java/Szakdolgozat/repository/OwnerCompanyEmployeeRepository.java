@@ -20,4 +20,5 @@ public interface OwnerCompanyEmployeeRepository extends CrudRepository<OwnerComp
 
 
 
+
 }

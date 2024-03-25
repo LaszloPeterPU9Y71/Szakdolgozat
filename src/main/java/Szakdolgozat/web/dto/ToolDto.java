@@ -21,4 +21,6 @@ public class ToolDto {
     private LocalDateTime dateOfReceiving;
     private String status;
     private String description;
+    private long employeeId;
+    private long defectId;
 }

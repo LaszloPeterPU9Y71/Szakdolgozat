@@ -2,8 +2,8 @@ package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.entities.ToolEntity;
-import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
+import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.mapper.ToolMapper;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.tools.Tool;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +26,8 @@ public class ToolService {
     private final ToolRepository toolRepository;
 
     private final ToolMapper toolMapper;
-    private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
-    private final DefectRepository defectRepository;
     private final ToolMapStructDto toolMapStructDto;
+    private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
 
 
 
@@ -83,8 +83,6 @@ public class ToolService {
         ToolEntity tool = toolMapper.map(createToolRequest);
         tool.setDateOfReceiving(LocalDateTime.now());
         tool.setStatus("Beérkezett");
-        tool.setOwnerCompanyEmployeeEntity(ownerCompanyEmployeeRepository.findById(createToolRequest.getOwnerCompanyEmployeeId()));
-        tool.setDefects(defectRepository.findById(createToolRequest.getDefectsId()));
         ToolEntity toolEntity = toolRepository.save(tool);
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
@@ -107,6 +105,7 @@ public class ToolService {
         current.setItemNumber(createToolRequest.getItemNumber());
         current.setSerialNumber(createToolRequest.getSerialNumber());
         current.setStatus(createToolRequest.getStatus());
+        current.setDescription((createToolRequest.getDescription()));
         return current;
     }
 

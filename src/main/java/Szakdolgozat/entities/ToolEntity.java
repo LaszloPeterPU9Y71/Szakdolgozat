@@ -57,7 +57,7 @@ public class ToolEntity {
     )
     private List<DefectEntity> defects;
 
-    @ManyToOne(optional = false)
+    @ManyToOne()
     @JoinColumn(name = "employee_id",
             foreignKey = @ForeignKey(name = "FK_Tool_Employee"))
     private OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity;

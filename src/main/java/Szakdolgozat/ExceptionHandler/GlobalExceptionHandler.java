@@ -32,12 +32,12 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
     }
-    @ExceptionHandler(DataIntegrityViolationException.class)
+    /*@ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> dataMissingException(){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("Az adatok rosszul, vagy hiányosan lettek kitöltve!");
-    }
+              .body("Az adatok rosszul, vagy hiányosan lettek kitöltve!");
+    }*/
 
     @ExceptionHandler(Error.class)
     public ResponseEntity<Object> handleError(){

@@ -62,7 +62,6 @@ public class OwnerCompanyEmployeeService {
         return ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities);
     }
 
-
     public OwnerCompanyEmployeeEntity findOwnerCompanyEmployeeById(long companyId) throws DataNotFoundException{
             if(ownerCompanyEmployeeRepository.findById(companyId) == null){
                 throw new DataNotFoundException(String.format("Ezzel az azonosítóval nem szerepel cég az adatbázisban: %s", companyId));

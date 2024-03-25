@@ -1,7 +1,5 @@
 package Szakdolgozat.web.model;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
@@ -39,10 +37,10 @@ public class CreateToolRequest {
 
     private String description;
 
-    @JsonProperty(value= "ownerCompanyEmployee")
-    private long ownerCompanyEmployeeId;
 
-    @JsonProperty(value= "defectsId")
-    private long defectsId;
+
+
+
+
 
 }

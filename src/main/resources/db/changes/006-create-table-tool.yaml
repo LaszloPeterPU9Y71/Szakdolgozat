@@ -53,10 +53,16 @@ databaseChangeLog:
                   name: employee_id
                   type: bigint
                   constraints:
-                    nullable: false
+                    nullable: true
                     primaryKey: false
               - column:
                   name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+                    primaryKey: false
+              - column:
+                  name: defect_id
                   type: varchar(255)
                   constraints:
                     nullable: true
@@ -96,4 +102,6 @@ databaseChangeLog:
               - column:
                   name: description
                   type: varchar(255)
-
+              - column:
+                  name: defect_id
+                  type: bigint
