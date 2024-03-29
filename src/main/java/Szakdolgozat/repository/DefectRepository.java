@@ -12,6 +12,6 @@ public interface DefectRepository extends CrudRepository<DefectEntity, Long> {
 
     Optional<DefectEntity> findByName(String name);
 
-    List<DefectEntity> findById(long id);
+    DefectEntity findById(long id);
 
 }

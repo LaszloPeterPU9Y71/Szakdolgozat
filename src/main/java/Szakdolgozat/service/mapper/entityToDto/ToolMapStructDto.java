@@ -16,6 +16,7 @@ import java.util.List;
 public interface ToolMapStructDto {
 
     @Mapping(source = "ownerCompanyEmployeeEntity.id", target = "employeeId")
+    @Mapping(target = "defects", expression = "java(toolEntity.getDefects().stream().map(Szakdolgozat.entities.DefectEntity::getId).toList())")
     ToolDto fromEntityToDto(ToolEntity toolEntity);
 
     List<ToolDto> fromEntityToDtoList(Iterable<ToolEntity> toolEntities);

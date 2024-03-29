@@ -61,12 +61,6 @@ databaseChangeLog:
                   constraints:
                     nullable: true
                     primaryKey: false
-              - column:
-                  name: defect_id
-                  type: varchar(255)
-                  constraints:
-                    nullable: true
-                    primaryKey: false
 
         - loadData:
             tableName: tool_entity
@@ -102,6 +96,3 @@ databaseChangeLog:
               - column:
                   name: description
                   type: varchar(255)
-              - column:
-                  name: defect_id
-                  type: bigint

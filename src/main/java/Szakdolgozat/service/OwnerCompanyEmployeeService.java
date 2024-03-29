@@ -32,13 +32,14 @@ public class OwnerCompanyEmployeeService {
 
     public OwnerCompanyEmployeeDto addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws ConstraintViolationException {
         String email = createOwnerCompanyEmployeeRequest.getEmail();
+        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(createOwnerCompanyEmployeeRequest.getCompanyId());
         Optional<OwnerCompanyEmployeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
         if(maybeEmployee.isPresent()){
             throw new ConstraintViolationException(String.format("Ezzel az e-mail címmel már regiszráltak ügyfelet: %s !", email));
         }
 
-        OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map(createOwnerCompanyEmployeeRequest);
+        OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map( ownerCompanyEntity, createOwnerCompanyEmployeeRequest);
         employee.setOwnerCompanyEntity(null);
         employee.setStatus(true);
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.save(employee);

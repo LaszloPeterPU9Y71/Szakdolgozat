@@ -37,6 +37,10 @@ public class CreateToolRequest {
 
     private String description;
 
+    private long employeeId;
+
+    private long defectId;
+
 
 
 

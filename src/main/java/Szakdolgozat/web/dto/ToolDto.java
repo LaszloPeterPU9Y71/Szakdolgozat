@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -22,5 +23,5 @@ public class ToolDto {
     private String status;
     private String description;
     private long employeeId;
-    private long defectId;
+    private List<Long> defects;
 }

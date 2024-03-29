@@ -1,7 +1,10 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
+import Szakdolgozat.entities.DefectEntity;
+import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.entities.ToolEntity;
+import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.repository.ToolRepository;
@@ -28,6 +31,7 @@ public class ToolService {
     private final ToolMapper toolMapper;
     private final ToolMapStructDto toolMapStructDto;
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
+    private final DefectRepository defectRepository;
 
 
 
@@ -80,9 +84,9 @@ public class ToolService {
     }
 
     public ToolDto addTool(CreateToolRequest createToolRequest){
-        ToolEntity tool = toolMapper.map(createToolRequest);
-        tool.setDateOfReceiving(LocalDateTime.now());
-        tool.setStatus("Beérkezett");
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
+        DefectEntity defectEntity = defectRepository.findById(createToolRequest.getDefectId());
+        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntity, createToolRequest);
         ToolEntity toolEntity = toolRepository.save(tool);
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
