@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -43,6 +44,14 @@ public class CompanyController {
     @GetMapping("/find-by-name/{companyName}")
     public ResponseEntity<List<CompanyDto>> findAllCompaniesByName(@PathVariable (value="companyName") String name){
         List<CompanyDto> companyDtos = companyService.findAllCompaniesByName(name);
+        return ResponseEntity.ok(companyDtos);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<CompanyDto> findCompanyById(@PathVariable (value="id") Long id){
+        CompanyDto companyDtos = companyService.findById(id);
         return ResponseEntity.ok(companyDtos);
 
     }

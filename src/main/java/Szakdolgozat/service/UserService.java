@@ -47,6 +47,9 @@ public class UserService {
 
     public UserDto addUser(CreateUserRequest createUserRequest) throws DataAlreadyExistsException {
         String email = createUserRequest.getEmail();
+        CompanyEntity companyEntity = companyRepository.findByIdEquals(createUserRequest.getCompanyId());
+
+
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
 
         if (maybeEmail.isPresent()) {
@@ -54,7 +57,7 @@ public class UserService {
             throw new DataAlreadyExistsException(String.format("Ez az e-mail cím már használatban van: '%s'", email));
         }
 
-        UserEntity user = userMapper.map(createUserRequest);
+        UserEntity user = userMapper.map(companyEntity, createUserRequest);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setStatus(true);
         UserEntity userEntity = userRepository.save(user);

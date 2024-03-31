@@ -15,5 +15,9 @@ public interface CompanyRepository extends CrudRepository<CompanyEntity, Long> {
 
     CompanyEntity findById(long id);
 
+    CompanyEntity findByIdEquals(Long id);
+
+
+
 
 }

@@ -45,6 +45,12 @@ public class CompanyService {
 
     }
 
+    public CompanyDto findById(Long id){
+        CompanyEntity companyEntities = companyRepository.findByIdEquals(id);
+        return companyMapStructDto.fromEntityToDto(companyEntities);
+
+    }
+
 
 
 

@@ -18,7 +18,7 @@ public class UserDto {
     private String email;
     private String title;
     private Boolean status;
-
+    private Long companyId;
 
 
 }

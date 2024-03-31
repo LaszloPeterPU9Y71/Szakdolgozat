@@ -32,7 +32,7 @@ public class OwnerCompanyEmployeeService {
 
     public OwnerCompanyEmployeeDto addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws ConstraintViolationException {
         String email = createOwnerCompanyEmployeeRequest.getEmail();
-        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(createOwnerCompanyEmployeeRequest.getCompanyId());
+        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(createOwnerCompanyEmployeeRequest.getOwnerCompanyId());
         Optional<OwnerCompanyEmployeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
         if(maybeEmployee.isPresent()){
@@ -40,7 +40,6 @@ public class OwnerCompanyEmployeeService {
         }
 
         OwnerCompanyEmployeeEntity employee = ownerCompanyEmployeeMapper.map( ownerCompanyEntity, createOwnerCompanyEmployeeRequest);
-        employee.setOwnerCompanyEntity(null);
         employee.setStatus(true);
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.save(employee);
         return ownerCompanyEmployeeMapStructDto.fromEntityToDto(ownerCompanyEmployeeEntity);

@@ -30,4 +30,6 @@ public class CreateUserRequest {
     @NotBlank(message = "A mező kitöltése kötelező")
     private boolean status;
 
+    private Long companyId;
+
 }
