@@ -48,4 +48,5 @@ public class DefectService {
         }
         return defectMapStructDto.fromEntityToDtoList(defectEntities);
     }
+
 }

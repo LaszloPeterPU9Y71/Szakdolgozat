@@ -1,5 +1,6 @@
 package Szakdolgozat.web.controller;
 
+import Szakdolgozat.entities.DefectEntity;
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.ToolService;
@@ -77,8 +78,9 @@ public class ToolController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update/{id}")
     public String updateToolData(@PathVariable("id") long id,
-                                 @RequestBody CreateToolRequest createToolRequest) {
-        toolService.updateToolData(id, createToolRequest);
+                                 @RequestBody CreateToolRequest createToolRequest, DefectEntity defectEntity) {
+
+        toolService.updateToolData(id, defectEntity, createToolRequest);
         return "A gép adatai frissültek!";
     }
     @CrossOrigin(origins = "http://localhost:4200/")

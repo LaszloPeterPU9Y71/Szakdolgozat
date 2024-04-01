@@ -96,7 +96,7 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
-    public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
+    public void updateToolData(long id,DefectEntity defectEntity, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
@@ -105,16 +105,17 @@ public class ToolService {
         } else if(maybeToolSerialNumber.isEmpty()){
             throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
         }
-        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
+        toolRepository.save(updateToolData(maybeToolEntity.get(), defectEntity, createToolRequest));
     }
 
-    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest){
+    private ToolEntity updateToolData(ToolEntity current,DefectEntity defectEntity, CreateToolRequest createToolRequest){
         current.setName(createToolRequest.getName());
         current.setTypeNumber(createToolRequest.getTypeNumber());
         current.setItemNumber(createToolRequest.getItemNumber());
         current.setSerialNumber(createToolRequest.getSerialNumber());
         current.setStatus(createToolRequest.getStatus());
-        current.setDescription((createToolRequest.getDescription()));
+        current.setDescription(createToolRequest.getDescription());
+        current.setDefects(List.of(defectEntity));
         return current;
     }
 
