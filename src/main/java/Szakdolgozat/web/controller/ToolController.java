@@ -1,5 +1,7 @@
 package Szakdolgozat.web.controller;
 
+import Szakdolgozat.entities.ToolEntity;
+import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.ToolService;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/tools")
@@ -15,6 +18,7 @@ import java.util.List;
 public class ToolController {
 
     private final ToolService toolService;
+    private final ToolRepository toolRepository;
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/create")
@@ -39,6 +43,13 @@ public class ToolController {
     @GetMapping("/name/{toolName}")
     public ResponseEntity<List<ToolDto>> findToolByName(@PathVariable (value = "toolName") String name){
         List<ToolDto> toolDtos = toolService.findByName(name);
+        return ResponseEntity.ok(toolDtos);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ToolDto> findToolById(@PathVariable (value = "id") long id){
+        ToolDto toolDtos = toolService.findById(id);
         return ResponseEntity.ok(toolDtos);
     }
 

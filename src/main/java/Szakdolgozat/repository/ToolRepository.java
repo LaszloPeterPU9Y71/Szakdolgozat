@@ -3,6 +3,7 @@ package Szakdolgozat.repository;
 import Szakdolgozat.entities.ToolEntity;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.tools.Tool;
 import java.util.List;
 
 public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
@@ -11,5 +12,9 @@ public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
        List<ToolEntity> findByTypeNumberContainingIgnoreCase(String typeNumber);
        List<ToolEntity> findBySerialNumberContainingIgnoreCase(String serialNumber);
        List<ToolEntity> findByItemNumberContainingIgnoreCase(String itemNumber);
+
+       ToolEntity findByIdEquals(long id);
+
+
 
 }

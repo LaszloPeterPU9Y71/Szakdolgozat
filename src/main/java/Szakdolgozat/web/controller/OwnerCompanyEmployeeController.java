@@ -1,5 +1,6 @@
 package Szakdolgozat.web.controller;
 
+import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.service.OwnerCompanyEmployeeService;
 import Szakdolgozat.service.OwnerCompanyService;
 import Szakdolgozat.web.dto.OwnerCompanyEmployeeDto;
@@ -20,6 +21,7 @@ import java.util.List;
 public class OwnerCompanyEmployeeController {
 
     private final OwnerCompanyEmployeeService ownerCompanyEmployeeService;
+    private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping("/add-employee")
@@ -40,6 +42,14 @@ public class OwnerCompanyEmployeeController {
         List<OwnerCompanyEmployeeDto> ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findOwnerCompanyEmployeeByName(name);
         return ResponseEntity.ok(ownerCompanyEmployeeDtos);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<OwnerCompanyEmployeeDto> findOwnerCompanyEmployeebyId(@PathVariable(value = "id") long id){
+        OwnerCompanyEmployeeDto ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findById(id);
+        return ResponseEntity.ok(ownerCompanyEmployeeDtos);
+    }
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/company-assign-employee/{companyId}/{employeeId}")
     public ResponseEntity<String> companyAssignEmployee(@PathVariable (value = "companyId") long companyId, @PathVariable (value = "employeeId") long employeeId) {

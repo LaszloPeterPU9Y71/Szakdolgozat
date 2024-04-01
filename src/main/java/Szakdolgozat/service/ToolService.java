@@ -6,7 +6,6 @@ import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
-import Szakdolgozat.repository.OwnerCompanyRepository;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.mapper.ToolMapper;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
@@ -16,8 +15,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.tools.Tool;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +80,14 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
+    public ToolDto findById(long id){
+        ToolEntity toolEntity = toolRepository.findByIdEquals(id);
+        if(toolMapStructDto.fromEntityToDto(toolEntity) == null){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú gépet: %s !", id));
+        }
+        return toolMapStructDto.fromEntityToDto(toolEntity);
+    }
+
     public ToolDto addTool(CreateToolRequest createToolRequest){
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
         DefectEntity defectEntity = defectRepository.findById(createToolRequest.getDefectId());
@@ -138,6 +143,5 @@ public class ToolService {
         return current;
 
     }
-
 
 }

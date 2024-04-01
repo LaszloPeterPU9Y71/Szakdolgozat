@@ -46,6 +46,14 @@ public class OwnerCompanyEmployeeService {
 
     }
 
+    public OwnerCompanyEmployeeDto findById(long id){
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(id);
+        if(ownerCompanyEmployeeMapStructDto.fromEntityToDto(ownerCompanyEmployeeEntity) == null){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú gépet: %s !", id));
+        }
+        return ownerCompanyEmployeeMapStructDto.fromEntityToDto(ownerCompanyEmployeeEntity);
+    }
+
     public List<OwnerCompanyEmployeeDto> findAllOwnerCompanyEmployee() throws DataNotFoundException {
         Iterable<OwnerCompanyEmployeeEntity> ownerCompanyEmployeeEntities = ownerCompanyEmployeeRepository.findAll();
             if(ownerCompanyEmployeeMapStructDto.fromEntityToDtoList(ownerCompanyEmployeeEntities).isEmpty()){
