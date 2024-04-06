@@ -96,7 +96,7 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
-    public void updateToolData(long id,DefectEntity defectEntity, CreateToolRequest createToolRequest) throws DataNotFoundException {
+    public void updateToolData(long id, DefectEntity defectEntity, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
@@ -108,14 +108,10 @@ public class ToolService {
         toolRepository.save(updateToolData(maybeToolEntity.get(), defectEntity, createToolRequest));
     }
 
-    private ToolEntity updateToolData(ToolEntity current,DefectEntity defectEntity, CreateToolRequest createToolRequest){
-        current.setName(createToolRequest.getName());
-        current.setTypeNumber(createToolRequest.getTypeNumber());
-        current.setItemNumber(createToolRequest.getItemNumber());
-        current.setSerialNumber(createToolRequest.getSerialNumber());
-        current.setStatus(createToolRequest.getStatus());
+    private ToolEntity updateToolData(ToolEntity current, DefectEntity defectEntity, CreateToolRequest createToolRequest){
         current.setDescription(createToolRequest.getDescription());
         current.setDefects(List.of(defectEntity));
+        current.setStatus(createToolRequest.getStatus());
         return current;
     }
 

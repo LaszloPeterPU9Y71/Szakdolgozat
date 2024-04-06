@@ -32,12 +32,12 @@ public class DefectController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/find-by-id/{id}")
-    public DefectDto findById(@PathVariable(value = "id") long id){
-        DefectEntity defectEntity = defectRepository.findById(id);
-        if(defectMapStructDto.fromEntityToDto(defectEntity) == null){
-            throw new DataNotFoundException(String.format("Nem találtunk ilyen nevű hibát: %s !", defectEntity.getName()));
+    public List<DefectDto> findById(@PathVariable(value = "id") List<Long> ids){
+        List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(ids);
+        if(defectEntities.isEmpty()){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú hibát: %s !", ids));
         }
-        return defectMapStructDto.fromEntityToDto(defectEntity);
+        return defectMapStructDto.fromEntityToDtoList(defectEntities);
     }
 
     @CrossOrigin(origins = "http://localhost:4200/")
