@@ -11,16 +11,18 @@ import Szakdolgozat.service.mapper.ToolMapper;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
 @Service
-@AllArgsConstructor
+
+@RequiredArgsConstructor
 public class ToolService {
 
     private final ToolRepository toolRepository;
@@ -89,14 +91,15 @@ public class ToolService {
     }
 
     public ToolDto addTool(CreateToolRequest createToolRequest){
+        List<DefectEntity> defectEntities = createToolRequest.getDefects();
+
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
-        DefectEntity defectEntity = defectRepository.findById(createToolRequest.getDefectId());
-        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntity, createToolRequest);
+        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntities,createToolRequest);
         ToolEntity toolEntity = toolRepository.save(tool);
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
-    public void updateToolData(long id, DefectEntity defectEntity, CreateToolRequest createToolRequest) throws DataNotFoundException {
+    public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
 
@@ -105,12 +108,11 @@ public class ToolService {
         } else if(maybeToolSerialNumber.isEmpty()){
             throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
         }
-        toolRepository.save(updateToolData(maybeToolEntity.get(), defectEntity, createToolRequest));
+        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
     }
 
-    private ToolEntity updateToolData(ToolEntity current, DefectEntity defectEntity, CreateToolRequest createToolRequest){
+    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest){
         current.setDescription(createToolRequest.getDescription());
-        current.setDefects(List.of(defectEntity));
         current.setStatus(createToolRequest.getStatus());
         return current;
     }

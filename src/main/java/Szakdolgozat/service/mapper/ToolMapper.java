@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class ToolMapper {
 
-    public ToolEntity map(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity, DefectEntity defectEntity, CreateToolRequest createToolRequest){
+    public ToolEntity map(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity, List<DefectEntity> defectEntities, CreateToolRequest createToolRequest){
         return ToolEntity.builder()
                 .name(createToolRequest.getName())
                 .typeNumber(createToolRequest.getTypeNumber())
@@ -23,7 +23,7 @@ public class ToolMapper {
                 .dateOfReceiving(LocalDateTime.now())
                 .status("Beérkezett")
                 .ownerCompanyEmployeeEntity(ownerCompanyEmployeeEntity)
-                .defects(List.of(defectEntity))
+                .defects(defectEntities)
                 .build();
     }
 }

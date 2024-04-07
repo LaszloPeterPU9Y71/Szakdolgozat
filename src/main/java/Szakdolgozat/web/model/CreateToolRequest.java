@@ -1,5 +1,6 @@
 package Szakdolgozat.web.model;
 
+import Szakdolgozat.entities.DefectEntity;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,7 +41,7 @@ public class CreateToolRequest {
 
     private long employeeId;
 
-    private long defectId;
+    private List<DefectEntity> defects;
 
 
 

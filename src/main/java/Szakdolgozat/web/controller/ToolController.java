@@ -25,6 +25,7 @@ public class ToolController {
     @PostMapping("/create")
     public ResponseEntity<ToolDto> createTool(@RequestBody  CreateToolRequest createToolRequest) {
         ToolDto toolDto = toolService.addTool(createToolRequest);
+
         return ResponseEntity.ok(toolDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")
@@ -78,9 +79,9 @@ public class ToolController {
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update/{id}")
     public String updateToolData(@PathVariable("id") long id,
-                                 @RequestBody CreateToolRequest createToolRequest, DefectEntity defectEntity) {
+                                 @RequestBody CreateToolRequest createToolRequest) {
 
-        toolService.updateToolData(id, defectEntity, createToolRequest);
+        toolService.updateToolData(id, createToolRequest);
         return "A gép adatai frissültek!";
     }
     @CrossOrigin(origins = "http://localhost:4200/")
