@@ -37,8 +37,7 @@ public class ToolEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @Column(name = "date_of_recieving")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Column(name = "date_of_receiving")
     private LocalDateTime dateOfReceiving;
 
     @Column(name = "status", nullable = false)
@@ -46,6 +45,9 @@ public class ToolEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "identifier")
+    private String identifier;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

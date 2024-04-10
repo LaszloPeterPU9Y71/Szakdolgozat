@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,23 +91,30 @@ public class ToolService {
     }
 
     public ToolDto addTool(CreateToolRequest createToolRequest){
-        List<DefectEntity> defectEntities = createToolRequest.getDefects();
 
+        var count = toolRepository.getItemCountInMonth(LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue());
+
+        LocalDateTime now = LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+        String formattedYear = String.format("%02d", year % 100);
+        String formattedMonth = String.format("%02d", month);
+        String identifier = formattedYear + formattedMonth + "/" + (count + 1);
+
+        List<DefectEntity> defectEntities = createToolRequest.getDefects();
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
-        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntities,createToolRequest);
+        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntities, createToolRequest, identifier);
         ToolEntity toolEntity = toolRepository.save(tool);
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
+
+
     public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-        List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
+       // maybeToolEntity.get().getOwnerCompanyEmployeeEntity().getEmail();
 
-        if(maybeToolEntity.isEmpty()){
-            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval:  %s", id));
-        } else if(maybeToolSerialNumber.isEmpty()){
-            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
-        }
+
         toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
     }
 

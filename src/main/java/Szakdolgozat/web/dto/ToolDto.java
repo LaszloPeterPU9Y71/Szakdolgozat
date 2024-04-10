@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -19,9 +20,11 @@ public class ToolDto {
     private String typeNumber;
     private String itemNumber;
     private String serialNumber;
-    private LocalDateTime dateOfReceiving;
+    private String dateOfReceiving;
     private String status;
     private String description;
     private long employeeId;
     private List<Long> defects;
+    private String employeeName;
+    private String identifier;
 }

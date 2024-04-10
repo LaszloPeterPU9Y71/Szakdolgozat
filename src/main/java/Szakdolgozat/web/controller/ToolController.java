@@ -25,7 +25,6 @@ public class ToolController {
     @PostMapping("/create")
     public ResponseEntity<ToolDto> createTool(@RequestBody  CreateToolRequest createToolRequest) {
         ToolDto toolDto = toolService.addTool(createToolRequest);
-
         return ResponseEntity.ok(toolDto);
     }
     @CrossOrigin(origins = "http://localhost:4200/")

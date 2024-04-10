@@ -14,7 +14,7 @@ databaseChangeLog:
                     nullable: false
                     primaryKey: true
               - column:
-                  name: date_of_recieving
+                  name: date_of_receiving
                   type: datetime
                   constraints:
                     nullable: false
@@ -60,6 +60,12 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
+                    primaryKey: false
+              - column:
+                  name: identifier
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
                     primaryKey: false
 
         - loadData:
@@ -73,7 +79,7 @@ databaseChangeLog:
                   name: id
                   type: bigint
               - column:
-                  name: date_of_recieving
+                  name: date_of_receiving
                   type: datetime
               - column:
                   name: item_number
@@ -95,4 +101,7 @@ databaseChangeLog:
                   type: bigint
               - column:
                   name: description
+                  type: varchar(255)
+              - column:
+                  name: identifier
                   type: varchar(255)

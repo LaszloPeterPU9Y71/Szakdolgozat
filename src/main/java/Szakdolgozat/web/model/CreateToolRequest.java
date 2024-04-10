@@ -43,6 +43,8 @@ public class CreateToolRequest {
 
     private List<DefectEntity> defects;
 
+    private String identifier;
+
 
 
 

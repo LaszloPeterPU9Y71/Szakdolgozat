@@ -7,13 +7,13 @@ import Szakdolgozat.entities.ToolEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
 @Component
 public class ToolMapper {
-
-    public ToolEntity map(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity, List<DefectEntity> defectEntities, CreateToolRequest createToolRequest){
+    public ToolEntity map(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity, List<DefectEntity> defectEntities, CreateToolRequest createToolRequest, String identifier){
         return ToolEntity.builder()
                 .name(createToolRequest.getName())
                 .typeNumber(createToolRequest.getTypeNumber())
@@ -24,6 +24,7 @@ public class ToolMapper {
                 .status("Beérkezett")
                 .ownerCompanyEmployeeEntity(ownerCompanyEmployeeEntity)
                 .defects(defectEntities)
+                .identifier(identifier)
                 .build();
     }
 }
