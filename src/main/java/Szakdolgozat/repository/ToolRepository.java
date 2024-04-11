@@ -21,5 +21,4 @@ public interface ToolRepository extends CrudRepository<ToolEntity, Long> {
        ToolEntity findByIdEquals(long id);
 
 
-
 }

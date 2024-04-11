@@ -38,6 +38,7 @@ public class ToolEntity {
     private String serialNumber;
 
     @Column(name = "date_of_receiving")
+
     private LocalDateTime dateOfReceiving;
 
     @Column(name = "status", nullable = false)

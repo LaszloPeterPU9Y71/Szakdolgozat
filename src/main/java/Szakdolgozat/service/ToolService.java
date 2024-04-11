@@ -11,6 +11,7 @@ import Szakdolgozat.service.mapper.ToolMapper;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,10 @@ import java.util.Optional;
 public class ToolService {
 
     private final ToolRepository toolRepository;
-
     private final ToolMapper toolMapper;
     private final ToolMapStructDto toolMapStructDto;
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
-    private final DefectRepository defectRepository;
+    private final EmailService emailService;
 
 
 
@@ -133,15 +133,10 @@ public class ToolService {
     }
 
     public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException{
-        Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-        List<ToolEntity> maybeToolSerialNumber = toolRepository.findBySerialNumberContainingIgnoreCase(createToolRequest.getSerialNumber());
-
-        if(maybeToolEntity.isEmpty()){
-            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel az azonosítóval: %s", id));
-        } else if(maybeToolSerialNumber.isEmpty()){
-            throw new DataNotFoundException(HttpStatus.NOT_FOUND, String.format("Nem található gép ezzel a gyártási számmal %s", createToolRequest.getSerialNumber()));
-        }
-        toolRepository.save(updateToolStatus(maybeToolEntity.get(), createToolRequest));
+        ToolEntity maybeToolEntity = toolRepository.findByIdEquals(id);
+        emailService.sendStatusChangedMail(maybeToolEntity.getOwnerCompanyEmployeeEntity().getEmail(), toolMapStructDto.fromEntityToDto(maybeToolEntity));
+        toolRepository.save(updateToolStatus(maybeToolEntity, createToolRequest));
+        emailService.sendStatusChangedMail(maybeToolEntity.getOwnerCompanyEmployeeEntity().getEmail(), toolMapStructDto.fromEntityToDto(maybeToolEntity));
     }
 
     public ToolEntity updateToolStatus(ToolEntity current, CreateToolRequest createToolRequest) {

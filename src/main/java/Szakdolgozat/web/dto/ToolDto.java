@@ -26,5 +26,6 @@ public class ToolDto {
     private long employeeId;
     private List<Long> defects;
     private String employeeName;
+    private String ownerCompanyName;
     private String identifier;
 }
