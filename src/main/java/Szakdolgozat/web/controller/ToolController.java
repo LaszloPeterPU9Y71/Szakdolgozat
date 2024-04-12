@@ -75,14 +75,14 @@ public class ToolController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+   /* @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update/{id}")
     public String updateToolData(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
 
         toolService.updateToolData(id, createToolRequest);
         return "A gép adatai frissültek!";
-    }
+    }*/
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{id}")
     public String deleteTool(@PathVariable("id") long id) {

@@ -31,8 +31,7 @@ public class CreateToolRequest {
     private String serialNumber;
 
     @NotBlank(message = "A mező kitöltése kötelező")
-    @DateTimeFormat(pattern = "yyyy-MM-DD hh:mm:ss")
-    private LocalDateTime dateOfReceiving;
+    private String dateOfReceiving;
 
     @NotBlank(message = "A mező kitöltése kötelező")
     private String status;
@@ -41,7 +40,7 @@ public class CreateToolRequest {
 
     private long employeeId;
 
-    private List<DefectEntity> defects;
+    private List<Long> defects;
 
     private String identifier;
 

@@ -20,4 +20,6 @@ public interface DefectMapStructDto {
 
     List<DefectDto> fromEntityToDtoList(Iterable<DefectEntity> defectEntities);
 
+    List<DefectEntity> fromDtoToEntityList(List<DefectDto> defectDtos);
+
 }

@@ -20,7 +20,7 @@ import java.util.List;
 
 public interface ToolMapStructDto {
     @Mapping(source = "identifier", target = "identifier")
-    @Mapping(target = "dateOfReceiving", expression= "java(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").format(LocalDateTime.now()))")
+    @Mapping(target = "dateOfReceiving", expression= "java(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").format(toolEntity.getDateOfReceiving()))")
     @Mapping(source = "ownerCompanyEmployeeEntity.name", target = "employeeName")
     @Mapping(source = "ownerCompanyEmployeeEntity.ownerCompanyEntity.companyName", target = "ownerCompanyName")
     @Mapping(source = "ownerCompanyEmployeeEntity.id", target = "employeeId")

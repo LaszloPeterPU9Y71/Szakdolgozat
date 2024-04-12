@@ -15,8 +15,4 @@ public interface DefectRepository extends CrudRepository<DefectEntity, Long> {
 
     List<DefectEntity> findAllByIdIsIn(List<Long> ids);
 
-
-
-    List<DefectEntity> findAll();
-
 }

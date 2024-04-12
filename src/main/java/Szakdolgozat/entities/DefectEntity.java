@@ -20,7 +20,7 @@ public class DefectEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;

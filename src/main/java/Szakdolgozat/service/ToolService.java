@@ -8,17 +8,17 @@ import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.mapper.ToolMapper;
+import Szakdolgozat.service.mapper.entityToDto.DefectMapStructDto;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -31,6 +31,8 @@ public class ToolService {
     private final ToolMapStructDto toolMapStructDto;
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final EmailService emailService;
+    private final DefectRepository defectRepository;
+    private final DefectMapStructDto defectMapStructDto;
 
 
 
@@ -92,6 +94,16 @@ public class ToolService {
 
     public ToolDto addTool(CreateToolRequest createToolRequest){
 
+
+        String identifier = getIdentifier();
+        List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
+        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
+        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntities, createToolRequest, identifier);
+        ToolEntity toolEntity = toolRepository.save(tool);
+        return toolMapStructDto.fromEntityToDto(toolEntity);
+    }
+
+    private String getIdentifier() {
         var count = toolRepository.getItemCountInMonth(LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue());
 
         LocalDateTime now = LocalDateTime.now();
@@ -99,18 +111,12 @@ public class ToolService {
         int month = now.getMonthValue();
         String formattedYear = String.format("%02d", year % 100);
         String formattedMonth = String.format("%02d", month);
-        String identifier = formattedYear + formattedMonth + "/" + (count + 1);
-
-        List<DefectEntity> defectEntities = createToolRequest.getDefects();
-        OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
-        ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntities, createToolRequest, identifier);
-        ToolEntity toolEntity = toolRepository.save(tool);
-        return toolMapStructDto.fromEntityToDto(toolEntity);
+        return formattedYear + formattedMonth + "/" + (count + 1);
     }
 
 
 
-    public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
+  /*  public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
        // maybeToolEntity.get().getOwnerCompanyEmployeeEntity().getEmail();
 
@@ -122,7 +128,7 @@ public class ToolService {
         current.setDescription(createToolRequest.getDescription());
         current.setStatus(createToolRequest.getStatus());
         return current;
-    }
+    }*/
 
     public void deleteTool(long id) throws DataNotFoundException {
         if (!toolRepository.existsById(id)) {
@@ -133,8 +139,11 @@ public class ToolService {
     }
 
     public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException{
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         ToolEntity maybeToolEntity = toolRepository.findByIdEquals(id);
-        emailService.sendStatusChangedMail(maybeToolEntity.getOwnerCompanyEmployeeEntity().getEmail(), toolMapStructDto.fromEntityToDto(maybeToolEntity));
+        maybeToolEntity.setDefects(defectRepository.findAllByIdIsIn(createToolRequest.getDefects()));
+        maybeToolEntity.setDateOfReceiving(LocalDateTime.parse(createToolRequest.getDateOfReceiving(), formatter));
         toolRepository.save(updateToolStatus(maybeToolEntity, createToolRequest));
         emailService.sendStatusChangedMail(maybeToolEntity.getOwnerCompanyEmployeeEntity().getEmail(), toolMapStructDto.fromEntityToDto(maybeToolEntity));
     }
