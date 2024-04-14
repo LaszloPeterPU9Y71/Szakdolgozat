@@ -32,7 +32,12 @@ public class OwnerCompanyEmployeeService {
 
     public OwnerCompanyEmployeeDto addEmployee(CreateOwnerCompanyEmployeeRequest createOwnerCompanyEmployeeRequest) throws ConstraintViolationException {
         String email = createOwnerCompanyEmployeeRequest.getEmail();
-        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(createOwnerCompanyEmployeeRequest.getOwnerCompanyId());
+        OwnerCompanyEntity ownerCompanyEntity = null;
+        if(createOwnerCompanyEmployeeRequest.getOwnerCompanyId() > 0){
+            ownerCompanyEntity = ownerCompanyRepository.findById(createOwnerCompanyEmployeeRequest.getOwnerCompanyId());
+
+        }
+
         Optional<OwnerCompanyEmployeeEntity> maybeEmployee = ownerCompanyEmployeeRepository.findByEmail(email);
 
         if(maybeEmployee.isPresent()){

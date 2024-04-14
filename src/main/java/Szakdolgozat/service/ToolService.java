@@ -16,9 +16,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -60,6 +64,8 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
+
+
     public List<ToolDto> findByItemNumber(String itemNumber){
         List<ToolEntity> toolEntities = toolRepository.findByItemNumberContainingIgnoreCase(itemNumber);
         if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
@@ -67,6 +73,8 @@ public class ToolService {
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
+
+
 
     public List<ToolDto> findByTypeNumber(String typeNumber){
         List<ToolEntity> toolEntities = toolRepository.findByTypeNumberContainingIgnoreCase(typeNumber);
@@ -92,6 +100,14 @@ public class ToolService {
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
 
+    public List<ToolDto> findByIdentifier(String identifier) {
+        List<ToolEntity> toolEntities = toolRepository.findByIdentifierContainingIgnoreCase(identifier);
+        if(toolEntities.isEmpty()){
+            throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú gépet: %s !", identifier));
+        }
+        return toolMapStructDto.fromEntityToDtoList(toolEntities);
+    }
+
     public ToolDto addTool(CreateToolRequest createToolRequest){
 
 
@@ -111,14 +127,14 @@ public class ToolService {
         int month = now.getMonthValue();
         String formattedYear = String.format("%02d", year % 100);
         String formattedMonth = String.format("%02d", month);
-        return formattedYear + formattedMonth + "/" + (count + 1);
+        return formattedYear + formattedMonth + "-" + (count + 1);
     }
 
 
 
-  /*  public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
+    public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-       // maybeToolEntity.get().getOwnerCompanyEmployeeEntity().getEmail();
+
 
 
         toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
@@ -128,7 +144,7 @@ public class ToolService {
         current.setDescription(createToolRequest.getDescription());
         current.setStatus(createToolRequest.getStatus());
         return current;
-    }*/
+    }
 
     public void deleteTool(long id) throws DataNotFoundException {
         if (!toolRepository.existsById(id)) {

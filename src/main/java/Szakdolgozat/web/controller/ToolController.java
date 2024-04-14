@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,14 @@ public class ToolController {
         List<ToolDto> toolDtos = toolService.findByTypeNumber(typeNumber);
         return ResponseEntity.ok(toolDtos);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/identifier/{identifier}")
+    public ResponseEntity<List<ToolDto>> findToolByIdentifier(@PathVariable ("identifier") String identifier) {
+        List<ToolDto> toolDtos = toolService.findByIdentifier(identifier);
+        return ResponseEntity.ok(toolDtos);
+    }
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/serial/{serialNumber}")
     public ResponseEntity<List<ToolDto>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
@@ -73,16 +82,6 @@ public class ToolController {
         return ResponseEntity.ok(toolDtos);
     }
 
-
-
-   /* @CrossOrigin(origins = "http://localhost:4200/")
-    @PutMapping("/update/{id}")
-    public String updateToolData(@PathVariable("id") long id,
-                                 @RequestBody CreateToolRequest createToolRequest) {
-
-        toolService.updateToolData(id, createToolRequest);
-        return "A gép adatai frissültek!";
-    }*/
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{id}")
     public String deleteTool(@PathVariable("id") long id) {
@@ -96,6 +95,12 @@ public class ToolController {
         toolService.updateToolStatus(id, createToolRequest);
         return "A gép státusza megváltozott!";
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @PutMapping("/update-data/{id}")
+    public String updateToolData(@PathVariable("id") long id,
+                                   @RequestBody CreateToolRequest createToolRequest) {
+        toolService.updateToolData(id, createToolRequest);
+        return "A géphez hozzárendelt adatok megváltoztak!";
+    }
 
 }

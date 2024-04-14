@@ -29,8 +29,11 @@ public class OwnerCompanyService {
         return ownerCompanyMapStructDto.fromEntityToDtoList(ownerCompanyEntities);
     }
 
-    public OwnerCompanyDto findOwnerCompanyById(long companyId) {
-        OwnerCompanyEntity ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
+    public OwnerCompanyDto findOwnerCompanyById(long companyId) throws DataNotFoundException{
+        OwnerCompanyEntity ownerCompanyEntity = null;
+        if(companyId > 0) {
+            ownerCompanyEntity = ownerCompanyRepository.findById(companyId);
+        } else throw new DataNotFoundException("Nem létezik ilyen cég");
         return ownerCompanyMapStructDto.fromEntityToDto(ownerCompanyEntity);
     }
 

@@ -38,7 +38,7 @@ public class OwnerCompanyEmployeeController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/find-employee/{employeename}")
-    public ResponseEntity<List<OwnerCompanyEmployeeDto>> findEmployeeByName(@PathVariable (value = "employeename") String name) {
+    public ResponseEntity<List<OwnerCompanyEmployeeDto>> findEmployeeBName(@PathVariable (value = "employeename") String name) {
         List<OwnerCompanyEmployeeDto> ownerCompanyEmployeeDtos = ownerCompanyEmployeeService.findOwnerCompanyEmployeeByName(name);
         return ResponseEntity.ok(ownerCompanyEmployeeDtos);
     }
