@@ -25,7 +25,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/all")
     public ResponseEntity<List<CompanyDto>> findAllCompanies(){
             List<CompanyDto> companyDtos = companyService.findAllCompanies();
@@ -33,14 +33,14 @@ public class CompanyController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @PostMapping("/create")
     public ResponseEntity<CompanyDto> addCompany(@RequestBody CreateCompanyRequest createCompanyRequest) throws Exception {
         CompanyDto companyDto = companyService.addCompany(createCompanyRequest);
         return ResponseEntity.ok(companyDto);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/find-by-name/{companyName}")
     public ResponseEntity<List<CompanyDto>> findAllCompaniesByName(@PathVariable (value="companyName") String name){
         List<CompanyDto> companyDtos = companyService.findAllCompaniesByName(name);
@@ -48,7 +48,7 @@ public class CompanyController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/find-by-id/{id}")
     public ResponseEntity<CompanyDto> findCompanyById(@PathVariable (value="id") Long id){
         CompanyDto companyDtos = companyService.findById(id);

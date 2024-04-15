@@ -20,14 +20,14 @@ public class OwnerCompanyController {
     private final OwnerCompanyService ownerCompanyService;
 
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @PostMapping("/add-company")
     public ResponseEntity<OwnerCompanyDto> addOwnerCompany(@RequestBody CreateOwnerCompanyRequest createOwnerCompanyRequest) throws Exception {
         OwnerCompanyDto ownerCompanyDto = ownerCompanyService.addOwnerCompany(createOwnerCompanyRequest);
         return ResponseEntity.ok(ownerCompanyDto);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/all")
     public @ResponseBody ResponseEntity<List<OwnerCompanyDto>> findAllOwnerCompany() {
         List<OwnerCompanyDto> ownerCompanyDtos = ownerCompanyService.findAllOwnerCompany();
@@ -36,28 +36,28 @@ public class OwnerCompanyController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @DeleteMapping("/delete/{taxNumber}")
     public ResponseEntity<String> deleteOwnerCompany(@PathVariable("taxNumber") String taxNumber){
         ownerCompanyService.deleteOwnerCompany(taxNumber);
         return ResponseEntity.ok("A cég ezzel az adószámmal törlésre került: " + taxNumber + ".");
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/find-by-name/{ownerCompanyName}")
     public ResponseEntity<List<OwnerCompanyDto>> findOwnerCompanyByName(@PathVariable("ownerCompanyName") String ownerCompanyName){
         List<OwnerCompanyDto> ownerCompanyDtos = ownerCompanyService.findByOwnerCompanyName(ownerCompanyName);
         return ResponseEntity.ok(ownerCompanyDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/find-by-id/{ownerCompanyId}")
     public ResponseEntity<OwnerCompanyDto> findOwnerCompanyById(@PathVariable("ownerCompanyId") long ownerCompanyId){
         OwnerCompanyDto ownerCompanyDto = ownerCompanyService.findOwnerCompanyById(ownerCompanyId);
         return ResponseEntity.ok(ownerCompanyDto);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/find-by-taxnumber/{taxNumber}")
     public ResponseEntity<OwnerCompanyDto> findOwnerCompanyByTaxNumber(@PathVariable("taxNumber") String taxNumber){
         OwnerCompanyDto ownerCompanyDtos = ownerCompanyService.findByOwnerCompanyTaxNumber(taxNumber);

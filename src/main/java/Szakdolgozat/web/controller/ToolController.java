@@ -20,82 +20,82 @@ import java.util.Optional;
 public class ToolController {
 
     private final ToolService toolService;
-    private final ToolRepository toolRepository;
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
+
     @PostMapping("/create")
     public ResponseEntity<ToolDto> createTool(@RequestBody  CreateToolRequest createToolRequest) {
         ToolDto toolDto = toolService.addTool(createToolRequest);
         return ResponseEntity.ok(toolDto);
     }
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/all")
     public ResponseEntity<List<ToolDto>> findAllTools(){
         List<ToolDto> toolDtos = toolService.findAllTools();
         return ResponseEntity.ok(toolDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/status/{status}")
     public ResponseEntity<List<ToolDto>> findByStatus(@PathVariable ("status") String status){
         List<ToolDto> toolDtos = toolService.findByStatus(status);
         return ResponseEntity.ok(toolDtos);
     }
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/name/{toolName}")
     public ResponseEntity<List<ToolDto>> findToolByName(@PathVariable (value = "toolName") String name){
         List<ToolDto> toolDtos = toolService.findByName(name);
         return ResponseEntity.ok(toolDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/id/{id}")
     public ResponseEntity<ToolDto> findToolById(@PathVariable (value = "id") long id){
         ToolDto toolDtos = toolService.findById(id);
         return ResponseEntity.ok(toolDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/item/{itemNumber}")
     public ResponseEntity<List<ToolDto>> findToolByItemNumber(@PathVariable (value = "itemNumber") String itemNumber){
         List<ToolDto> toolDtos = toolService.findByItemNumber(itemNumber);
         return ResponseEntity.ok(toolDtos);
     }
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/type/{typeNumber}")
     public ResponseEntity<List<ToolDto>> findToolByTypeNumber(@PathVariable ("typeNumber") String typeNumber){
         List<ToolDto> toolDtos = toolService.findByTypeNumber(typeNumber);
         return ResponseEntity.ok(toolDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/identifier/{identifier}")
     public ResponseEntity<List<ToolDto>> findToolByIdentifier(@PathVariable ("identifier") String identifier) {
         List<ToolDto> toolDtos = toolService.findByIdentifier(identifier);
         return ResponseEntity.ok(toolDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/serial/{serialNumber}")
     public ResponseEntity<List<ToolDto>> findToolBySerialNumber(@PathVariable ("serialNumber") String serialNumber){
         List<ToolDto> toolDtos = toolService.findBySerialNumber(serialNumber);
         return ResponseEntity.ok(toolDtos);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @DeleteMapping("/delete/{id}")
     public String deleteTool(@PathVariable("id") long id) {
         toolService.deleteTool(id);
         return "A : " + id + " azonosítójú gép törlése sikeres.";
     }
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @PutMapping("/update-status/{id}")
     public String updateToolStatus(@PathVariable("id") long id,
                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolStatus(id, createToolRequest);
         return "A gép státusza megváltozott!";
     }
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @PutMapping("/update-data/{id}")
     public String updateToolData(@PathVariable("id") long id,
                                    @RequestBody CreateToolRequest createToolRequest) {

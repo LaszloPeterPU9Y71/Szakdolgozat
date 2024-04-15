@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
         @Autowired
         private EmailService emailService;
-        @CrossOrigin(origins = "http://localhost:4200/")
+
         @PostMapping("/send-email")
         public String machineStatusChanged(@RequestParam String to, @RequestParam ToolDto tool) {
             emailService.sendStatusChangedMail(to, tool);

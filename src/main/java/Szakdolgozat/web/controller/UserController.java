@@ -19,13 +19,13 @@ public class UserController {
 
     private final UserService userService;
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @PostMapping("/create")
     public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) {
         UserDto userDto = userService.addUser(createUserRequest);
         return ResponseEntity.ok(userDto);
     }
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     @GetMapping("/all")
     public ResponseEntity<List<UserDto>> findAllUsers(){
         List<UserDto> userDto = userService.findAllUsers();

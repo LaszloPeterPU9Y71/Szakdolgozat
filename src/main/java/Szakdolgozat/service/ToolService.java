@@ -1,24 +1,23 @@
 package Szakdolgozat.service;
 
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
+import Szakdolgozat.entities.CompanyEntity;
 import Szakdolgozat.entities.DefectEntity;
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
 import Szakdolgozat.entities.ToolEntity;
+import Szakdolgozat.repository.CompanyRepository;
 import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.mapper.ToolMapper;
-import Szakdolgozat.service.mapper.entityToDto.DefectMapStructDto;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -36,8 +35,7 @@ public class ToolService {
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final EmailService emailService;
     private final DefectRepository defectRepository;
-    private final DefectMapStructDto defectMapStructDto;
-
+    private final CompanyRepository companyRepository;
 
 
     public List<ToolDto> findAllTools() throws DataNotFoundException{
@@ -55,6 +53,7 @@ public class ToolService {
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
+
 
     public List<ToolDto> findByName(String name) throws DataNotFoundException{
         List<ToolEntity> toolEntities = toolRepository.findByNameContainingIgnoreCase(name);
@@ -99,6 +98,8 @@ public class ToolService {
         }
         return toolMapStructDto.fromEntityToDto(toolEntity);
     }
+
+
 
     public List<ToolDto> findByIdentifier(String identifier) {
         List<ToolEntity> toolEntities = toolRepository.findByIdentifierContainingIgnoreCase(identifier);
@@ -156,7 +157,6 @@ public class ToolService {
 
     public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         ToolEntity maybeToolEntity = toolRepository.findByIdEquals(id);
         maybeToolEntity.setDefects(defectRepository.findAllByIdIsIn(createToolRequest.getDefects()));
         maybeToolEntity.setDateOfReceiving(LocalDateTime.parse(createToolRequest.getDateOfReceiving(), formatter));

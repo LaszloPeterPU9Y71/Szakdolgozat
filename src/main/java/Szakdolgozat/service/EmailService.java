@@ -23,7 +23,7 @@ public class EmailService {
         message.setFrom(from);
         message.setTo(to);
         message.setSubject("A javításra beadott gép státusza megváltozott");
-        message.setText("A javításra beadott " + tool.getName() + " státusza megváltozott, kollégánk hamarosan felveszi Önnel a kapcsolatot!");
+        message.setText("A javításra beadott " + tool.getSerialNumber() + " gyártási számú "  + tool.getName() + " állapota " + tool.getStatus() + " státuszra változott, kollégánk hamarosan felveszi Önnel a kapcsolatot!");
         mailSender.send(message);
     }
 }
