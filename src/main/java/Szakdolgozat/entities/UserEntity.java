@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -57,6 +56,18 @@ public class UserEntity {
     )
     private List<ToolEntity> toolEntity;
 
-
-
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", telNum='" + telNum + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", title='" + title + '\'' +
+                ", status=" + status +
+                ", companyEntity=" + companyEntity +
+                ", toolEntity=" + toolEntity +
+                '}';
+    }
 }
