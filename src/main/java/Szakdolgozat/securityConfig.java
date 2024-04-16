@@ -1,4 +1,4 @@
-package Szakdolgozat.configurations;
+package Szakdolgozat;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
