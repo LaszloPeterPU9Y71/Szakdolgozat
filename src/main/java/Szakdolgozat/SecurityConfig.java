@@ -36,13 +36,4 @@ class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // @Bean
-    // public InMemoryUserDetailsManager userDetailsService() {
-    //     UserDetails user = User.withDefaultPasswordEncoder()
-    //             .username("aamir")
-    //             .password("123")
-    //             .roles("ADMIN")
-    //             .build();
-    //     return new InMemoryUserDetailsManager(user);
-    // }
 }
