@@ -45,6 +45,14 @@ public class UserService {
 
     }
 
+    public UserDto findUserByEmail(String email) throws DataNotFoundException{
+        UserEntity maybeUserEntity = userRepository.findByEmailEquals(email);
+        if(maybeUserEntity == null){
+            throw  new DataNotFoundException(HttpStatus.NOT_FOUND, "Nincs ilyen felhasználó, ellenőrizze, hogy helyesen adta-e meg az e-mail címet!");
+        }
+        return userMapStructDto.fromEntityToDto(maybeUserEntity);
+    }
+
     public UserDto addUser(CreateUserRequest createUserRequest) throws DataAlreadyExistsException {
         String email = createUserRequest.getEmail();
         CompanyEntity companyEntity = companyRepository.findByIdEquals(createUserRequest.getCompanyId());

@@ -8,6 +8,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -17,8 +18,8 @@ import java.util.List;
 public interface UserMapStructDto {
 
     @Mapping(source = "companyEntity.id", target = "companyId")
-
     UserDto fromEntityToDto(UserEntity userEntity);
+
     List<UserDto> fromEntitytoDtoList(Iterable<UserEntity> userEntities);
 
 }

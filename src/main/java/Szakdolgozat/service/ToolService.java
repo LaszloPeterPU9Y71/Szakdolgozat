@@ -135,9 +135,6 @@ public class ToolService {
 
     public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-
-
-
         toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
     }
 

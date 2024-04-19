@@ -92,7 +92,7 @@ public class ToolController {
         return ResponseEntity.ok("A gép státusza megváltozott");
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @PutMapping("/update-data/{id}")
+    @PutMapping("/update-tool-data/{id}")
     public ResponseEntity<String> updateToolData(@PathVariable("id") long id,
                                                  @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolData(id, createToolRequest);

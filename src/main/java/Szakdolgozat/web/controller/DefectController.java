@@ -36,7 +36,9 @@ public class DefectController {
         List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(ids);
         if(defectEntities.isEmpty()){
             throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú hibát: %s !", ids));
+
         }
+
         return defectMapStructDto.fromEntityToDtoList(defectEntities);
     }
 

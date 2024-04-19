@@ -1,6 +1,7 @@
 package Szakdolgozat.web.controller;
 
 import Szakdolgozat.service.UserService;
+import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.dto.UserDto;
 import Szakdolgozat.web.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -32,25 +33,31 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
+    @GetMapping("/find-user-by-email/{email}")
+    public ResponseEntity<UserDto> findUserByEmail(@PathVariable (value = "email") String email){
+        UserDto userDto = userService.findUserByEmail(email);
+        return ResponseEntity.ok(userDto);
+    }
+
     
     @DeleteMapping("/delete/{id}")
-    public String softDelete(@PathVariable("id") long id) {
+    public ResponseEntity<String> softDelete(@PathVariable("id") long id) {
         userService.softDelete(id);
-        return "Az " + id + " azonosítójú felhasználó törlésre került";
+        return ResponseEntity.ok("Az " + id + " azonosítójú felhasználó törlésre került");
     }
 
     @PutMapping("/update/{id}")
-    public String updateUserData(@PathVariable("id") long id,
-                               @RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<String> updateUserData(@PathVariable("id") long id,
+                                                 @RequestBody CreateUserRequest createUserRequest) {
             userService.updateUserPersonalData(id, createUserRequest);
-        return "A felhasználó adatai frissültek!";
+        return ResponseEntity.ok("A felhasználó adatai frissültek!");
     }
 
     @PutMapping("/pw/{id}")
-    public String updateUserPassword(@PathVariable("id") long id,
-                                    @RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<String> updateUserPassword(@PathVariable("id") long id,
+                                                     @RequestBody CreateUserRequest createUserRequest) {
         userService.updateUserPassword(id, createUserRequest);
-        return "A felhasználó jelszava frissült";
+        return ResponseEntity.ok( "A felhasználó jelszava frissült");
     }
 
 
