@@ -1,7 +1,5 @@
 package Szakdolgozat.web.controller;
 
-import Szakdolgozat.entities.DefectEntity;
-import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.ToolService;
 import Szakdolgozat.web.dto.ToolDto;
@@ -10,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/tools")
@@ -84,23 +80,23 @@ public class ToolController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("/delete/{id}")
-    public String deleteTool(@PathVariable("id") long id) {
+    public ResponseEntity<String> deleteTool(@PathVariable("id") long id) {
         toolService.deleteTool(id);
-        return "A : " + id + " azonosítójú gép törlése sikeres.";
+        return ResponseEntity.ok("A : " + id + " azonosítójú gép törlése sikeres.");
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update-status/{id}")
-    public String updateToolStatus(@PathVariable("id") long id,
-                                 @RequestBody CreateToolRequest createToolRequest) {
+    public ResponseEntity<String> updateToolStatus(@PathVariable("id") long id,
+                                                   @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolStatus(id, createToolRequest);
-        return "A gép státusza megváltozott!";
+        return ResponseEntity.ok("A gép státusza megváltozott");
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("/update-data/{id}")
-    public String updateToolData(@PathVariable("id") long id,
-                                   @RequestBody CreateToolRequest createToolRequest) {
+    public ResponseEntity<String> updateToolData(@PathVariable("id") long id,
+                                                 @RequestBody CreateToolRequest createToolRequest) {
         toolService.updateToolData(id, createToolRequest);
-        return "A géphez hozzárendelt adatok megváltoztak!";
+        return ResponseEntity.ok("A géphez hozzárendelt adatok megváltoztak!");
     }
 
 }

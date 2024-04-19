@@ -35,13 +35,13 @@ public class CreateToolRequest {
 
     private String identifier;
 
-    private boolean isWarranty;
+    private Boolean isWarranty;
 
-    private boolean isWarrantyTicket;
+    private Boolean isWarrantyTicket;
 
-    private boolean isInvoice;
+    private Boolean isInvoice;
 
-    private boolean isRegistration;
+    private Boolean isRegistration;
 
 
 

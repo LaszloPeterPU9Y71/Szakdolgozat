@@ -36,10 +36,10 @@ public class ToolMapper {
                 .ownerCompanyEmployeeEntity(ownerCompanyEmployeeEntity)
                 .defects(defectEntities)
                 .identifier(identifier)
-                .isRegistration(createToolRequest.isRegistration())
-                .isWarranty(createToolRequest.isWarranty())
-                .isInvoice(createToolRequest.isInvoice())
-                .isWarrantyTicket(createToolRequest.isWarrantyTicket())
+                .isRegistration(createToolRequest.getIsRegistration())
+                .isWarranty(createToolRequest.getIsWarranty())
+                .isInvoice(createToolRequest.getIsInvoice())
+                .isWarrantyTicket(createToolRequest.getIsWarrantyTicket())
                 .build();
     }
 }

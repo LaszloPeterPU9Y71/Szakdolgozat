@@ -157,7 +157,6 @@ public class ToolService {
 
     public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         ToolEntity maybeToolEntity = toolRepository.findByIdEquals(id);
         maybeToolEntity.setDefects(defectRepository.findAllByIdIsIn(createToolRequest.getDefects()));
         maybeToolEntity.setDateOfReceiving(LocalDateTime.parse(createToolRequest.getDateOfReceiving(), formatter));

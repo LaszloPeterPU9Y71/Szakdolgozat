@@ -51,7 +51,6 @@ public class UserService {
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
 
         if (maybeEmail.isPresent()) {
-
             throw new DataAlreadyExistsException(String.format("Ez az e-mail cím már használatban van: '%s'", email));
         }
 
