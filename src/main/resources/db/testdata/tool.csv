@@ -1,8 +1,8 @@
-id,date_of_receiving,item_number,name,serial_number,status,type_number,employee_id,description,identifier
-1,2024-04-27 12:12:12,3608123d29,Fúrókalapács,123456789,Beérkezett,GBH 180-LI,1,Rossz,2401/1
-2,2024-04-27 12:12:12,3608123d28,Csavarbehajtó,123456788,Folyamatban,GSR 180-LI,2,,2401/2
-3,2024-04-27 12:12:12,3608123d27,Ütvefúró,123456787,Beérkezett,GSB 13 RE,3,,2401/3
-4,2024-04-27 12:12:12,3608123d26,Akkus csavarozó,123456786,Kész,GSB 180-LI,4,,2401/4
-5,2024-04-27 12:12:12,3608123d25,Csavarozó,123456785,Lezárt,DDF482Z,5,Elromlott,2401/5
-6,2024-04-27 12:12:12,3608123d24,Porszívó,123456784,Beérkezett,CTL 36 E AC,6,,2401/6
-7,2024-04-27 12:12:12,3608123d23,Falcsiszoló,123456783,Lezárt,LHS 225 E,7,Nem Jó,2401/7
+id,date_of_receiving,item_number,name,serial_number,status,type_number,employee_id,description,identifier,is_warranty,is_warranty_ticket,is_invoice,is_registration
+1,2024-04-27 12:12:12,3608123d29,Fúrókalapács,123456789,Beérkezett,GBH 180-LI,1,Rossz,2401/1,true,true,true,true
+2,2024-04-27 12:12:12,3608123d28,Csavarbehajtó,123456788,Folyamatban,GSR 180-LI,2,,2401/2,true,true,true,true
+3,2024-04-27 12:12:12,3608123d27,Ütvefúró,123456787,Beérkezett,GSB 13 RE,3,,2401/3,true,true,true,true
+4,2024-04-27 12:12:12,3608123d26,Akkus csavarozó,123456786,Kész,GSB 180-LI,4,,2401/4,true,true,true,true
+5,2024-04-27 12:12:12,3608123d25,Csavarozó,123456785,Lezárt,DDF482Z,5,Elromlott,2401/5,true,true,true,true
+6,2024-04-27 12:12:12,3608123d24,Porszívó,123456784,Beérkezett,CTL 36 E AC,6,,2401/6,true,true,true,true
+7,2024-04-27 12:12:12,3608123d23,Falcsiszoló,123456783,Lezárt,LHS 225 E,7,Nem Jó,2401/7,true,true,true,true

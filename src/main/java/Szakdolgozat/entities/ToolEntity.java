@@ -3,7 +3,6 @@ package Szakdolgozat.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,6 +48,18 @@ public class ToolEntity {
 
     @Column(name = "identifier")
     private String identifier;
+
+    @Column(name = "isWarranty")
+    private Boolean isWarranty;
+
+    @Column(name = "isWarrantyTicket")
+    private Boolean isWarrantyTicket;
+
+    @Column(name = "isInvoice")
+    private Boolean isInvoice;
+
+    @Column(name = "isRegistration")
+    private Boolean isRegistration;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

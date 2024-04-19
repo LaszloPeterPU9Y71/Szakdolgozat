@@ -67,7 +67,30 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
-
+              - column:
+                  name: is_warranty
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: is_warranty_ticket
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: is_invoice
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
+              - column:
+                  name: is_registration
+                  type: boolean
+                  constraints:
+                    nullable: false
+                    primaryKey: false
         - loadData:
             tableName: tool_entity
             file: ./db/testdata/tool.csv
@@ -105,3 +128,16 @@ databaseChangeLog:
               - column:
                   name: identifier
                   type: varchar(255)
+              - column:
+                  name: is_warranty
+                  type: boolean
+              - column:
+                  name: is_warranty_ticket
+                  type: boolean
+              - column:
+                  name: is_invoice
+                  type: boolean
+              - column:
+                  name: is_registration
+                  type: boolean
+

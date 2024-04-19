@@ -28,4 +28,8 @@ public class ToolDto {
     private String employeeName;
     private String ownerCompanyName;
     private String identifier;
+    private Boolean isWarranty;
+    private Boolean isWarrantyTicket;
+    private Boolean isInvoice;
+    private Boolean isRegistration;
 }

@@ -1,5 +1,6 @@
 package Szakdolgozat.service.mapper.entityToDto;
 
+
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.web.dto.ToolDto;
 import org.mapstruct.Mapper;
@@ -19,6 +20,11 @@ import java.util.List;
 )
 
 public interface ToolMapStructDto {
+
+    @Mapping(source = "isWarranty", target = "isWarranty")
+    @Mapping(source = "isWarrantyTicket", target = "isWarrantyTicket")
+    @Mapping(source = "isInvoice", target = "isInvoice")
+    @Mapping(source = "isRegistration", target = "isRegistration")
     @Mapping(source = "identifier", target = "identifier")
     @Mapping(target = "dateOfReceiving", expression= "java(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").format(toolEntity.getDateOfReceiving()))")
     @Mapping(source = "ownerCompanyEmployeeEntity.name", target = "employeeName")

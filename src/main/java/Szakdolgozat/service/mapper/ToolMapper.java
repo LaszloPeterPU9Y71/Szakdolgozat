@@ -16,7 +16,10 @@ public class ToolMapper {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public ToolEntity map(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity, List<DefectEntity> defectEntities, CreateToolRequest createToolRequest, String identifier){
+    public ToolEntity map(OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity, List<DefectEntity> defectEntities,
+                          CreateToolRequest createToolRequest, String identifier
+
+    ){
 
         String dateString = LocalDateTime.now().format(formatter);
 
@@ -33,6 +36,10 @@ public class ToolMapper {
                 .ownerCompanyEmployeeEntity(ownerCompanyEmployeeEntity)
                 .defects(defectEntities)
                 .identifier(identifier)
+                .isRegistration(createToolRequest.isRegistration())
+                .isWarranty(createToolRequest.isWarranty())
+                .isInvoice(createToolRequest.isInvoice())
+                .isWarrantyTicket(createToolRequest.isWarrantyTicket())
                 .build();
     }
 }

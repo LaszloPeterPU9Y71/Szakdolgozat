@@ -127,7 +127,8 @@ public class ToolService {
         int month = now.getMonthValue();
         String formattedYear = String.format("%02d", year % 100);
         String formattedMonth = String.format("%02d", month);
-        return formattedYear + formattedMonth + "-" + (count + 1);
+
+        return formattedYear + formattedMonth + "-" + (String.format("%02d", count + 1));
     }
 
 

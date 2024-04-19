@@ -56,7 +56,7 @@ public class SparePartsService {
 
     public SparePartsDto addSparePart(CreateSparePartsRequest createSparePartsRequest) throws ConstraintViolationException {
         String partNumber = createSparePartsRequest.getPartNumber();
-        Optional<SparePartsEntity> maybeSparePart = sparePartsRepository.findByPartNumberContainingIgnoreCase(partNumber);
+        Optional<SparePartsEntity> maybeSparePart = sparePartsRepository.findByPartNumber(partNumber);
         if(maybeSparePart.isPresent()) {
             throw new ConstraintViolationException(String.format("Ez a cikkszám már létezik: %s", partNumber));
         }

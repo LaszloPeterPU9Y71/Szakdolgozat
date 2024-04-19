@@ -26,7 +26,7 @@ public class MyUserPrincipal implements UserDetails {
         return user.getPassword();
     }
 
-    //Dont forget this provides email insead of username
+    //Dont forget this provides email instead of username
     @Override
     public String getUsername() {
         return user.getUsername();

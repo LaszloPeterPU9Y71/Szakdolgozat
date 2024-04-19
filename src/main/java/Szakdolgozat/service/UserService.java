@@ -48,8 +48,6 @@ public class UserService {
     public UserDto addUser(CreateUserRequest createUserRequest) throws DataAlreadyExistsException {
         String email = createUserRequest.getEmail();
         CompanyEntity companyEntity = companyRepository.findByIdEquals(createUserRequest.getCompanyId());
-
-
         Optional<UserEntity> maybeEmail = userRepository.findByEmail(email);
 
         if (maybeEmail.isPresent()) {
