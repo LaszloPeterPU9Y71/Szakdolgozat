@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -43,7 +44,7 @@ public class CreateToolRequest {
 
     private Boolean isRegistration;
 
-    private List<Long> spareParts;
+    private Map<Long, Integer> spareParts;
 
 
 

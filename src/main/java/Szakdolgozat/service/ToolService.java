@@ -23,7 +23,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -138,11 +140,22 @@ public class ToolService {
 
     public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-        List<SparePartsEntity> sparePartsEntities = (List<SparePartsEntity>) sparePartsRepository.findAllById(createToolRequest.getSpareParts());
+        List<SparePartsEntity> sparePartEntities = (List<SparePartsEntity>) sparePartsRepository.findAllById(createToolRequest.getSpareParts().keySet());
         List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
-        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest, sparePartsEntities, defectEntities));
+        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest, sparePartEntities, defectEntities));
+
+        Map<Long, Integer> result = new HashMap<>();
+        for (SparePartsEntity actualSparePart : sparePartEntities) {
+            if (result.containsKey(actualSparePart.getId())) {
+                int currentAmount = result.get(actualSparePart.getId());
+                result.put(actualSparePart.getId(), currentAmount+1);
+            } else {
+                result.put(actualSparePart.getId(), 1);
+            }
+        }
+        System.out.println();
     }
-    private ToolEntity updateToolData(ToolEntity current,CreateToolRequest createToolRequest, List<SparePartsEntity> sparePartsEntities, List<DefectEntity> defectEntities ){
+    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest, List<SparePartsEntity> sparePartsEntities, List<DefectEntity> defectEntities ){
         current.setDescription(createToolRequest.getDescription());
         current.setStatus(createToolRequest.getStatus());
         current.setSpareparts(sparePartsEntities);
