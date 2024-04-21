@@ -3,9 +3,11 @@ package Szakdolgozat.service;
 import Szakdolgozat.ExceptionHandler.customExceptionHandler.DataNotFoundException;
 import Szakdolgozat.entities.DefectEntity;
 import Szakdolgozat.entities.OwnerCompanyEmployeeEntity;
+import Szakdolgozat.entities.SparePartsEntity;
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.repository.DefectRepository;
 import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
+import Szakdolgozat.repository.SparePartsRepository;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.mapper.ToolMapper;
 import Szakdolgozat.service.mapper.entityToDto.DefectMapStructDto;
@@ -36,7 +38,7 @@ public class ToolService {
     private final OwnerCompanyEmployeeRepository ownerCompanyEmployeeRepository;
     private final EmailService emailService;
     private final DefectRepository defectRepository;
-    private final DefectMapStructDto defectMapStructDto;
+    private final SparePartsRepository sparePartsRepository;
 
 
 
@@ -111,6 +113,7 @@ public class ToolService {
     public ToolDto addTool(CreateToolRequest createToolRequest){
 
 
+
         String identifier = getIdentifier();
         List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
@@ -135,12 +138,20 @@ public class ToolService {
 
     public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest));
+        List<SparePartsEntity> sparePartsEntities = (List<SparePartsEntity>) sparePartsRepository.findAllById(createToolRequest.getSpareParts());
+        List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
+        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest, sparePartsEntities, defectEntities));
     }
-
-    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest){
+    private ToolEntity updateToolData(ToolEntity current,CreateToolRequest createToolRequest, List<SparePartsEntity> sparePartsEntities, List<DefectEntity> defectEntities ){
         current.setDescription(createToolRequest.getDescription());
         current.setStatus(createToolRequest.getStatus());
+        current.setSpareparts(sparePartsEntities);
+        current.setIsInvoice(createToolRequest.getIsInvoice());
+        current.setIsWarranty(createToolRequest.getIsWarranty());
+        current.setIsRegistration(createToolRequest.getIsRegistration());
+        current.setIsWarrantyTicket(createToolRequest.getIsWarrantyTicket());
+        current.setDefects(defectEntities);
+
         return current;
     }
 

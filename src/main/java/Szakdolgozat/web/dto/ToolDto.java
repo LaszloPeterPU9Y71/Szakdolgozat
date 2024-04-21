@@ -1,6 +1,7 @@
 package Szakdolgozat.web.dto;
 
 
+import Szakdolgozat.entities.SparePartsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +33,5 @@ public class ToolDto {
     private Boolean isWarrantyTicket;
     private Boolean isInvoice;
     private Boolean isRegistration;
+    private List<Long> spareParts;
 }

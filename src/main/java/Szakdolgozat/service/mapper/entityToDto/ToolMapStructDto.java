@@ -20,7 +20,7 @@ import java.util.List;
 )
 
 public interface ToolMapStructDto {
-
+    @Mapping(target = "spareParts", expression = "java(toolEntity.getSpareparts().stream().map(Szakdolgozat.entities.SparePartsEntity::getId).toList())")
     @Mapping(source = "isWarranty", target = "isWarranty")
     @Mapping(source = "isWarrantyTicket", target = "isWarrantyTicket")
     @Mapping(source = "isInvoice", target = "isInvoice")

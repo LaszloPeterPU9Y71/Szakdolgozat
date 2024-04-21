@@ -43,6 +43,8 @@ public class CreateToolRequest {
 
     private Boolean isRegistration;
 
+    private List<Long> spareParts;
+
 
 
 
