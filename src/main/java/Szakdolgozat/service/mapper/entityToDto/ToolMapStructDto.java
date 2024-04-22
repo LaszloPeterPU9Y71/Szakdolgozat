@@ -3,6 +3,7 @@ package Szakdolgozat.service.mapper.entityToDto;
 
 import Szakdolgozat.entities.ToolEntity;
 import Szakdolgozat.web.dto.ToolDto;
+import jakarta.annotation.Nullable;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -20,7 +21,8 @@ import java.util.List;
 )
 
 public interface ToolMapStructDto {
-    @Mapping(target = "spareParts", expression = "java(toolEntity.getSpareparts().stream().map(Szakdolgozat.entities.SparePartsEntity::getId).toList())")
+
+    @Mapping(target = "spareParts", expression = "java(java.util.Optional.ofNullable(toolEntity.getSpareparts()).orElse(java.util.Collections.emptyList()).stream().map(Szakdolgozat.entities.SparePartsEntity::getId).toList())")
     @Mapping(source = "isWarranty", target = "isWarranty")
     @Mapping(source = "isWarrantyTicket", target = "isWarrantyTicket")
     @Mapping(source = "isInvoice", target = "isInvoice")

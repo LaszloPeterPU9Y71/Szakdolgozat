@@ -44,7 +44,7 @@ public class CreateToolRequest {
 
     private Boolean isRegistration;
 
-    private Map<Long, Integer> spareParts;
+    private Map<Long, Integer> sparePartsMap;
 
 
 

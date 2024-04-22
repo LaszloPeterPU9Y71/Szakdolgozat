@@ -91,6 +91,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: false
+
         - loadData:
             tableName: tool_entity
             file: ./db/testdata/tool.csv

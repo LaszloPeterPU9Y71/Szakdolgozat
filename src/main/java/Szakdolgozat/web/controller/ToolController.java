@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/tools")
@@ -99,4 +100,16 @@ public class ToolController {
         return ResponseEntity.ok("A géphez hozzárendelt adatok megváltoztak!");
     }
 
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/get-quantity/{id}")
+    public ResponseEntity<Map<Long, Long>> getQuantity(@PathVariable (value = "id") long id){
+        return ResponseEntity.ok(toolService.getQuantity(id));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/get-spareparts-ids/{id}")
+    public ResponseEntity<List<Long>> getSparepartsIds(@PathVariable (value = "id") long id){
+        List<Long> sparePartsIds = toolService.getSparePartsIds(id);
+        return ResponseEntity.ok(sparePartsIds);
+    }
 }

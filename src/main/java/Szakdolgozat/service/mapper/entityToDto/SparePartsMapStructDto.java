@@ -19,6 +19,8 @@ public interface SparePartsMapStructDto {
 
     SparePartsDto fromEntityToDto(SparePartsEntity sparePartsEntity);
 
+    SparePartsDto fromEntityToDtoOptional(Optional<SparePartsEntity> sparePartsEntity);
+
     List<SparePartsDto> fromEntitytoDtoList(Iterable<SparePartsEntity> sparePartsEntities);
 
 

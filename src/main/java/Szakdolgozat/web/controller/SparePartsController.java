@@ -1,5 +1,7 @@
 package Szakdolgozat.web.controller;
 
+import Szakdolgozat.entities.SparePartsEntity;
+import Szakdolgozat.repository.SparePartsRepository;
 import Szakdolgozat.service.SparePartsService;
 import Szakdolgozat.web.dto.SparePartsDto;
 import Szakdolgozat.web.model.CreateSparePartsRequest;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -18,6 +21,7 @@ public class SparePartsController {
 
 
     private final SparePartsService sparePartsService;
+    private final SparePartsRepository sparePartsRepository;
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("all")
@@ -52,6 +56,13 @@ public class SparePartsController {
                                  @RequestBody CreateSparePartsRequest createSparePartsRequest) {
         sparePartsService.updateSparePartData(number, createSparePartsRequest);
         return "Az alkatrész adatai frissültek!";
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/id/{id}")
+    public ResponseEntity<SparePartsDto> findSparePartsById(@PathVariable (value = "id") long id){
+        SparePartsDto sparePartsDto = sparePartsService.findSparePartsById(id);
+        return ResponseEntity.ok(sparePartsDto);
     }
 
 

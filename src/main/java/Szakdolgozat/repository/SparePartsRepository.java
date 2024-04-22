@@ -17,5 +17,6 @@ public interface SparePartsRepository extends CrudRepository<SparePartsEntity, L
 
     Optional<SparePartsEntity> findByid(long id);
 
+
     Optional<SparePartsEntity> findByPartNumber(String number);
 }

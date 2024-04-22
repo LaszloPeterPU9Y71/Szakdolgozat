@@ -10,7 +10,6 @@ import Szakdolgozat.repository.OwnerCompanyEmployeeRepository;
 import Szakdolgozat.repository.SparePartsRepository;
 import Szakdolgozat.repository.ToolRepository;
 import Szakdolgozat.service.mapper.ToolMapper;
-import Szakdolgozat.service.mapper.entityToDto.DefectMapStructDto;
 import Szakdolgozat.service.mapper.entityToDto.ToolMapStructDto;
 import Szakdolgozat.web.dto.ToolDto;
 import Szakdolgozat.web.model.CreateToolRequest;
@@ -18,15 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -43,62 +36,59 @@ public class ToolService {
     private final SparePartsRepository sparePartsRepository;
 
 
-
-    public List<ToolDto> findAllTools() throws DataNotFoundException{
+    public List<ToolDto> findAllTools() throws DataNotFoundException {
         Iterable<ToolEntity> toolEntities = toolRepository.findAll();
-        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+        if (toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()) {
             throw new DataNotFoundException("Még nem vettek fel javítandó gépet az adatbázisba");
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public List<ToolDto> findByStatus(String status) throws DataNotFoundException{
+    public List<ToolDto> findByStatus(String status) throws DataNotFoundException {
         List<ToolEntity> toolEntities = toolRepository.findByStatusContainingIgnoreCase(status);
-        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+        if (toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()) {
             throw new DataNotFoundException("Nincs ilyen státuszú gép.");
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public List<ToolDto> findByName(String name) throws DataNotFoundException{
+    public List<ToolDto> findByName(String name) throws DataNotFoundException {
         List<ToolEntity> toolEntities = toolRepository.findByNameContainingIgnoreCase(name);
-        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+        if (toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()) {
             throw new DataNotFoundException(String.format("Nem találtunk ilyen megnevezésű gépet: %s !", name));
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
 
-
-    public List<ToolDto> findByItemNumber(String itemNumber){
+    public List<ToolDto> findByItemNumber(String itemNumber) {
         List<ToolEntity> toolEntities = toolRepository.findByItemNumberContainingIgnoreCase(itemNumber);
-        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+        if (toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()) {
             throw new DataNotFoundException(String.format("Nem találtunk ilyen cikkszámú gépet: %s !", itemNumber));
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
 
-
-    public List<ToolDto> findByTypeNumber(String typeNumber){
+    public List<ToolDto> findByTypeNumber(String typeNumber) {
         List<ToolEntity> toolEntities = toolRepository.findByTypeNumberContainingIgnoreCase(typeNumber);
-        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+        if (toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()) {
             throw new DataNotFoundException(String.format("Nem találtunk ilyen típusszámú gépet: %s !", typeNumber));
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public List<ToolDto> findBySerialNumber(String serialNumber){
+    public List<ToolDto> findBySerialNumber(String serialNumber) {
         List<ToolEntity> toolEntities = toolRepository.findBySerialNumberContainingIgnoreCase(serialNumber);
-        if(toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()){
+        if (toolMapStructDto.fromEntityToDtoList(toolEntities).isEmpty()) {
             throw new DataNotFoundException(String.format("Nem találtunk ilyen gyártási számú gépet: %s !", serialNumber));
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public ToolDto findById(long id){
+    public ToolDto findById(long id) {
         ToolEntity toolEntity = toolRepository.findByIdEquals(id);
-        if(toolMapStructDto.fromEntityToDto(toolEntity) == null){
+        if (toolMapStructDto.fromEntityToDto(toolEntity) == null) {
             throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú gépet: %s !", id));
         }
         return toolMapStructDto.fromEntityToDto(toolEntity);
@@ -106,17 +96,17 @@ public class ToolService {
 
     public List<ToolDto> findByIdentifier(String identifier) {
         List<ToolEntity> toolEntities = toolRepository.findByIdentifierContainingIgnoreCase(identifier);
-        if(toolEntities.isEmpty()){
+        if (toolEntities.isEmpty()) {
             throw new DataNotFoundException(String.format("Nem találtunk ilyen azonosítójú gépet: %s !", identifier));
         }
         return toolMapStructDto.fromEntityToDtoList(toolEntities);
     }
 
-    public ToolDto addTool(CreateToolRequest createToolRequest){
-
+    public ToolDto addTool(CreateToolRequest createToolRequest) {
 
 
         String identifier = getIdentifier();
+
         List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
         OwnerCompanyEmployeeEntity ownerCompanyEmployeeEntity = ownerCompanyEmployeeRepository.findById(createToolRequest.getEmployeeId());
         ToolEntity tool = toolMapper.map(ownerCompanyEmployeeEntity, defectEntities, createToolRequest, identifier);
@@ -137,25 +127,17 @@ public class ToolService {
     }
 
 
-
     public void updateToolData(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
-        List<SparePartsEntity> sparePartEntities = (List<SparePartsEntity>) sparePartsRepository.findAllById(createToolRequest.getSpareParts().keySet());
         List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
-        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest, sparePartEntities, defectEntities));
+        List<SparePartsEntity> sparePartsEntities = new ArrayList<>();
+        toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest, sparePartsEntities, defectEntities));
 
-        Map<Long, Integer> result = new HashMap<>();
-        for (SparePartsEntity actualSparePart : sparePartEntities) {
-            if (result.containsKey(actualSparePart.getId())) {
-                int currentAmount = result.get(actualSparePart.getId());
-                result.put(actualSparePart.getId(), currentAmount+1);
-            } else {
-                result.put(actualSparePart.getId(), 1);
-            }
-        }
-        System.out.println();
+
+
     }
-    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest, List<SparePartsEntity> sparePartsEntities, List<DefectEntity> defectEntities ){
+
+    private ToolEntity updateToolData(ToolEntity current, CreateToolRequest createToolRequest, List<SparePartsEntity> sparePartsEntities, List<DefectEntity> defectEntities) {
         current.setDescription(createToolRequest.getDescription());
         current.setStatus(createToolRequest.getStatus());
         current.setSpareparts(sparePartsEntities);
@@ -176,7 +158,7 @@ public class ToolService {
         }
     }
 
-    public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException{
+    public void updateToolStatus(long id, CreateToolRequest createToolRequest) throws DataNotFoundException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ToolEntity maybeToolEntity = toolRepository.findByIdEquals(id);
         maybeToolEntity.setDefects(defectRepository.findAllByIdIsIn(createToolRequest.getDefects()));
@@ -191,4 +173,33 @@ public class ToolService {
 
     }
 
+    public Map<Long, Long>  getQuantity(long id) {
+        List<SparePartsEntity> spareParts = toolRepository.findById(id).get().getSpareparts();
+        Map<Long, Long> result = new HashMap<>();
+
+        for (SparePartsEntity actualSparePart : spareParts) {
+            if (result.containsKey(actualSparePart.getId())) {
+                int currentAmount = Math.toIntExact(result.get(actualSparePart.getId()));
+                result.put(actualSparePart.getId(), (long) (currentAmount + 1));
+            } else {
+                result.put(actualSparePart.getId(), 1L);
+            }
+        }
+        return result;
+    }
+
+    public List<Long> getSparePartsIds(long id) {
+        List<SparePartsEntity> spareParts = toolRepository.findById(id).get().getSpareparts();
+        Map<Long, Long> result = new HashMap<>();
+
+        for (SparePartsEntity actualSparePart : spareParts) {
+            if (result.containsKey(actualSparePart.getId())) {
+                int currentAmount = Math.toIntExact(result.get(actualSparePart.getId()));
+                result.put(actualSparePart.getId(), (long) (currentAmount + 1));
+            } else {
+                result.put(actualSparePart.getId(), 1L);
+            }
+        }
+        return new ArrayList<>(result.keySet());
+    }
 }
