@@ -3,8 +3,11 @@ version: "3.8"
 services:
   app:
     image: szakdolgozat
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 8090:8080
+      - 8080:8080
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/thesis
       SPRING_DATASOURCE_USERNAME: root
@@ -22,5 +25,10 @@ services:
       MYSQL_DATABASE: Thesis
       MYSQL_USER: admin
       MYSQL_PASSWORD: Festool51@
-
-
+  angular:
+    image: szakdolgozat-fronted
+    build:
+      context: D:\Szakdolgozat_frontend
+      dockerfile: Dockerfile-angular
+    ports:
+      - 4200:80
