@@ -28,7 +28,7 @@ services:
   angular:
     image: szakdolgozat-fronted
     build:
-      context: .
+      context: D:\Szakdolgozat_frontend
       dockerfile: Dockerfile-angular
     ports:
       - 4200:80
