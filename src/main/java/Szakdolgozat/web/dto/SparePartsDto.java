@@ -16,4 +16,5 @@ public class SparePartsDto {
     private String partNumber;
     private int nettoBuyingPrice;
     private int nettoSellingPrice;
+
 }

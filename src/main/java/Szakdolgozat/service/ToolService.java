@@ -131,8 +131,18 @@ public class ToolService {
         Optional<ToolEntity> maybeToolEntity = toolRepository.findById(id);
         List<DefectEntity> defectEntities = defectRepository.findAllByIdIsIn(createToolRequest.getDefects());
         List<SparePartsEntity> sparePartsEntities = new ArrayList<>();
+        SparePartsEntity entity;
+        for (var x : createToolRequest.getSparepartlist()) {
+            for (int i = 0; i < x.getAmount(); i++) {
+                entity = new SparePartsEntity();
+                entity.setId(x.getSpareParts().getId());
+                entity.setPartName(x.getSpareParts().getPartName());
+                entity.setPartNumber(x.getSpareParts().getPartNumber());
+                entity.setNettoBuyingPrice(x.getSpareParts().getNettoBuyingPrice());
+                sparePartsEntities.add(entity);
+            }
+        }
         toolRepository.save(updateToolData(maybeToolEntity.get(), createToolRequest, sparePartsEntities, defectEntities));
-
 
 
     }
@@ -173,16 +183,15 @@ public class ToolService {
 
     }
 
-    public Map<Long, Long>  getQuantity(long id) {
+    public Map<SparePartsEntity, Long> getQuantity(long id) {
         List<SparePartsEntity> spareParts = toolRepository.findById(id).get().getSpareparts();
-        Map<Long, Long> result = new HashMap<>();
-
+        Map<SparePartsEntity, Long> result = new HashMap<>();
         for (SparePartsEntity actualSparePart : spareParts) {
-            if (result.containsKey(actualSparePart.getId())) {
-                int currentAmount = Math.toIntExact(result.get(actualSparePart.getId()));
-                result.put(actualSparePart.getId(), (long) (currentAmount + 1));
+            if (result.containsKey(actualSparePart)) {
+                int currentAmount = Math.toIntExact(result.get(actualSparePart));
+                result.put(actualSparePart, (long) (currentAmount + 1));
             } else {
-                result.put(actualSparePart.getId(), 1L);
+                result.put(actualSparePart, 1L);
             }
         }
         return result;

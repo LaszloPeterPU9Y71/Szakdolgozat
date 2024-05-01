@@ -1,6 +1,6 @@
 package Szakdolgozat.web.model;
 
-import jakarta.validation.constraints.NotBlank;
+import Szakdolgozat.web.dto.SparepartsWithAmount;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +46,7 @@ public class CreateToolRequest {
 
     private Map<Long, Integer> sparePartsMap;
 
+    private List<SparepartsWithAmount> sparepartlist;
 
 
 
