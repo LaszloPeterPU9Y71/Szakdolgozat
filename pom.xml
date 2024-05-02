@@ -81,10 +81,11 @@
 			<version>1.5.5.Final</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>3.2.2</version>
+			<version>3.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,13 +97,7 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-
-
-
-
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -113,12 +108,17 @@
 						<exclude>
 							<groupId>org.project-lombok</groupId>
 							<artifactId>lombok</artifactId>
-
 						</exclude>
 					</excludes>
-
 				</configuration>
-
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<useSystemClassLoader>false</useSystemClassLoader>
+				</configuration>
 			</plugin>
 
 		</plugins>
