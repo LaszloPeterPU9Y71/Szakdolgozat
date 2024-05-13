@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk
 ENV port 8080
 EXPOSE 8080
 ARG JAR_FILE=target/*.jar

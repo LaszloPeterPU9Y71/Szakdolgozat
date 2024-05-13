@@ -20,9 +20,6 @@ databaseChangeLog:
                     nullable: false
                     primaryKey: false
                     unique: true
-
-
-
         - loadData:
             tableName: defect_entity
             file: ./db/testdata/defect.csv

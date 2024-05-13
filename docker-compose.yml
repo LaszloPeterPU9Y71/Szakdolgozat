@@ -13,6 +13,9 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Festool51@
     depends_on:
+      db:
+        condition: service_healthy
+    links:
       - db
   db:
     image: mysql
@@ -25,6 +28,13 @@ services:
       MYSQL_DATABASE: Thesis
       MYSQL_USER: admin
       MYSQL_PASSWORD: Festool51@
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h db -P 3306 -u root -pFestool51@" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   angular:
     image: szakdolgozat-fronted
     build:
